@@ -2966,7 +2966,7 @@ function MyDistrictPage({ setPage }) {
       </div>
 
       {/* Representatives */}
-      {dd.reps.map((rep, ri) => (
+      {viewingRep === null && dd.reps.map((rep, ri) => (
         <div key={ri} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
           {/* Rep header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 20 }}>
@@ -2975,7 +2975,7 @@ function MyDistrictPage({ setPage }) {
                 {rep.name.split(" ").pop()[0]}
               </div>
               <div>
-                <div onClick={() => setViewingRep(ri)} style={{ fontSize: 16, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
+                <div onClick={() => { setViewingRep(ri); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ fontSize: 16, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
                   onMouseOver={e => e.target.style.textDecorationColor = t.red}
                   onMouseOut={e => e.target.style.textDecorationColor = t.red + "44"}
                 >{rep.name} <span style={{ fontSize: 16, color: t.red, fontWeight: 400 }}>→ view profile</span></div>
@@ -3069,7 +3069,7 @@ function MyDistrictPage({ setPage }) {
       ))}
 
       {/* Local federal contracts */}
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
+      {viewingRep === null && <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts in your area</div>
         {dd.localContracts.map((c, ci) => (
           <div key={ci} style={{ display: "flex", justifyContent: "space-between", alignItems: "start", padding: "12px 0", borderBottom: ci < dd.localContracts.length - 1 ? `1px solid ${t.border}` : "none" }}>
@@ -3081,17 +3081,11 @@ function MyDistrictPage({ setPage }) {
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white }}>{c.amount}</div>
           </div>
         ))}
-      </div>
+      </div>}
 
       {/* ── REP PROFILE PANEL ── */}
       {viewingRep !== null && dd.reps[viewingRep] && (() => {
         const rep = dd.reps[viewingRep];
-
-        const templates = [
-          { label: "Cost of living", msg: `Dear ${rep.name},\n\nI am your constituent in ZIP code ${zip || "92801"}. According to BLS data, my household costs have increased approximately $${dd.costImpact.annualIncrease.toLocaleString()} this year. Food prices are up 3.1%, energy services up 6.3%, and shelter costs continue to be the largest driver of inflation.\n\nI urge you to take concrete action to address the rising cost of living for families in ${dd.region}.\n\nSincerely,\n[YOUR NAME]` },
-          { label: "Their votes", msg: `Dear ${rep.name},\n\nAs your constituent, I have reviewed your voting record on recent spending bills and I have concerns.\n\n${rep.votes.map(v => `You voted ${v.vote} on ${v.bill} (${v.title}), which ${v.yourCost}.`).join("\n\n")}\n\nI would like to understand your reasoning and how you plan to address the financial impact on families in our district.\n\nSincerely,\n[YOUR NAME]` },
-          { label: "Donor influence", msg: `Dear ${rep.name},\n\nPublic FEC records show that your top campaign donors include ${rep.topDonors.slice(0, 3).map(d => `${d.name} ($${d.amount.toLocaleString()})`).join(", ")}. These donors represent industries that are directly affected by legislation your committees oversee.\n\nWhile I understand campaign fundraising is legal, I would appreciate your assurance that constituent interests take priority over donor interests in your voting decisions.\n\nSincerely,\n[YOUR NAME]` },
-        ];
 
         return (<div style={{ background: t.surface, border: `1px solid ${t.red}33`, borderRadius: 16, padding: 0, marginBottom: 20, overflow: "hidden" }}>
           {/* Profile header */}
