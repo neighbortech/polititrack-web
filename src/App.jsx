@@ -350,12 +350,12 @@ function HomePage({ setPage }) {
         <div style={{ width: 24, height: 1, background: t.red }} />Free for everyone · No account needed<div style={{ width: 24, height: 1, background: t.red }} />
       </div>
 
-      <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "clamp(38px,6.5vw,76px)", fontWeight: 700, lineHeight: 1.08, color: t.white, maxWidth: 850, marginBottom: 28 }}>
-        See where your<br /><span style={{ background: `linear-gradient(135deg, ${t.red}, ${t.gold})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>tax dollars go</span>
+      <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "clamp(34px,5.5vw,68px)", fontWeight: 700, lineHeight: 1.12, color: t.white, maxWidth: 900, marginBottom: 28 }}>
+        Follow the money.<br />See how donations <span style={{ background: `linear-gradient(135deg, ${t.red}, ${t.gold})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>shape every vote</span><br /><span style={{ fontSize: "clamp(24px,3.5vw,44px)", color: t.dim }}>and where your tax dollars end up</span>
       </h1>
 
       <p style={{ fontSize: 18, color: t.dim, maxWidth: 620, lineHeight: 1.75, marginBottom: 48, fontFamily: "'Source Serif 4', Georgia, serif" }}>
-        Track political donations, see how your representatives vote, find out what it costs you, and contact them directly — all in one place. Free, nonpartisan, powered by public data.
+        Track political donations, see how they influence the way your representatives vote, find out what those votes cost you personally, and contact them directly — all in one place. Free, nonpartisan, powered by public data.
       </p>
 
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
