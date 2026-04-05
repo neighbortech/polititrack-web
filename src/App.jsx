@@ -2341,8 +2341,8 @@ function SpendingPage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 24 }}>
         {[
-          { label: "Avg. monthly cost increase", value: "+$154/mo", sub: "+2.4% vs 2025 (BLS CPI)" },
-          { label: "Annual impact per household", value: "+$1,850/yr", sub: "Essentials outpace wages" },
+          { label: "Avg. monthly cost increase", value: "+$231/mo", sub: "+2.4% vs 2025 (BLS CPI)" },
+          { label: "Annual impact per household", value: "+$2,770/yr", sub: "Essentials outpace wages" },
           { label: "Real wage growth after inflation", value: "+0.6%", sub: "Barely keeping up", color: t.gold },
         ].map((s, i) => (
           <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20, textAlign: "center" }}>
@@ -2364,8 +2364,8 @@ function SpendingPage() {
           { item: "Restaurant meal (avg.)", y2025: "$16.80", y2026: "$17.90", change: "+7%", driver: "Labor + food input inflation" },
           { item: "Monthly grocery (family of 4)", y2025: "$1,060", y2026: "$1,180", change: "+$120/mo", driver: "Cumulative food increases" },
         ]},
-        { category: "Gas & transportation", icon: "⛽", source: "AAA + BLS CPI Transportation, Feb 2026", note: "Gas fell 3.4% in 2025 but tariffs and Middle East tensions are pushing 2026 prices higher. Vehicle insurance +2.8% in 2025.", items: [
-          { item: "Gallon of regular gas", y2025: "$3.49", y2026: "$3.29", change: "-5.6%", driver: "Gas prices fell 5.6% year-over-year (BLS Feb 2026)" },
+        { category: "Gas & transportation", icon: "⛽", source: "AAA + BLS CPI Transportation, Feb 2026", note: "Gas surged 30%+ since the Iran war began Feb 28, 2026. National avg crossed $4/gal on March 31. CA at $5.87/gal. Oil prices up 55% to $110+/barrel. Vehicle insurance +2.8% in 2025.", items: [
+          { item: "Gallon of regular gas", y2025: "$3.00", y2026: "$4.00", change: "+33%", driver: "Gas surged 30%+ since Iran war began Feb 28 — now over $4/gal nationally (GasBuddy, AAA)" },
           { item: "Monthly car insurance", y2025: "$187", y2026: "$198", change: "+6%", driver: "Repair costs, litigation (+2.8% BLS)" },
           { item: "Used car (avg.)", y2025: "$28,400", y2026: "$29,200", change: "+3%", driver: "Tariffs on parts (+1.6% BLS)" },
           { item: "New car (avg.)", y2025: "$48,500", y2026: "$49,800", change: "+3%", driver: "Steel/aluminum tariffs (+0.6% BLS)" },
@@ -2426,7 +2426,7 @@ function SpendingPage() {
 
       <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 24, marginTop: 8 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>The bottom line</div>
-        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$1,850 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs down 42% (BLS Feb 2026)), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$1,850 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs down 42% pre-war, but shipping costs rising), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
         <p style={{ color: t.dim, fontSize: 15, marginTop: 12, fontFamily: "'Source Code Pro', monospace" }}>Sources: BLS CPI Feb 2026 (USDL-26-0437), BLS 2025 Year in Review, USDA ERS, AAA, KFF, Census, EIA.</p>
       </div>
 
@@ -2543,14 +2543,14 @@ const impactTopics = [
       icon: "⚔️",
       headline: "Cost of U.S. military operations in Iran",
       updated: "April 2026",
-      totalCost: "$312B",
+      totalCost: "$45B+ (36 days in)",
       totalLabel: "Estimated total cost (2025-2026)",
       summary: "U.S. military operations in and around Iran have escalated significantly since late 2025. Based on historical patterns from Iraq and Afghanistan, combined with current deployment data and Pentagon budget documents, economists project significant fiscal impact on federal spending, consumer prices, and long-term debt.",
       sections: [
         {
           title: "Direct military costs",
           data: [
-            { label: "Daily operational cost", value: "$312M/day", source: "Congressional Research Service, based on Iraq/Afghanistan cost ratios adjusted for theater size" },
+            { label: "Daily operational cost", value: "$1B/day", source: "Congressional Research Service, based on Iraq/Afghanistan cost ratios adjusted for theater size" },
             { label: "Troop deployment", value: "~85,000 personnel", source: "DoD quarterly manpower reports" },
             { label: "Munitions expenditure", value: "$48B (FY2026 est.)", source: "Pentagon FY2026 supplemental request" },
             { label: "Naval operations (carrier groups)", value: "$24B/year", source: "CBO naval operations cost analysis" },
@@ -2868,12 +2868,12 @@ function MyDistrictPage({ setPage }) {
         { contractor: "Kaiser Foundation", amount: "$340M", agency: "HHS", description: "Medicare/Medicaid services — Orange County" },
       ],
       costImpact: {
-        monthlyIncrease: 154,
-        annualIncrease: 1850,
+        monthlyIncrease: 231,
+        annualIncrease: 2770,
         breakdown: [
           { category: "Housing & rent", monthly: "$55", annual: "$660", driver: "CA median rent +6.2% (above national 5%), Prop 13 limits property tax relief", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
-          { category: "Groceries", monthly: "$33", annual: "$396", driver: "CA food prices +3.8% (above national 3.1%), eggs down 42% after 2025 spike (BLS)", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
-          { category: "Gas & transportation", monthly: "-$12", annual: "-$144", driver: "CA gas avg $4.49/gal (nation $3.29), CA gas tax $0.77/gal, CA gas tax $0.77/gal highest in US", billConnection: "No federal gas tax relief in FY2026 appropriations" },
+          { category: "Groceries", monthly: "$33", annual: "$396", driver: "CA food prices +3.8% (above national 3.1%), eggs down 42% (BLS Feb data), but food prices rising again due to war-driven diesel and shipping cost increases", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
+          { category: "Gas & transportation", monthly: "$95", annual: "$1,140", driver: "Iran war surged gas 30%+ since Feb 28. National avg $4/gal, CA $5.87/gal (GasBuddy). Oil up 55% to $110+/barrel", billConnection: "No federal gas tax relief in FY2026 appropriations" },
           { category: "Healthcare", monthly: "$42", annual: "$504", driver: "CA premiums +8.2%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
           { category: "Utilities", monthly: "$24", annual: "$288", driver: "CA electricity rates highest in continental US, PG&E +12% rate hike approved", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
           { category: "Childcare (if applicable)", monthly: "$12", annual: "$146", driver: "CA avg childcare $1,680/mo (+7%), no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
