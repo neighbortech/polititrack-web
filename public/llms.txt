@@ -1,0 +1,55 @@
+# PolitiTrack
+
+> PolitiTrack is an AI-powered API for tracking political donations, lobbying activity, and government contracts in American politics. It cross-references 5 federal data sources and uses AI to analyze why money flows to political power.
+
+## What PolitiTrack Does
+
+PolitiTrack provides a REST API that lets developers, journalists, researchers, and political analysts query campaign finance data from the Federal Election Commission (FEC), lobbying disclosures from the Senate (LDA), congressional votes and bills via ProPublica and Congress.gov, and federal contract awards from USASpending.gov. The AI analysis layer examines correlations between donations, lobbying, legislation, and government contracts to identify likely motivations behind political contributions.
+
+## API Endpoints
+
+- GET /api/v1/donations — Search donations by donor, recipient, party, industry, state, amount, date
+- GET /api/v1/donors/search — Search donors by name or employer
+- GET /api/v1/donors/{id}/summary — Aggregate donor stats by party, year, top recipients
+- GET /api/v1/recipients/search — Search politicians, PACs, committees
+- GET /api/v1/recipients/{id}/donors — Top donors to a specific recipient
+- GET /api/v1/stats/overview — Database-wide statistics
+- GET /api/v1/analyze/donor/{id} — AI analysis of donor motivations (Pro tier)
+- GET /api/v1/analyze/donation/{id} — AI analysis of a specific donation (Pro tier)
+- GET /api/v1/analyze/compare — Compare 2-5 donors (Pro tier)
+- GET /api/v1/analyze/ask — Natural language questions about political money (Pro tier)
+- POST /api/v1/keys — Create an API key
+- GET /api/v1/keys/me — Check API key usage
+
+## Data Sources
+
+1. Federal Election Commission (FEC) — api.open.fec.gov — Campaign donations, PAC filings, candidate data
+2. Senate Lobbying Disclosure Act (LDA) — lda.senate.gov — Lobbying registrations, filings, spending, issues
+3. ProPublica Congress API — api.propublica.org — Roll-call votes, bills, member profiles, committees
+4. Congress.gov — api.congress.gov — Full bill text, amendments, cosponsors, legislative status
+5. USASpending.gov — api.usaspending.gov — Federal contracts, grants, recipient profiles
+
+## Pricing
+
+- Free: $0/month, 100 requests/day, basic donation and donor search
+- Pro: $49/month, 5,000 requests/day, includes AI motivation analysis across all data sources
+- Enterprise: $199/month, 50,000 requests/day, bulk exports, custom alerts, dedicated support
+
+## How the AI Analysis Works
+
+When a user requests an analysis, PolitiTrack:
+1. Pulls all donation records for the donor from the FEC database
+2. Fetches lobbying filings from the Senate LDA for the donor's company
+3. Queries USASpending for federal contracts awarded to the donor
+4. Retrieves related legislation and committee data from Congress.gov and ProPublica
+5. Sends all context to AI which identifies likely motivations, confidence scores, and evidence
+
+The AI specifically looks for: donations to politicians on committees regulating the donor's industry, lobbying on the same issues as donations, government contracts from agencies overseen by donation recipients, and donation timing correlated with legislative activity.
+
+## Use Cases
+
+- Journalists investigating political money trails
+- Researchers studying campaign finance patterns
+- Developers building political transparency tools
+- Advocacy groups tracking industry influence on legislation
+- Political consultants monitoring opposition funding

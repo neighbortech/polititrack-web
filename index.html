@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>PolitiTrack — Political Donation Tracking API with AI Analysis</title>
+    <meta name="description" content="Track political donations, lobbying spend, and government contracts across 5 federal data sources. AI-powered API reveals why corporations and individuals fund political campaigns." />
+    <meta name="keywords" content="political donations API, campaign finance data, FEC API, lobbying disclosure, political contribution tracker, PAC donations, government contracts API, campaign finance analysis, money in politics, political fundraising data, AI political analysis, donation tracking" />
+    <meta name="author" content="PolitiTrack" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href="https://polititrack.com" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://polititrack.com" />
+    <meta property="og:title" content="PolitiTrack — Follow the Money in American Politics" />
+    <meta property="og:description" content="The first API that uses AI to analyze political donations. Cross-references FEC filings, lobbying disclosures, congressional votes, and government contracts to reveal why money flows to power." />
+    <meta property="og:image" content="https://polititrack.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="PolitiTrack" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PolitiTrack — Political Donation Tracking API with AI" />
+    <meta name="twitter:description" content="Track donations, lobbying, and government contracts across 5 federal sources. AI reveals the motivations behind every dollar in American politics." />
+    <meta name="twitter:image" content="https://polititrack.com/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PolitiTrack",
+      "url": "https://polititrack.com",
+      "logo": "https://polititrack.com/favicon.svg",
+      "description": "AI-powered political donation tracking API. Cross-references 5 federal data sources to analyze campaign finance, lobbying, and government contracts.",
+      "sameAs": []
+    }
+    </script>
+
+    <!-- Structured Data: WebApplication / SaaS Product -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PolitiTrack API",
+      "url": "https://polititrack.com",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "description": "RESTful API for querying political donations, lobbying filings, government contracts, and congressional data. Includes AI-powered analysis of donation motivations.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "100 API requests per day. Search donations, donors, and recipients."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro",
+          "price": "49",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M",
+          "description": "5,000 API requests per day. Includes AI motivation analysis across all data sources."
+        },
+        {
+          "@type": "Offer",
+          "name": "Enterprise",
+          "price": "199",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M",
+          "description": "50,000 API requests per day. Bulk exports, custom alerts, and dedicated support."
+        }
+      ],
+      "featureList": [
+        "Campaign donation search and filtering",
+        "Donor and recipient profiles",
+        "AI-powered donation motivation analysis",
+        "Lobbying disclosure cross-referencing",
+        "Government contract correlation",
+        "Congressional vote tracking",
+        "Natural language queries",
+        "Donor comparison tools"
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQ for AI search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is PolitiTrack?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PolitiTrack is an API that tracks political donations, lobbying activity, and government contracts across 5 federal data sources (FEC, Senate LDA, ProPublica Congress, Congress.gov, USASpending). It uses AI to analyze why donations were made by correlating contributions with lobbying filings, committee assignments, and legislative timelines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does PolitiTrack analyze political donations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PolitiTrack cross-references donation records from the FEC with lobbying disclosures from the Senate, congressional voting records, government contract awards, and active legislation. AI then examines these connections to identify likely motivations — such as whether a donor is funding politicians who sit on committees that regulate their industry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What data sources does PolitiTrack use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PolitiTrack pulls from 5 federal sources: the Federal Election Commission (FEC) for campaign donations, the Senate Lobbying Disclosure Act database for lobbying filings, the ProPublica Congress API for votes and member data, Congress.gov for bill text and legislative status, and USASpending.gov for federal contracts and grants."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does PolitiTrack cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PolitiTrack offers three tiers: Free ($0, 100 requests/day for basic donation search), Pro ($49/month, 5,000 requests/day with AI analysis), and Enterprise ($199/month, 50,000 requests/day with bulk exports and custom alerts)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is PolitiTrack a replacement for the OpenSecrets API?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PolitiTrack serves a similar need to the discontinued OpenSecrets API by providing programmatic access to campaign finance data. It goes further by combining 5 federal data sources and adding AI-powered analysis of donation motivations, lobbying correlations, and government contract tracking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use PolitiTrack for journalism and research?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. PolitiTrack is designed for journalists, researchers, developers, and political analysts. The free tier allows basic donation searches, while the Pro tier provides AI analysis that can surface connections between donations, lobbying activity, and government contracts — useful for investigative reporting and academic research."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Preconnect to font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <!-- SEO: Noscript fallback content for crawlers that don't execute JS -->
+    <noscript>
+      <div style="max-width:800px;margin:0 auto;padding:40px 20px;font-family:Georgia,serif;color:#333;">
+        <h1>PolitiTrack — Political Donation Tracking API</h1>
+        <p>PolitiTrack is an AI-powered API for tracking political donations, lobbying activity, and government contracts in American politics.</p>
+        <h2>Data Sources</h2>
+        <ul>
+          <li>Federal Election Commission (FEC) — Campaign donations, PACs, candidates</li>
+          <li>Senate Lobbying Disclosure Act (LDA) — Lobbying filings, spending, issues</li>
+          <li>ProPublica Congress API — Roll-call votes, bills, member data</li>
+          <li>Congress.gov — Full bill text, amendments, cosponsors</li>
+          <li>USASpending.gov — Federal contracts and grants</li>
+        </ul>
+        <h2>API Endpoints</h2>
+        <ul>
+          <li>GET /api/v1/donations — Search donations by donor, recipient, party, amount, date</li>
+          <li>GET /api/v1/donors/search — Search donors by name or employer</li>
+          <li>GET /api/v1/donors/{id}/summary — Donor stats by party, year, top recipients</li>
+          <li>GET /api/v1/analyze/donor/{id} — AI analysis of donation motivations</li>
+          <li>GET /api/v1/analyze/ask — Natural language questions about political money</li>
+        </ul>
+        <h2>Pricing</h2>
+        <ul>
+          <li>Free: $0/month — 100 requests/day, basic donation search</li>
+          <li>Pro: $49/month — 5,000 requests/day, AI analysis included</li>
+          <li>Enterprise: $199/month — 50,000 requests/day, bulk exports, alerts</li>
+        </ul>
+        <h2>Use Cases</h2>
+        <p>Journalists use PolitiTrack to investigate political money. Researchers study campaign finance patterns. Developers build political transparency tools. Advocates track industry influence on legislation.</p>
+      </div>
+    </noscript>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

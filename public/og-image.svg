@@ -1,0 +1,37 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#08090d"/>
+  <rect width="1200" height="4" fill="#e63946"/>
+  
+  <!-- Logo -->
+  <rect x="80" y="80" width="52" height="52" rx="10" fill="#e63946"/>
+  <text x="106" y="116" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#fff">P</text>
+  <text x="148" y="115" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#edf0f7">POLITI</text>
+  <text x="303" y="115" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#e63946">TRACK</text>
+
+  <!-- Main heading -->
+  <text x="80" y="240" font-family="Georgia, serif" font-size="56" font-weight="700" fill="#edf0f7">The money behind</text>
+  <text x="80" y="310" font-family="Georgia, serif" font-size="56" font-weight="700" fill="#e63946">every vote</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="380" font-family="sans-serif" font-size="22" fill="#565f75">AI-powered political donation tracking API</text>
+  <text x="80" y="412" font-family="sans-serif" font-size="22" fill="#565f75">5 federal data sources · 19 API endpoints</text>
+
+  <!-- Data source pills -->
+  <rect x="80" y="470" width="80" height="32" rx="6" fill="rgba(230,57,70,0.15)"/>
+  <text x="120" y="492" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#e63946">FEC</text>
+  
+  <rect x="172" y="470" width="120" height="32" rx="6" fill="rgba(212,168,67,0.15)"/>
+  <text x="232" y="492" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#d4a843">Senate LDA</text>
+  
+  <rect x="304" y="470" width="120" height="32" rx="6" fill="rgba(69,123,157,0.15)"/>
+  <text x="364" y="492" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#457b9d">ProPublica</text>
+  
+  <rect x="436" y="470" width="130" height="32" rx="6" fill="rgba(43,74,122,0.2)"/>
+  <text x="501" y="492" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#6b8fc2">Congress.gov</text>
+  
+  <rect x="578" y="470" width="140" height="32" rx="6" fill="rgba(193,18,31,0.15)"/>
+  <text x="648" y="492" text-anchor="middle" font-family="monospace" font-size="13" font-weight="600" fill="#e06060">USASpending</text>
+
+  <!-- URL -->
+  <text x="80" y="570" font-family="monospace" font-size="18" fill="#565f75">polititrack.com</text>
+</svg>
