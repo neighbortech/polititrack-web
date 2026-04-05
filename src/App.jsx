@@ -50,9 +50,9 @@ function Nav({ page, setPage, scrolled }) {
       {/* Desktop nav */}
       <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="desktop-nav">
         {navItems.map(([k,l]) => (
-          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 14px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s ease", fontWeight: page===k ? 600 : 400, whiteSpace: "nowrap" }}
-            onMouseOver={e => { if(page!==k) { e.target.style.color = t.text; e.target.style.background = "rgba(255,255,255,0.04)"; } }}
-            onMouseOut={e => { if(page!==k) { e.target.style.color = t.dim; e.target.style.background = "transparent"; } }}
+          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 16px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
+            onMouseOver={e => { if(page!==k) e.target.style.color = t.text }}
+            onMouseOut={e => { if(page!==k) e.target.style.color = t.dim }}
           >{l}</button>
         ))}
         <div style={{ width: 1, height: 20, background: t.border, margin: "0 4px" }} />
@@ -68,12 +68,12 @@ function Nav({ page, setPage, scrolled }) {
       </button>
     </div>
     {/* Mobile menu dropdown */}
-    {mobileOpen && (<div className="mobile-menu" style={{ padding: "8px 16px 20px", display: "none", flexDirection: "column", gap: 2, animation: "menuSlide 0.25s ease-out" }}>
+    {mobileOpen && (<div className="mobile-menu" style={{ padding: "8px 32px 20px", display: "none", flexDirection: "column", gap: 4 }}>
       {navItems.map(([k,l]) => (
-        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "14px 18px", borderRadius: 10, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400, transition: "all 0.2s ease" }}>{l}</button>
+        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "12px 18px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400 }}>{l}</button>
       ))}
       <div style={{ height: 1, background: t.border, margin: "8px 0" }} />
-      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "14px 18px", borderRadius: 10, fontSize: 14, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", transition: "all 0.2s ease" }}>Developers & API</button>
+      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "12px 18px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left" }}>Developers & API</button>
     </div>)}
     <style>{`
       @media (max-width: 768px) {
@@ -81,7 +81,6 @@ function Nav({ page, setPage, scrolled }) {
         .mobile-hamburger { display: block !important; }
         .mobile-menu { display: flex !important; }
       }
-      @keyframes menuSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
     `}</style>
   </nav>);
 }
@@ -265,6 +264,31 @@ function WhatAreYouLookingFor({ setPage }) {
   );
 }
 
+function AnimatedNum({ value, prefix = "", suffix = "", decimals = 1 }) {
+  const [display, setDisplay] = useState(0);
+  const ref = useRef(null);
+  const prevValue = useRef(value);
+  
+  useEffect(() => {
+    const start = prevValue.current;
+    const end = value;
+    prevValue.current = value;
+    const duration = 800;
+    const startTime = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(start + (end - start) * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    tick();
+  }, [value]);
+
+  const formatted = Number.isInteger(value) ? Math.round(display).toLocaleString() : display.toFixed(decimals);
+  return <span ref={ref}>{prefix}{formatted}{suffix}</span>;
+}
+
 function CycleStats() {
   const [cycle, setCycle] = useState("2026");
   const data = {
@@ -278,64 +302,71 @@ function CycleStats() {
   const d = data[cycle];
   const allDonations = Object.values(data).reduce((s, d) => s + d.total, 0);
 
+  const StatCard = ({ label, value, prefix, suffix, color }) => (
+    <div style={{ flex: 1, padding: "24px 16px", textAlign: "center" }}>
+      <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 28, fontWeight: 700, color: color || t.white, marginBottom: 8 }}>
+        <AnimatedNum value={value} prefix={prefix || ""} suffix={suffix || ""} />
+      </div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, lineHeight: 1.5 }}>{label}</div>
+    </div>
+  );
+
   return (<div style={{ marginTop: 80, maxWidth: 950, width: "100%" }}>
     {/* Cycle selector */}
-    <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 12 }}>
+    <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 16 }}>
       {Object.keys(data).map(c => (
         <button key={c} onClick={() => setCycle(c)} style={{
-          padding: "6px 16px", borderRadius: 6, fontSize: 16, cursor: "pointer",
+          padding: "8px 20px", borderRadius: 8, fontSize: 14, cursor: "pointer",
           fontFamily: "'Source Code Pro', monospace",
           background: cycle === c ? t.redBg : "transparent",
           border: `1px solid ${cycle === c ? t.red + "44" : t.border}`,
           color: cycle === c ? t.red : t.dim,
           fontWeight: cycle === c ? 700 : 400,
+          transition: "all 0.2s",
         }}>{c}</button>
       ))}
     </div>
-    <div style={{ textAlign: "center", marginBottom: 16 }}>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, letterSpacing: 1 }}>{d.year} Election Cycle · {d.label} · Source: FEC, CBO, Treasury</span>
+    <div style={{ textAlign: "center", marginBottom: 20 }}>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.dim, letterSpacing: 1 }}>{d.year} Election Cycle · {d.label}</span>
     </div>
 
-    {/* Two rows: Political donations + Government spending */}
-    <div style={{ display: "flex", gap: 1, background: t.border, borderRadius: "16px 16px 0 0", overflow: "hidden" }}>
-      <div style={{ flex: 0, minWidth: 120, background: t.surface2, padding: "20px 16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.red, textAlign: "center", lineHeight: 1.6 }}>Political<br/>donations</div>
+    {/* Political Donations row */}
+    <div style={{ marginBottom: 8 }}>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 8, paddingLeft: 4 }}>Political donations</div>
+      <div style={{ display: "flex", background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden" }}>
+        <StatCard label="Total raised" value={d.total} prefix="$" suffix="B" color={t.red} />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="By candidates" value={d.candidates} prefix="$" suffix="B" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="By PACs" value={d.pacs} prefix="$" suffix="B" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="Ind. expenditures" value={d.indExp} prefix="$" suffix="B" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="Itemized records" value={Math.round(d.records / 1000000)} prefix="" suffix="M+" decimals={0} />
       </div>
-      {[
-        { l: "Total Raised", v: d.total, s: "B", prefix: "$" },
-        { l: "By Candidates", v: d.candidates, s: "B", prefix: "$" },
-        { l: "By PACs", v: d.pacs, s: "B", prefix: "$" },
-        { l: "Ind. Expenditures", v: d.indExp, s: "B", prefix: "$" },
-        { l: "Itemized Records", v: Math.round(d.records / 1000000), s: "M+" },
-      ].map((s, i) => (
-        <div key={i} style={{ flex: 1, background: t.surface, padding: "20px 8px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
-        </div>
-      ))}
-    </div>
-    <div style={{ display: "flex", gap: 1, background: t.border, borderRadius: "0 0 16px 16px", overflow: "hidden" }}>
-      <div style={{ flex: 0, minWidth: 120, background: t.surface2, padding: "20px 16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.gold, textAlign: "center", lineHeight: 1.6 }}>Your tax<br/>dollars</div>
-      </div>
-      {[
-        { l: "Total Gov Spending", v: d.govSpending, s: "T", prefix: "$" },
-        { l: "Discretionary", v: d.discretionary, s: "T", prefix: "$" },
-        { l: "Mandatory", v: d.mandatory, s: "T", prefix: "$" },
-        { l: "Interest on Debt", v: d.interest, s: "T", prefix: "$" },
-        { l: "FY Bills Tracked", v: 12, s: "" },
-      ].map((s, i) => (
-        <div key={i} style={{ flex: 1, background: t.surface, padding: "20px 8px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
-        </div>
-      ))}
     </div>
 
-    <div style={{ textAlign: "center", marginTop: 12 }}>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>10-year political donations: </span>
+    {/* Tax Dollars row */}
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.gold, marginBottom: 8, paddingLeft: 4 }}>Your tax dollars</div>
+      <div style={{ display: "flex", background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden" }}>
+        <StatCard label="Total gov spending" value={d.govSpending} prefix="$" suffix="T" color={t.gold} />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="Discretionary" value={d.discretionary} prefix="$" suffix="T" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="Mandatory" value={d.mandatory} prefix="$" suffix="T" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="Interest on debt" value={d.interest} prefix="$" suffix="T" />
+        <div style={{ width: 1, background: t.border }} />
+        <StatCard label="FY bills tracked" value={12} prefix="" suffix="" decimals={0} />
+      </div>
+    </div>
+
+    {/* Source line */}
+    <div style={{ textAlign: "center", marginTop: 8 }}>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 12, color: t.dim }}>Source: FEC, CBO, Treasury · 10-year total: </span>
       <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.red }}>${allDonations.toFixed(1)}B</span>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}> · PolitiTrack shows how these donations connect to how your tax dollars are spent</span>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 12, color: t.dim }}> in political donations</span>
     </div>
   </div>);
 }
