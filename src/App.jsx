@@ -2925,7 +2925,7 @@ function MyDistrictPage({ setPage }) {
       </div>
 
       {/* Cost impact banner */}
-      <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
+      {viewingRep === null && <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Your estimated annual cost increase (2025 → 2026)</div>
@@ -2938,10 +2938,10 @@ function MyDistrictPage({ setPage }) {
             <div style={{ fontSize: 15, color: t.dim }}>out of 100 (higher = more donor influence)</div>
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* Personal cost breakdown — what their reps voted for costs them */}
-      <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
+      {viewingRep === null && <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How your reps' votes affect your wallet</div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, background: "#1d3557", borderRadius: "10px 10px 0 0", padding: "10px 16px" }}>
           {["Category", "Monthly", "Annual", "Why it costs you more (and which bill)"].map((h, i) => (
@@ -2963,7 +2963,7 @@ function MyDistrictPage({ setPage }) {
           <span style={{ fontSize: 16, fontWeight: 600, color: t.white }}>Total increase for your area</span>
           <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: "#ef4444" }}>+${dd.costImpact.monthlyIncrease}/mo · +${dd.costImpact.annualIncrease.toLocaleString()}/yr</span>
         </div>
-      </div>
+      </div>}
 
       {/* Representatives */}
       {viewingRep === null && dd.reps.map((rep, ri) => (
