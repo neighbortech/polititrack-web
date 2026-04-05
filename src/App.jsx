@@ -50,9 +50,9 @@ function Nav({ page, setPage, scrolled }) {
       {/* Desktop nav */}
       <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="desktop-nav">
         {navItems.map(([k,l]) => (
-          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 16px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
-            onMouseOver={e => { if(page!==k) e.target.style.color = t.text }}
-            onMouseOut={e => { if(page!==k) e.target.style.color = t.dim }}
+          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 14px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s ease", fontWeight: page===k ? 600 : 400, whiteSpace: "nowrap" }}
+            onMouseOver={e => { if(page!==k) { e.target.style.color = t.text; e.target.style.background = "rgba(255,255,255,0.04)"; } }}
+            onMouseOut={e => { if(page!==k) { e.target.style.color = t.dim; e.target.style.background = "transparent"; } }}
           >{l}</button>
         ))}
         <div style={{ width: 1, height: 20, background: t.border, margin: "0 4px" }} />
@@ -68,12 +68,12 @@ function Nav({ page, setPage, scrolled }) {
       </button>
     </div>
     {/* Mobile menu dropdown */}
-    {mobileOpen && (<div className="mobile-menu" style={{ padding: "8px 32px 20px", display: "none", flexDirection: "column", gap: 4 }}>
+    {mobileOpen && (<div className="mobile-menu" style={{ padding: "8px 16px 20px", display: "none", flexDirection: "column", gap: 2, animation: "menuSlide 0.25s ease-out" }}>
       {navItems.map(([k,l]) => (
-        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "12px 18px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400 }}>{l}</button>
+        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "14px 18px", borderRadius: 10, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400, transition: "all 0.2s ease" }}>{l}</button>
       ))}
       <div style={{ height: 1, background: t.border, margin: "8px 0" }} />
-      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "12px 18px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left" }}>Developers & API</button>
+      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "14px 18px", borderRadius: 10, fontSize: 14, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", transition: "all 0.2s ease" }}>Developers & API</button>
     </div>)}
     <style>{`
       @media (max-width: 768px) {
@@ -81,6 +81,7 @@ function Nav({ page, setPage, scrolled }) {
         .mobile-hamburger { display: block !important; }
         .mobile-menu { display: flex !important; }
       }
+      @keyframes menuSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
     `}</style>
   </nav>);
 }
