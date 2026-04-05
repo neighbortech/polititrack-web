@@ -383,7 +383,7 @@ function HomePage({ setPage }) {
       </div>
 
       <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "clamp(34px,5.5vw,68px)", fontWeight: 700, lineHeight: 1.12, color: t.white, maxWidth: 900, marginBottom: 28 }}>
-        Follow the money.<br />See how donations <span style={{ background: `linear-gradient(135deg, ${t.red}, ${t.gold})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>shape every vote</span><br /><span style={{ fontSize: "clamp(24px,3.5vw,44px)", color: t.dim }}>and where your tax dollars end up</span>
+        Follow the money.<br />See how donations<br /><span style={{ background: `linear-gradient(135deg, ${t.red}, ${t.gold})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", whiteSpace: "nowrap" }}>shape every vote</span>
       </h1>
 
       <p style={{ fontSize: 16, color: t.dim, maxWidth: 620, lineHeight: 1.75, marginBottom: 48, fontFamily: "'Source Serif 4', Georgia, serif" }}>
