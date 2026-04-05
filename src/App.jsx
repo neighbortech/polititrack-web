@@ -44,19 +44,19 @@ function Nav({ page, setPage, scrolled }) {
   return (<nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled || mobileOpen ? "rgba(8,9,13,0.95)" : "transparent", backdropFilter: scrolled ? "blur(24px)" : "none", borderBottom: scrolled ? `1px solid ${t.border}` : "none", transition: "all 0.4s" }}>
     <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72, padding: "0 32px" }}>
       <div onClick={() => { setPage("home"); setMobileOpen(false); }} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}>
-        <div style={{ width: 36, height: 36, borderRadius: 8, background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 18, fontWeight: 700, color: "#fff" }}>P</div>
-        <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, fontWeight: 700, color: t.white }}>POLITI<span style={{ color: t.red }}>TRACK</span></span>
+        <div style={{ width: 36, height: 36, borderRadius: 8, background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>P</div>
+        <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.white }}>POLITI<span style={{ color: t.red }}>TRACK</span></span>
       </div>
       {/* Desktop nav */}
       <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="desktop-nav">
         {navItems.map(([k,l]) => (
-          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 16px", borderRadius: 8, fontSize: 12, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
+          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 16px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
             onMouseOver={e => { if(page!==k) e.target.style.color = t.text }}
             onMouseOut={e => { if(page!==k) e.target.style.color = t.dim }}
           >{l}</button>
         ))}
         <div style={{ width: 1, height: 20, background: t.border, margin: "0 4px" }} />
-        <button onClick={() => setPage("pricing")} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "8px 12px", borderRadius: 8, fontSize: 11, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s" }}
+        <button onClick={() => setPage("pricing")} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "8px 12px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s" }}
           onMouseOver={e => e.target.style.color = t.text} onMouseOut={e => e.target.style.color = t.dim}
         >Developers</button>
       </div>
@@ -70,10 +70,10 @@ function Nav({ page, setPage, scrolled }) {
     {/* Mobile menu dropdown */}
     {mobileOpen && (<div className="mobile-menu" style={{ padding: "8px 32px 20px", display: "none", flexDirection: "column", gap: 4 }}>
       {navItems.map(([k,l]) => (
-        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "12px 18px", borderRadius: 8, fontSize: 14, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400 }}>{l}</button>
+        <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "12px 18px", borderRadius: 8, fontSize: 16, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400 }}>{l}</button>
       ))}
       <div style={{ height: 1, background: t.border, margin: "8px 0" }} />
-      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "12px 18px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left" }}>Developers & API</button>
+      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "12px 18px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left" }}>Developers & API</button>
     </div>)}
     <style>{`
       @media (max-width: 768px) {
@@ -156,7 +156,7 @@ function WhatAreYouLookingFor({ setPage }) {
   return (
     <section style={{ padding: "100px 24px", maxWidth: 1000, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>
           Get Started
         </div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 32, color: t.white, marginBottom: 12 }}>
@@ -184,8 +184,8 @@ function WhatAreYouLookingFor({ setPage }) {
             onMouseOut={e => { if (selected !== opt.id) { e.currentTarget.style.borderColor = t.border; e.currentTarget.style.transform = "none"; }}}
           >
             <div style={{ fontSize: 28, marginBottom: 8 }}>{opt.icon}</div>
-            <div style={{ color: selected === opt.id ? t.red : t.white, fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{opt.label}</div>
-            <div style={{ color: t.dim, fontSize: 11 }}>{opt.subtitle}</div>
+            <div style={{ color: selected === opt.id ? t.red : t.white, fontSize: 15, fontWeight: 600, marginBottom: 4 }}>{opt.label}</div>
+            <div style={{ color: t.dim, fontSize: 15 }}>{opt.subtitle}</div>
           </button>
         ))}
       </div>
@@ -204,11 +204,11 @@ function WhatAreYouLookingFor({ setPage }) {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 <span style={{ fontSize: 32 }}>{sel.icon}</span>
                 <div>
-                  <div style={{ color: t.white, fontSize: 18, fontWeight: 600, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{sel.label}</div>
-                  <div style={{ color: t.dim, fontSize: 12 }}>{sel.subtitle}</div>
+                  <div style={{ color: t.white, fontSize: 16, fontWeight: 600, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{sel.label}</div>
+                  <div style={{ color: t.dim, fontSize: 16 }}>{sel.subtitle}</div>
                 </div>
               </div>
-              <p style={{ color: t.text, fontSize: 14, lineHeight: 1.8, marginBottom: 20 }}>{sel.detail}</p>
+              <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8, marginBottom: 20 }}>{sel.detail}</p>
               <button
                 onClick={() => setPage(sel.page)}
                 style={{
@@ -217,7 +217,7 @@ function WhatAreYouLookingFor({ setPage }) {
                   border: "none",
                   padding: "12px 28px",
                   borderRadius: 8,
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: 600,
                   cursor: "pointer",
                   fontFamily: "'Source Code Pro', monospace",
@@ -236,12 +236,12 @@ function WhatAreYouLookingFor({ setPage }) {
                 borderRadius: 10,
                 padding: 20,
               }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>
                   Example query
                 </div>
                 <p style={{
                   fontFamily: "'Source Code Pro', monospace",
-                  fontSize: 13,
+                  fontSize: 15,
                   color: t.text,
                   lineHeight: 1.7,
                   fontStyle: sel.example.startsWith('"') ? "italic" : "normal",
@@ -282,7 +282,7 @@ function CycleStats() {
     <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 12 }}>
       {Object.keys(data).map(c => (
         <button key={c} onClick={() => setCycle(c)} style={{
-          padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer",
+          padding: "6px 16px", borderRadius: 6, fontSize: 16, cursor: "pointer",
           fontFamily: "'Source Code Pro', monospace",
           background: cycle === c ? t.redBg : "transparent",
           border: `1px solid ${cycle === c ? t.red + "44" : t.border}`,
@@ -292,13 +292,13 @@ function CycleStats() {
       ))}
     </div>
     <div style={{ textAlign: "center", marginBottom: 16 }}>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim, letterSpacing: 1 }}>{d.year} Election Cycle · {d.label} · Source: FEC, CBO, Treasury</span>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, letterSpacing: 1 }}>{d.year} Election Cycle · {d.label} · Source: FEC, CBO, Treasury</span>
     </div>
 
     {/* Two rows: Political donations + Government spending */}
     <div style={{ display: "flex", gap: 1, background: t.border, borderRadius: "16px 16px 0 0", overflow: "hidden" }}>
       <div style={{ flex: 0, minWidth: 120, background: t.surface2, padding: "20px 16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 8, letterSpacing: 2, textTransform: "uppercase", color: t.red, textAlign: "center", lineHeight: 1.6 }}>Political<br/>donations</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.red, textAlign: "center", lineHeight: 1.6 }}>Political<br/>donations</div>
       </div>
       {[
         { l: "Total Raised", v: d.total, s: "B", prefix: "$" },
@@ -308,14 +308,14 @@ function CycleStats() {
         { l: "Itemized Records", v: Math.round(d.records / 1000000), s: "M+" },
       ].map((s, i) => (
         <div key={i} style={{ flex: 1, background: t.surface, padding: "20px 8px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 8, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
+          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
         </div>
       ))}
     </div>
     <div style={{ display: "flex", gap: 1, background: t.border, borderRadius: "0 0 16px 16px", overflow: "hidden" }}>
       <div style={{ flex: 0, minWidth: 120, background: t.surface2, padding: "20px 16px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 8, letterSpacing: 2, textTransform: "uppercase", color: t.gold, textAlign: "center", lineHeight: 1.6 }}>Your tax<br/>dollars</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.gold, textAlign: "center", lineHeight: 1.6 }}>Your tax<br/>dollars</div>
       </div>
       {[
         { l: "Total Gov Spending", v: d.govSpending, s: "T", prefix: "$" },
@@ -325,16 +325,16 @@ function CycleStats() {
         { l: "FY Bills Tracked", v: 12, s: "" },
       ].map((s, i) => (
         <div key={i} style={{ flex: 1, background: t.surface, padding: "20px 8px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 8, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
+          <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>{s.prefix || ""}{s.v}{s.s}</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>{s.l}</div>
         </div>
       ))}
     </div>
 
     <div style={{ textAlign: "center", marginTop: 12 }}>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim }}>10-year political donations: </span>
-      <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 14, fontWeight: 700, color: t.red }}>${allDonations.toFixed(1)}B</span>
-      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim }}> · PolitiTrack shows how these donations connect to how your tax dollars are spent</span>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>10-year political donations: </span>
+      <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, fontWeight: 700, color: t.red }}>${allDonations.toFixed(1)}B</span>
+      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}> · PolitiTrack shows how these donations connect to how your tax dollars are spent</span>
     </div>
   </div>);
 }
@@ -346,7 +346,7 @@ function HomePage({ setPage }) {
       <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 800, borderRadius: "50%", opacity: 0.4, background: `radial-gradient(circle, ${t.navy} 0%, transparent 70%)`, pointerEvents: "none" }} />
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${t.red}, ${t.navy}, ${t.red})` }} />
 
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: t.red, marginBottom: 32, display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 4, textTransform: "uppercase", color: t.red, marginBottom: 32, display: "flex", alignItems: "center", gap: 12 }}>
         <div style={{ width: 24, height: 1, background: t.red }} />Free for everyone · No account needed<div style={{ width: 24, height: 1, background: t.red }} />
       </div>
 
@@ -354,7 +354,7 @@ function HomePage({ setPage }) {
         Follow the money.<br />See how donations <span style={{ background: `linear-gradient(135deg, ${t.red}, ${t.gold})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>shape every vote</span><br /><span style={{ fontSize: "clamp(24px,3.5vw,44px)", color: t.dim }}>and where your tax dollars end up</span>
       </h1>
 
-      <p style={{ fontSize: 18, color: t.dim, maxWidth: 620, lineHeight: 1.75, marginBottom: 48, fontFamily: "'Source Serif 4', Georgia, serif" }}>
+      <p style={{ fontSize: 16, color: t.dim, maxWidth: 620, lineHeight: 1.75, marginBottom: 48, fontFamily: "'Source Serif 4', Georgia, serif" }}>
         Track political donations, see how they influence the way your representatives vote, find out what those votes cost you personally, and contact them directly — all in one place. Free, nonpartisan, powered by public data.
       </p>
 
@@ -375,7 +375,7 @@ function HomePage({ setPage }) {
     {/* How it works — first thing new users see after stats */}
     <section style={{ padding: "80px 24px", maxWidth: 1000, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 64 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How it works</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How it works</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white }}>See the full picture in <em style={{ color: t.gold }}>4 steps</em></h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 2 }}>
@@ -387,9 +387,9 @@ function HomePage({ setPage }) {
         ].map((s,i) => (
           <div key={i} style={{ background: t.surface, padding: 36, borderTop: `3px solid ${s.c}`, transition: "transform 0.3s" }}
             onMouseOver={e => e.currentTarget.style.transform = "translateY(-4px)"} onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: s.c, marginBottom: 16, fontWeight: 700 }}>{s.s}</div>
-            <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 22, color: t.white, marginBottom: 12 }}>{s.ti}</h3>
-            <p style={{ color: t.dim, fontSize: 13, lineHeight: 1.8 }}>{s.d}</p>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: s.c, marginBottom: 16, fontWeight: 700 }}>{s.s}</div>
+            <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, color: t.white, marginBottom: 12 }}>{s.ti}</h3>
+            <p style={{ color: t.dim, fontSize: 15, lineHeight: 1.8 }}>{s.d}</p>
           </div>
         ))}
       </div>
@@ -401,7 +401,7 @@ function HomePage({ setPage }) {
     {/* What you can do — free features for everyone */}
     <section style={{ padding: "80px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>100% free · No account required</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>100% free · No account required</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 12 }}>Everything you need to <em style={{ color: t.gold }}>follow the money</em></h2>
         <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>Every feature on this site is free for the public. No paywall. No sign-up. Just data.</p>
       </div>
@@ -425,10 +425,10 @@ function HomePage({ setPage }) {
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
               <span style={{ fontSize: 28 }}>{f.icon}</span>
-              <span style={{ fontSize: 12, color: f.color, fontFamily: "'Source Code Pro', monospace" }}>Try it →</span>
+              <span style={{ fontSize: 16, color: f.color, fontFamily: "'Source Code Pro', monospace" }}>Try it →</span>
             </div>
             <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{f.title}</h3>
-            <p style={{ color: t.text, fontSize: 13, lineHeight: 1.75 }}>{f.desc}</p>
+            <p style={{ color: t.text, fontSize: 15, lineHeight: 1.75 }}>{f.desc}</p>
           </div>
         ))}
       </div>
@@ -437,7 +437,7 @@ function HomePage({ setPage }) {
     {/* 5 Data Sources */}
     <section style={{ padding: "100px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 64 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Data Pipeline</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Data Pipeline</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 12 }}>Five federal sources. <em style={{ color: t.gold }}>All public data.</em></h2>
         <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>We pull from every major federal data source so you don't have to dig through government websites.</p>
       </div>
@@ -458,10 +458,10 @@ function HomePage({ setPage }) {
             onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
           >
             <div style={{ fontSize: 28, marginBottom: 12 }}>{src.icon}</div>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, fontWeight: 700, color: src.color, marginBottom: 4 }}>{src.name}</div>
-            <div style={{ fontSize: 12, color: t.text, marginBottom: 8, fontWeight: 600 }}>{src.full}</div>
-            <p style={{ color: t.dim, fontSize: 12, lineHeight: 1.6, marginBottom: 12 }}>{src.what}</p>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim, opacity: 0.6 }}>{src.url}</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 700, color: src.color, marginBottom: 4 }}>{src.name}</div>
+            <div style={{ fontSize: 16, color: t.text, marginBottom: 8, fontWeight: 600 }}>{src.full}</div>
+            <p style={{ color: t.dim, fontSize: 16, lineHeight: 1.6, marginBottom: 12 }}>{src.what}</p>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, opacity: 0.6 }}>{src.url}</div>
           </div>
         ))}
       </div>
@@ -473,7 +473,7 @@ function HomePage({ setPage }) {
     {/* For developers — API section */}
     <section style={{ padding: "80px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>For developers & researchers</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>For developers & researchers</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 32, color: t.white, marginBottom: 12 }}>Build with our <em style={{ color: t.gold }}>API</em></h2>
         <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>Everything on this site is free for individuals. Developers and organizations can access the same data programmatically through our API, plus advanced analytics.</p>
       </div>
@@ -499,10 +499,10 @@ function HomePage({ setPage }) {
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
               <span style={{ fontSize: 28 }}>{f.icon}</span>
-              <span style={{ fontSize: 10, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase", fontWeight: 700, background: f.tagColor === t.gold ? "rgba(212,168,67,0.15)" : "rgba(230,57,70,0.15)", color: f.tagColor, border: `1px solid ${f.tagColor}33` }}>{f.tag}</span>
+              <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase", fontWeight: 700, background: f.tagColor === t.gold ? "rgba(212,168,67,0.15)" : "rgba(230,57,70,0.15)", color: f.tagColor, border: `1px solid ${f.tagColor}33` }}>{f.tag}</span>
             </div>
             <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{f.title}</h3>
-            <p style={{ color: t.text, fontSize: 13, lineHeight: 1.75 }}>{f.desc}</p>
+            <p style={{ color: t.text, fontSize: 15, lineHeight: 1.75 }}>{f.desc}</p>
           </div>
         ))}
       </div>
@@ -511,7 +511,7 @@ function HomePage({ setPage }) {
     {/* AI Analysis example */}
     <section style={{ padding: "60px 24px 80px", maxWidth: 850, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 32 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>AI Output</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>AI Output</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>What an analysis looks like</h2>
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden" }}>
@@ -521,9 +521,9 @@ function HomePage({ setPage }) {
             <div style={{ width: 12, height: 12, borderRadius: "50%", background: t.gold }} />
             <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28c840" }} />
           </div>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim }}>GET /api/v1/analyze/donor/exxon-pac</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>GET /api/v1/analyze/donor/exxon-pac</span>
         </div>
-        <pre style={{ padding: 28, margin: 0, overflow: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 12.5, lineHeight: 1.85, color: t.dim }}>
+        <pre style={{ padding: 28, margin: 0, overflow: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 14, lineHeight: 1.85, color: t.dim }}>
 {`{`}{"\n"}{`  `}<span style={{color:t.gold}}>"motivations"</span>{`: [\n    {\n`}
 {`      `}<span style={{color:t.gold}}>"reason"</span>{`: `}<span style={{color:t.red}}>"Energy regulation influence"</span>{`,\n`}
 {`      `}<span style={{color:t.gold}}>"confidence"</span>{`: `}<span style={{color:t.blue}}>8.5</span>{`,\n`}
@@ -541,7 +541,7 @@ function HomePage({ setPage }) {
     {/* What the AI looks for */}
     <section style={{ padding: "80px 24px", maxWidth: 900, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Intelligence</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Intelligence</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>The AI cross-references <em style={{ color: t.gold }}>everything</em></h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
@@ -555,9 +555,9 @@ function HomePage({ setPage }) {
             onMouseOver={e => e.currentTarget.style.background = t.surface2}
             onMouseOut={e => e.currentTarget.style.background = t.surface}
           >
-            <div style={{ fontSize: 24, marginBottom: 12 }}>{item.icon}</div>
-            <p style={{ color: t.white, fontSize: 14, lineHeight: 1.6, marginBottom: 12, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{item.q}"</p>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.gold, letterSpacing: 1 }}>DATA: {item.sources}</div>
+            <div style={{ fontSize: 16, marginBottom: 12 }}>{item.icon}</div>
+            <p style={{ color: t.white, fontSize: 16, lineHeight: 1.6, marginBottom: 12, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{item.q}"</p>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.gold, letterSpacing: 1 }}>DATA: {item.sources}</div>
           </div>
         ))}
       </div>
@@ -577,7 +577,7 @@ function DemoPage() {
   const search = async () => { if(!q.trim()) return; setLd(true); setErr(null); try { const r = await fetch(`${API_BASE}/api/v1/donations?donor=${encodeURIComponent(q)}&limit=10`); if(!r.ok) throw new Error(); setRes(await r.json().then(d=>d.donations||[])); } catch { setRes(demo); setErr("Showing demo data — connect your API for live results"); } setLd(false); };
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 900, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Live Demo</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Live Demo</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Follow the money</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 40, fontFamily: "'Source Serif 4', Georgia, serif" }}>Search any donor to see donations, lobbying ties, and government contracts in one place.</p>
 
@@ -585,10 +585,10 @@ function DemoPage() {
       <input type="text" placeholder="Search donors... (try: ExxonMobil, Goldman Sachs, Lockheed)" value={q} onChange={e=>setQ(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()}
         style={{ flex: 1, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 15, fontFamily: "'Source Code Pro', monospace", outline: "none", boxSizing: "border-box" }}
         onFocus={e=>e.target.style.borderColor=t.red} onBlur={e=>e.target.style.borderColor=t.border} />
-      <button onClick={search} disabled={ld} style={{ background: `linear-gradient(135deg,${t.red},${t.redDim})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: ld?"wait":"pointer", fontFamily: "'Source Code Pro', monospace", opacity: ld?0.7:1, minWidth: 120 }}>{ld ? "Searching..." : "Search"}</button>
+      <button onClick={search} disabled={ld} style={{ background: `linear-gradient(135deg,${t.red},${t.redDim})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: ld?"wait":"pointer", fontFamily: "'Source Code Pro', monospace", opacity: ld?0.7:1, minWidth: 120 }}>{ld ? "Searching..." : "Search"}</button>
     </div>
 
-    {err && <div style={{ background: t.goldBg, border: "1px solid rgba(212,168,67,0.25)", borderRadius: 10, padding: "12px 20px", color: t.gold, fontSize: 12, fontFamily: "'Source Code Pro', monospace", marginBottom: 24 }}>{err}</div>}
+    {err && <div style={{ background: t.goldBg, border: "1px solid rgba(212,168,67,0.25)", borderRadius: 10, padding: "12px 20px", color: t.gold, fontSize: 16, fontFamily: "'Source Code Pro', monospace", marginBottom: 24 }}>{err}</div>}
 
     {res && res.map((d,i) => { const p = d.recipient?.party||d.party; const pc = p==="D"?t.blue:p==="R"?t.red:t.gold; return (
       <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 8, borderLeft: `3px solid ${pc}`, transition: "all 0.2s" }}
@@ -598,30 +598,30 @@ function DemoPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
               <span style={{ color: t.white, fontSize: 15, fontWeight: 600 }}>{d.donor?.name||d.donor}</span>
               <span style={{ color: t.dim }}>→</span>
-              <span style={{ color: t.text, fontSize: 14 }}>{d.recipient?.name||d.recipient}</span>
+              <span style={{ color: t.text, fontSize: 16 }}>{d.recipient?.name||d.recipient}</span>
             </div>
             <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-              <span style={{ padding: "2px 10px", borderRadius: 4, fontSize: 11, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: p==="D"?"rgba(69,123,157,0.2)":p==="R"?t.redBg:t.goldBg, color: pc }}>{p==="D"?"DEM":p==="R"?"REP":p}</span>
-              <span style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace" }}>{d.industry||"—"}</span>
-              <span style={{ color: t.dim, fontSize: 11 }}>·</span>
-              <span style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace" }}>{d.date}</span>
-              {d.committees&&<span style={{ color: t.dim, fontSize: 11, fontStyle: "italic" }}>📋 {d.committees}</span>}
+              <span style={{ padding: "2px 10px", borderRadius: 4, fontSize: 15, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: p==="D"?"rgba(69,123,157,0.2)":p==="R"?t.redBg:t.goldBg, color: pc }}>{p==="D"?"DEM":p==="R"?"REP":p}</span>
+              <span style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>{d.industry||"—"}</span>
+              <span style={{ color: t.dim, fontSize: 15 }}>·</span>
+              <span style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>{d.date}</span>
+              {d.committees&&<span style={{ color: t.dim, fontSize: 15, fontStyle: "italic" }}>📋 {d.committees}</span>}
             </div>
             {(d.lobbying || d.contracts) && (
               <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-                {d.lobbying && <span style={{ fontSize: 10, fontFamily: "'Source Code Pro', monospace", color: t.gold, background: t.goldBg, padding: "2px 8px", borderRadius: 4 }}>🏛 {d.lobbying}</span>}
-                {d.contracts && <span style={{ fontSize: 10, fontFamily: "'Source Code Pro', monospace", color: t.blue, background: "rgba(69,123,157,0.1)", padding: "2px 8px", borderRadius: 4 }}>💰 {d.contracts}</span>}
+                {d.lobbying && <span style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.gold, background: t.goldBg, padding: "2px 8px", borderRadius: 4 }}>🏛 {d.lobbying}</span>}
+                {d.contracts && <span style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.blue, background: "rgba(69,123,157,0.1)", padding: "2px 8px", borderRadius: 4 }}>💰 {d.contracts}</span>}
               </div>
             )}
           </div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 20, fontWeight: 700, color: t.white, minWidth: 100, textAlign: "right" }}>${(d.amount||0).toLocaleString()}</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white, minWidth: 100, textAlign: "right" }}>${(d.amount||0).toLocaleString()}</div>
         </div>
       </div>
     )})}
 
     {res && <div style={{ marginTop: 36, padding: 28, borderRadius: 12, textAlign: "center", background: `linear-gradient(135deg, rgba(230,57,70,0.06), rgba(29,53,87,0.1))`, border: `1px solid ${t.border}` }}>
       <p style={{ color: t.red, fontSize: 16, fontWeight: 600, marginBottom: 4, fontFamily: "'Libre Baskerville', Georgia, serif" }}>Want AI analysis connecting donations ↔ lobbying ↔ contracts?</p>
-      <p style={{ color: t.dim, fontSize: 13 }}>Upgrade to Pro for AI-powered motivation analysis across all 5 data sources.</p>
+      <p style={{ color: t.dim, fontSize: 15 }}>Upgrade to Pro for AI-powered motivation analysis across all 5 data sources.</p>
     </div>}
 
     {!res && <div style={{ textAlign: "center", padding: "80px 0", color: t.dim }}><div style={{ fontSize: 64, marginBottom: 16, opacity: 0.4 }}>🏛</div><p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: 16 }}>Search for a donor to trace their political contributions</p></div>}
@@ -859,7 +859,7 @@ function MoneyFlowPage() {
     <div style={{ padding: "120px 24px 80px", maxWidth: 950, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
         <div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} />
-        <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Money Flow</span>
+        <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Money Flow</span>
       </div>
       <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>
         Trace the money trail
@@ -871,14 +871,14 @@ function MoneyFlowPage() {
       {/* Mode toggle */}
       <div style={{ display: "flex", gap: 6, marginBottom: 20 }}>
         <button onClick={() => setMode("custom")} style={{
-          padding: "10px 22px", borderRadius: 8, fontSize: 13,
+          padding: "10px 22px", borderRadius: 8, fontSize: 15,
           fontFamily: "'Source Code Pro', monospace", cursor: "pointer",
           background: mode === "custom" ? t.redBg : t.surface,
           border: `1px solid ${mode === "custom" ? t.red + "44" : t.border}`,
           color: mode === "custom" ? t.red : t.dim, fontWeight: mode === "custom" ? 600 : 400,
         }}>Search any donor</button>
         <button onClick={() => { setMode("examples"); setScenario(0); setCustomResult(null); }} style={{
-          padding: "10px 22px", borderRadius: 8, fontSize: 13,
+          padding: "10px 22px", borderRadius: 8, fontSize: 15,
           fontFamily: "'Source Code Pro', monospace", cursor: "pointer",
           background: mode === "examples" ? t.redBg : t.surface,
           border: `1px solid ${mode === "examples" ? t.red + "44" : t.border}`,
@@ -904,7 +904,7 @@ function MoneyFlowPage() {
             <button onClick={searchCustom} disabled={customLoading || !customQuery.trim()} style={{
               background: customQuery.trim() ? `linear-gradient(135deg, ${t.red}, ${t.redDim})` : t.surface2,
               color: customQuery.trim() ? "#fff" : t.dim,
-              border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 14,
+              border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 16,
               fontWeight: 600, cursor: customQuery.trim() ? "pointer" : "not-allowed",
               fontFamily: "'Source Code Pro', monospace", minWidth: 140,
             }}>{customLoading ? "Searching..." : "Trace money →"}</button>
@@ -913,7 +913,7 @@ function MoneyFlowPage() {
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {["Lockheed Martin", "Goldman Sachs", "Pfizer", "Koch Industries", "Google", "Comcast", "Boeing", "AT&T"].map(name => (
               <button key={name} onClick={() => { setCustomQuery(name); }} style={{
-                fontSize: 11, padding: "5px 12px", borderRadius: 6,
+                fontSize: 15, padding: "5px 12px", borderRadius: 6,
                 background: t.surface, border: `1px solid ${t.border}`,
                 color: t.dim, cursor: "pointer", fontFamily: "'Source Code Pro', monospace",
                 transition: "all 0.2s",
@@ -931,7 +931,7 @@ function MoneyFlowPage() {
         <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
           {scenarios.map((s, i) => (
             <button key={i} onClick={() => { setScenario(i); setStep(null); setCustomResult(null); }} style={{
-              padding: "10px 20px", borderRadius: 8, fontSize: 13,
+              padding: "10px 20px", borderRadius: 8, fontSize: 15,
               fontFamily: "'Source Code Pro', monospace", cursor: "pointer",
               background: scenario === i ? t.redBg : t.surface,
               border: `1px solid ${scenario === i ? "rgba(230,57,70,0.4)" : t.border}`,
@@ -957,15 +957,15 @@ function MoneyFlowPage() {
             borderRadius: i === 0 ? "10px 0 0 10px" : i === 2 ? "0 10px 10px 0" : 0,
             transition: "all 0.2s",
           }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim, letterSpacing: 1, marginBottom: 6 }}>{s.num} · {s.label}</div>
-            <div style={{ fontSize: 14, fontWeight: 600, color: t.white, marginBottom: 3 }}>{s.title}</div>
-            <div style={{ fontSize: 12, color: t.dim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.sub}</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, letterSpacing: 1, marginBottom: 6 }}>{s.num} · {s.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 3 }}>{s.title}</div>
+            <div style={{ fontSize: 16, color: t.dim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.sub}</div>
           </div>
         ))}
       </div>
 
       {/* Arrow row */}
-      <div style={{ textAlign: "center", padding: "6px 0", color: t.dim, fontFamily: "'Source Code Pro', monospace", fontSize: 14, letterSpacing: 20 }}>↓ ↓ ↓</div>
+      <div style={{ textAlign: "center", padding: "6px 0", color: t.dim, fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 20 }}>↓ ↓ ↓</div>
 
       {/* Flow steps — row 2 */}
       <div style={{ display: "flex", gap: 2, marginBottom: 2 }}>
@@ -983,9 +983,9 @@ function MoneyFlowPage() {
               borderRadius: i === 0 ? "10px 0 0 10px" : i === 2 ? "0 10px 10px 0" : 0,
               transition: "all 0.2s",
             }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim, letterSpacing: 1, marginBottom: 6 }}>{s.num} · {s.label}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: t.white, marginBottom: 3 }}>{s.title}</div>
-              <div style={{ fontSize: 12, color: t.dim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.sub}</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, letterSpacing: 1, marginBottom: 6 }}>{s.num} · {s.label}</div>
+              <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 3 }}>{s.title}</div>
+              <div style={{ fontSize: 16, color: t.dim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.sub}</div>
             </div>
           );
         })}
@@ -1000,7 +1000,7 @@ function MoneyFlowPage() {
         {step === null && (
           <div style={{ textAlign: "center", padding: "24px 0", color: t.dim }}>
             <p style={{ fontSize: 15, marginBottom: 8 }}>Click any step above to explore the money trail</p>
-            <p style={{ fontSize: 13 }}>Each step shows real data — from initial donations through legislation and outcomes</p>
+            <p style={{ fontSize: 15 }}>Each step shows real data — from initial donations through legislation and outcomes</p>
           </div>
         )}
 
@@ -1008,10 +1008,10 @@ function MoneyFlowPage() {
         {step === 0 && (<div>
           <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 12, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{sc.donor.name}</div>
           <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-            <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{sc.donor.type}</span>
-            <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, background: t.redBg, color: t.red, fontFamily: "'Source Code Pro', monospace" }}>{sc.donor.industry}</span>
+            <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{sc.donor.type}</span>
+            <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, background: t.redBg, color: t.red, fontFamily: "'Source Code Pro', monospace" }}>{sc.donor.industry}</span>
           </div>
-          <p style={{ color: t.text, fontSize: 14, lineHeight: 1.7 }}>
+          <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>
             Total political contributions: <strong style={{ color: t.white }}>{sc.donor.total}</strong> across {sc.donations.length} tracked recipients.
             Funds distributed to members of {sc.committees.length} congressional committees that directly oversee {sc.donor.industry} regulation.
             Simultaneously spent <strong style={{ color: t.white }}>{sc.lobbying.spend}</strong> on lobbying and holds <strong style={{ color: t.white }}>{sc.contracts.total}</strong> in federal contracts.
@@ -1024,12 +1024,12 @@ function MoneyFlowPage() {
           {sc.donations.map((d, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < sc.donations.length - 1 ? `1px solid ${t.border}` : "none" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: d.party === "R" ? t.redBg : "rgba(69,123,157,0.2)", color: partyColor(d.party) }}>{partyLabel(d.party)}</span>
-                <span style={{ color: t.white, fontSize: 14 }}>{d.recipient}</span>
-                <span style={{ color: t.dim, fontSize: 12 }}>({d.state})</span>
+                <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: d.party === "R" ? t.redBg : "rgba(69,123,157,0.2)", color: partyColor(d.party) }}>{partyLabel(d.party)}</span>
+                <span style={{ color: t.white, fontSize: 16 }}>{d.recipient}</span>
+                <span style={{ color: t.dim, fontSize: 16 }}>({d.state})</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <span style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace" }}>{d.date}</span>
+                <span style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>{d.date}</span>
                 <span style={{ color: t.white, fontSize: 15, fontWeight: 600, fontFamily: "'Source Code Pro', monospace" }}>{d.amount}</span>
               </div>
             </div>
@@ -1039,10 +1039,10 @@ function MoneyFlowPage() {
         {/* Step 2: Committees */}
         {step === 2 && (<div>
           <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 12, fontFamily: "'Libre Baskerville', Georgia, serif" }}>Targeted committees</div>
-          <p style={{ color: t.dim, fontSize: 13, marginBottom: 16 }}>Recipients sit on these committees — which directly oversee {sc.donor.industry} regulation and spending:</p>
+          <p style={{ color: t.dim, fontSize: 15, marginBottom: 16 }}>Recipients sit on these committees — which directly oversee {sc.donor.industry} regulation and spending:</p>
           {sc.committees.map((c, i) => (
             <div key={i} style={{ padding: "10px 14px", background: t.bg, borderRadius: 8, marginBottom: 6, border: `1px solid ${t.border}` }}>
-              <span style={{ color: t.white, fontSize: 13, fontWeight: 500 }}>{c}</span>
+              <span style={{ color: t.white, fontSize: 15, fontWeight: 500 }}>{c}</span>
             </div>
           ))}
         </div>)}
@@ -1050,14 +1050,14 @@ function MoneyFlowPage() {
         {/* Step 3: Lobbying */}
         {step === 3 && (<div>
           <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 12, fontFamily: "'Libre Baskerville', Georgia, serif" }}>Lobbying activity</div>
-          <p style={{ color: t.text, fontSize: 14, marginBottom: 12 }}>Total lobbying spend: <strong style={{ color: t.white }}>{sc.lobbying.spend}</strong></p>
-          <p style={{ color: t.dim, fontSize: 12, marginBottom: 8 }}>Firms: {sc.lobbying.firms.join(', ')}</p>
+          <p style={{ color: t.text, fontSize: 16, marginBottom: 12 }}>Total lobbying spend: <strong style={{ color: t.white }}>{sc.lobbying.spend}</strong></p>
+          <p style={{ color: t.dim, fontSize: 16, marginBottom: 8 }}>Firms: {sc.lobbying.firms.join(', ')}</p>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
             {sc.lobbying.issues.map((issue, i) => (
-              <span key={i} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{issue}</span>
+              <span key={i} style={{ fontSize: 15, padding: "4px 10px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{issue}</span>
             ))}
           </div>
-          <p style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace" }}>Source: Senate Lobbying Disclosure Act filings (lda.senate.gov)</p>
+          <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>Source: Senate Lobbying Disclosure Act filings (lda.senate.gov)</p>
         </div>)}
 
         {/* Step 4: Legislation — THE BIG ONE */}
@@ -1068,35 +1068,35 @@ function MoneyFlowPage() {
             <div key={i} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
               {/* Bill header */}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", color: t.red }}>{bill.id}</span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: t.white }}>{bill.title}</span>
+                <span style={{ fontSize: 15, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", color: t.red }}>{bill.id}</span>
+                <span style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{bill.title}</span>
               </div>
               <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
-                <span style={{ fontSize: 10, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(69,123,157,0.15)", color: t.blue }}>{bill.status}</span>
-                <span style={{ fontSize: 10, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: bill.vote.includes("Passed") ? "rgba(34,197,94,0.12)" : t.goldBg, color: bill.vote.includes("Passed") ? "#22c55e" : t.gold }}>{bill.vote}</span>
+                <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(69,123,157,0.15)", color: t.blue }}>{bill.status}</span>
+                <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: bill.vote.includes("Passed") ? "rgba(34,197,94,0.12)" : t.goldBg, color: bill.vote.includes("Passed") ? "#22c55e" : t.gold }}>{bill.vote}</span>
               </div>
 
               {/* Bill summary */}
               <div style={{ marginBottom: 16 }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>What this bill does</div>
-                <p style={{ color: t.text, fontSize: 13, lineHeight: 1.7 }}>{bill.summary}</p>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>What this bill does</div>
+                <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7 }}>{bill.summary}</p>
               </div>
 
               {/* Impact on donor */}
               <div style={{ marginBottom: 16, padding: 16, background: t.surface, borderRadius: 8, borderLeft: `3px solid ${t.gold}` }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 8 }}>Impact on {sc.donor.name}</div>
-                <p style={{ color: t.text, fontSize: 13, lineHeight: 1.7 }}>{bill.impact}</p>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 8 }}>Impact on {sc.donor.name}</div>
+                <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7 }}>{bill.impact}</p>
               </div>
 
               {/* Who it affects */}
               <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Who it affects</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Who it affects</div>
                 {bill.whoItAffects.map((a, j) => (
                   <div key={j} style={{ display: "flex", alignItems: "start", gap: 10, padding: "8px 0", borderBottom: j < bill.whoItAffects.length - 1 ? `1px solid ${t.border}` : "none" }}>
-                    <span style={{ color: sentimentColor(a.sentiment), fontSize: 10, marginTop: 3, flexShrink: 0 }}>{sentimentIcon(a.sentiment)}</span>
+                    <span style={{ color: sentimentColor(a.sentiment), fontSize: 15, marginTop: 3, flexShrink: 0 }}>{sentimentIcon(a.sentiment)}</span>
                     <div>
-                      <span style={{ color: t.white, fontSize: 13, fontWeight: 500 }}>{a.who}</span>
-                      <p style={{ color: t.dim, fontSize: 12, marginTop: 2 }}>{a.how}</p>
+                      <span style={{ color: t.white, fontSize: 15, fontWeight: 500 }}>{a.who}</span>
+                      <p style={{ color: t.dim, fontSize: 16, marginTop: 2 }}>{a.how}</p>
                     </div>
                   </div>
                 ))}
@@ -1105,13 +1105,13 @@ function MoneyFlowPage() {
           ))}
 
           {/* Timeline */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Timeline</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Timeline</div>
           <div style={{ display: "flex", gap: 2 }}>
             {sc.timeline.map((tl, i) => (
               <div key={i} style={{ flex: 1, background: t.bg, borderRadius: 8, padding: "12px 14px", border: `1px solid ${t.border}` }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim, marginBottom: 4 }}>{tl.date}</div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: t.white, marginBottom: 2 }}>{tl.event}</div>
-                <div style={{ fontSize: 11, color: t.dim }}>{tl.detail}</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim, marginBottom: 4 }}>{tl.date}</div>
+                <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 2 }}>{tl.event}</div>
+                <div style={{ fontSize: 15, color: t.dim }}>{tl.detail}</div>
               </div>
             ))}
           </div>
@@ -1120,21 +1120,21 @@ function MoneyFlowPage() {
         {/* Step 5: Contracts + AI Correlation */}
         {step === 5 && (<div>
           <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 12, fontFamily: "'Libre Baskerville', Georgia, serif" }}>Federal contracts & grants</div>
-          <p style={{ color: t.text, fontSize: 14, marginBottom: 6 }}>Total awarded: <strong style={{ color: t.white }}>{sc.contracts.total}</strong></p>
-          <p style={{ color: t.text, fontSize: 14, marginBottom: 6 }}>Awarding agency: <strong style={{ color: t.white }}>{sc.contracts.agency}</strong></p>
-          <p style={{ color: t.dim, fontSize: 13, marginBottom: 16 }}>{sc.contracts.desc}</p>
-          <p style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace", marginBottom: 20 }}>Source: USASpending.gov</p>
+          <p style={{ color: t.text, fontSize: 16, marginBottom: 6 }}>Total awarded: <strong style={{ color: t.white }}>{sc.contracts.total}</strong></p>
+          <p style={{ color: t.text, fontSize: 16, marginBottom: 6 }}>Awarding agency: <strong style={{ color: t.white }}>{sc.contracts.agency}</strong></p>
+          <p style={{ color: t.dim, fontSize: 15, marginBottom: 16 }}>{sc.contracts.desc}</p>
+          <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginBottom: 20 }}>Source: USASpending.gov</p>
 
           {/* AI Correlation */}
           <div style={{ background: t.redBg, border: "1px solid rgba(230,57,70,0.2)", borderRadius: 10, padding: 20 }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>AI correlation analysis</div>
-            <p style={{ color: t.text, fontSize: 13, lineHeight: 1.8 }}>{sc.correlation}</p>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>AI correlation analysis</div>
+            <p style={{ color: t.text, fontSize: 15, lineHeight: 1.8 }}>{sc.correlation}</p>
           </div>
         </div>)}
       </div>
 
       {/* Disclaimer */}
-      <p style={{ color: t.dim, fontSize: 11, textAlign: "center", marginTop: 20, fontFamily: "'Source Code Pro', monospace" }}>
+      <p style={{ color: t.dim, fontSize: 15, textAlign: "center", marginTop: 20, fontFamily: "'Source Code Pro', monospace" }}>
         Analysis based on public FEC, Senate LDA, Congress.gov, and USASpending data. Correlations shown are inferences, not confirmed causation.
       </p>
     </div>
@@ -1170,17 +1170,17 @@ function DocsPage() {
   ];
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 900, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Documentation</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Documentation</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>API Reference</h1>
-    <p style={{ color: t.dim, marginBottom: 16 }}>33 endpoints across 7 categories. Authenticate with <code style={{ background: t.surface2, padding: "3px 10px", borderRadius: 4, color: t.red, fontSize: 13, fontFamily: "'Source Code Pro', monospace" }}>X-API-Key</code> header.</p>
-    <p style={{ color: t.dim, marginBottom: 40, fontSize: 13 }}>Data sources: FEC · Senate LDA · ProPublica Congress · Congress.gov · USASpending</p>
+    <p style={{ color: t.dim, marginBottom: 16 }}>33 endpoints across 7 categories. Authenticate with <code style={{ background: t.surface2, padding: "3px 10px", borderRadius: 4, color: t.red, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>X-API-Key</code> header.</p>
+    <p style={{ color: t.dim, marginBottom: 40, fontSize: 15 }}>Data sources: FEC · Senate LDA · ProPublica Congress · Congress.gov · USASpending</p>
 
     <div style={{ background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden", marginBottom: 40 }}>
       <div style={{ padding: "14px 24px", borderBottom: `1px solid ${t.border}`, display: "flex", alignItems: "center", gap: 8 }}>
         <div style={{ width: 8, height: 8, borderRadius: "50%", background: t.red }} />
-        <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 12, color: t.dim }}>quickstart.sh</span>
+        <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, color: t.dim }}>quickstart.sh</span>
       </div>
-      <pre style={{ padding: 24, margin: 0, fontFamily: "'Source Code Pro', monospace", fontSize: 12.5, lineHeight: 2, color: t.dim, overflow: "auto" }}>
+      <pre style={{ padding: 24, margin: 0, fontFamily: "'Source Code Pro', monospace", fontSize: 14, lineHeight: 2, color: t.dim, overflow: "auto" }}>
 {`# Get your API key\n`}<span style={{color:t.blue}}>curl</span>{` -X POST ${API_BASE}/api/v1/keys \\\n  -H `}<span style={{color:t.red}}>"Content-Type: application/json"</span>{` \\\n  -d `}<span style={{color:t.red}}>{'\'{"email":"you@email.com"}\''}</span>{`\n\n# Search donations (FEC data)\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/donations?donor=exxon \\\n  -H `}<span style={{color:t.red}}>"X-API-Key: YOUR_KEY"</span>{`\n\n# AI analysis (Pro) — uses all 5 sources\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/analyze/donor/ID \\\n  -H `}<span style={{color:t.red}}>"X-API-Key: YOUR_PRO_KEY"</span>
       </pre>
     </div>
@@ -1193,16 +1193,16 @@ function DocsPage() {
         const tierBg = ep.tier === "enterprise" ? "rgba(230,57,70,0.1)" : ep.tier === "pro" ? t.goldBg : t.redBg;
         const tierColor = ep.tier === "enterprise" ? t.red : ep.tier === "pro" ? t.gold : t.red;
         return (<div key={i}>
-          {catHeader && <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginTop: i > 0 ? 24 : 0, marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${t.border}` }}>{ep.cat}</div>}
+          {catHeader && <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginTop: i > 0 ? 24 : 0, marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${t.border}` }}>{ep.cat}</div>}
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "18px 22px", marginBottom: 6, transition: "border-color 0.2s" }}
             onMouseOver={e=>e.currentTarget.style.borderColor=t.red+"33"} onMouseOut={e=>e.currentTarget.style.borderColor=t.border}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-              <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, fontWeight: 700, padding: "3px 8px", borderRadius: 4, background: ep.m==="POST"?"rgba(69,123,157,0.2)":t.redBg, color: ep.m==="POST"?t.blue:t.red }}>{ep.m}</span>
-              <code style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.white }}>{ep.p}</code>
-              <span style={{ marginLeft: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", padding: "3px 10px", borderRadius: 4, fontWeight: 600, background: tierBg, color: tierColor }}>{ep.tier}</span>
+              <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 700, padding: "3px 8px", borderRadius: 4, background: ep.m==="POST"?"rgba(69,123,157,0.2)":t.redBg, color: ep.m==="POST"?t.blue:t.red }}>{ep.m}</span>
+              <code style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.white }}>{ep.p}</code>
+              <span style={{ marginLeft: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1.5, textTransform: "uppercase", padding: "3px 10px", borderRadius: 4, fontWeight: 600, background: tierBg, color: tierColor }}>{ep.tier}</span>
             </div>
-            <p style={{ color: t.dim, fontSize: 13, marginBottom: 2 }}>{ep.d}</p>
-            <p style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace", opacity: 0.6 }}>Params: {ep.params}</p>
+            <p style={{ color: t.dim, fontSize: 15, marginBottom: 2 }}>{ep.d}</p>
+            <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", opacity: 0.6 }}>Params: {ep.params}</p>
           </div>
         </div>);
       });
@@ -1219,14 +1219,14 @@ function PricingPage({ setPage }) {
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
     <div style={{ textAlign: "center", marginBottom: 40 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>API Access</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>API Access</div>
       <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 40, color: t.white, marginBottom: 16 }}>Data that gets more valuable <em style={{ color: t.gold }}>every single day</em></h1>
       <p style={{ color: t.dim, fontSize: 16, maxWidth: 700, margin: "0 auto", lineHeight: 1.8 }}>PolitiTrack isn't a wrapper around government APIs. We capture daily snapshots that FEC doesn't keep, score donor-vote alignment no one else tracks, and discover cross-source connections across five federal databases that don't exist in any single system. The longer we run, the deeper the data gets — and the wider the gap becomes between us and anything else.</p>
     </div>
 
     {/* Why this can't be replicated */}
     <div style={{ background: `linear-gradient(135deg, rgba(230,57,70,0.06), rgba(29,53,87,0.1))`, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 32, marginBottom: 32 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 20 }}>Why this platform is irreplaceable</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 20 }}>Why this platform is irreplaceable</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
         {[
           { icon: "📸", title: "Historical snapshots", desc: "We capture daily snapshots of every FEC filing. When campaigns amend filings — which overwrites the original on FEC.gov — we keep both versions. After 6 months, we have a time-series dataset that literally doesn't exist anywhere else. Not on FEC.gov. Not on OpenSecrets. Nowhere.", time: "Compounds daily" },
@@ -1236,8 +1236,8 @@ function PricingPage({ setPage }) {
           <div key={i} style={{ padding: 0 }}>
             <div style={{ fontSize: 28, marginBottom: 10 }}>{f.icon}</div>
             <div style={{ fontSize: 15, fontWeight: 700, color: t.white, marginBottom: 6 }}>{f.title}</div>
-            <p style={{ fontSize: 12, color: t.text, lineHeight: 1.7, marginBottom: 8 }}>{f.desc}</p>
-            <div style={{ fontSize: 10, fontFamily: "'Source Code Pro', monospace", color: t.gold }}>{f.time}</div>
+            <p style={{ fontSize: 16, color: t.text, lineHeight: 1.7, marginBottom: 8 }}>{f.desc}</p>
+            <div style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.gold }}>{f.time}</div>
           </div>
         ))}
       </div>
@@ -1245,11 +1245,11 @@ function PricingPage({ setPage }) {
 
     {/* Comparison: what you get vs what exists */}
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 32 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 16 }}>PolitiTrack vs. everything else</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 16 }}>PolitiTrack vs. everything else</div>
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr", gap: 0 }}>
         {/* Header */}
         {["Feature", "PolitiTrack", "FEC.gov", "OpenSecrets", "Raw APIs"].map((h, i) => (
-          <div key={i} style={{ padding: "10px 12px", background: i === 1 ? t.redBg : "#1d3557", fontSize: 10, fontWeight: 700, color: i === 1 ? t.red : "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase", borderRadius: i === 0 ? "8px 0 0 0" : i === 4 ? "0 8px 0 0" : 0 }}>{h}</div>
+          <div key={i} style={{ padding: "10px 12px", background: i === 1 ? t.redBg : "#1d3557", fontSize: 15, fontWeight: 700, color: i === 1 ? t.red : "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase", borderRadius: i === 0 ? "8px 0 0 0" : i === 4 ? "0 8px 0 0" : 0 }}>{h}</div>
         ))}
         {/* Rows */}
         {[
@@ -1267,7 +1267,7 @@ function PricingPage({ setPage }) {
           ["MCP server (AI assistant access)", "✓", "✗", "✗", "✗"],
         ].map((row, ri) => (
           <>{row.map((cell, ci) => (
-            <div key={`${ri}-${ci}`} style={{ padding: "10px 12px", fontSize: 12, color: cell === "✓" ? "#22c55e" : cell === "✗" ? "#ef4444" : t.text, background: ri % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, fontWeight: ci === 0 ? 500 : 400, borderRadius: ri === 11 && ci === 0 ? "0 0 0 8px" : ri === 11 && ci === 4 ? "0 0 8px 0" : 0 }}>{cell}</div>
+            <div key={`${ri}-${ci}`} style={{ padding: "10px 12px", fontSize: 16, color: cell === "✓" ? "#22c55e" : cell === "✗" ? "#ef4444" : t.text, background: ri % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, fontWeight: ci === 0 ? 500 : 400, borderRadius: ri === 11 && ci === 0 ? "0 0 0 8px" : ri === 11 && ci === 4 ? "0 0 8px 0" : 0 }}>{cell}</div>
           ))}</>
         ))}
       </div>
@@ -1282,8 +1282,8 @@ function PricingPage({ setPage }) {
         { who: "Compliance & legal", what: "Real-time alerts when clients' donations or lobbying activities trigger thresholds. Amendment tracking for due diligence." },
       ].map((u, i) => (
         <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "20px 22px", maxWidth: 230 }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: t.white, marginBottom: 6 }}>{u.who}</div>
-          <div style={{ fontSize: 12, color: t.dim, lineHeight: 1.7 }}>{u.what}</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 6 }}>{u.who}</div>
+          <div style={{ fontSize: 16, color: t.dim, lineHeight: 1.7 }}>{u.what}</div>
         </div>
       ))}
     </div>
@@ -1293,20 +1293,20 @@ function PricingPage({ setPage }) {
       {tiers.map((tier,i) => (
         <div key={i} style={{ background: t.surface, padding: 40, position: "relative", borderTop: tier.hl?`3px solid ${t.red}`:`3px solid ${t.border}`, transition: "transform 0.3s" }}
           onMouseOver={e=>e.currentTarget.style.transform="translateY(-4px)"} onMouseOut={e=>e.currentTarget.style.transform="translateY(0)"}>
-          {tier.hl&&<div style={{ position: "absolute", top: 16, right: 20, fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", background: t.redBg, color: t.red, padding: "4px 12px", borderRadius: 4, fontWeight: 700 }}>Most popular</div>}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{tier.n}</div>
-          <div style={{ fontSize: 12, color: t.gold, marginBottom: 20, fontFamily: "'Source Code Pro', monospace" }}>{tier.sub}</div>
+          {tier.hl&&<div style={{ position: "absolute", top: 16, right: 20, fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", background: t.redBg, color: t.red, padding: "4px 12px", borderRadius: 4, fontWeight: 700 }}>Most popular</div>}
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{tier.n}</div>
+          <div style={{ fontSize: 16, color: t.gold, marginBottom: 20, fontFamily: "'Source Code Pro', monospace" }}>{tier.sub}</div>
           <div style={{ marginBottom: 24 }}><span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 48, fontWeight: 700, color: t.white }}>{tier.p}</span><span style={{ color: t.dim, fontSize: 16 }}>{tier.per}</span></div>
-          {tier.f.map((f,j) => (<div key={j} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", color: f.includes("plus:") ? t.gold : t.text, fontSize: 13, fontWeight: f.includes("plus:") ? 600 : 400 }}><span style={{ color: t.red, fontSize: 11 }}>✦</span> {f}</div>))}
-          <button onClick={() => setPage("dashboard")} style={{ width: "100%", marginTop: 24, padding: "14px 0", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", background: tier.hl?`linear-gradient(135deg,${t.red},${t.redDim})`:"transparent", color: tier.hl?"#fff":t.text, border: tier.hl?"none":`1px solid ${t.border}` }}>{tier.cta}</button>
-          <div style={{ fontSize: 11, color: t.dim, marginTop: 12, textAlign: "center", lineHeight: 1.6 }}>{tier.who}</div>
+          {tier.f.map((f,j) => (<div key={j} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", color: f.includes("plus:") ? t.gold : t.text, fontSize: 15, fontWeight: f.includes("plus:") ? 600 : 400 }}><span style={{ color: t.red, fontSize: 15 }}>✦</span> {f}</div>))}
+          <button onClick={() => setPage("dashboard")} style={{ width: "100%", marginTop: 24, padding: "14px 0", borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", background: tier.hl?`linear-gradient(135deg,${t.red},${t.redDim})`:"transparent", color: tier.hl?"#fff":t.text, border: tier.hl?"none":`1px solid ${t.border}` }}>{tier.cta}</button>
+          <div style={{ fontSize: 15, color: t.dim, marginTop: 12, textAlign: "center", lineHeight: 1.6 }}>{tier.who}</div>
         </div>
       ))}
     </div>
 
     {/* Bottom line */}
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, textAlign: "center" }}>
-      <p style={{ fontSize: 14, color: t.text, lineHeight: 1.8, maxWidth: 650, margin: "0 auto" }}>
+      <p style={{ fontSize: 16, color: t.text, lineHeight: 1.8, maxWidth: 650, margin: "0 auto" }}>
         The public website is and will always be <strong style={{ color: t.white }}>100% free</strong>. The API is for professionals who need programmatic access to proprietary datasets that don't exist anywhere else — historical snapshots, influence scores, cross-source connections, and real-time alerts. These datasets compound daily. The longer PolitiTrack runs, the more irreplaceable the data becomes. Every subscriber supports keeping the public site free.
       </p>
     </div>
@@ -1319,35 +1319,35 @@ function DashboardPage() {
   const check = async () => { if(!ck) return; try { const r = await fetch(`${API_BASE}/api/v1/keys/me`,{headers:{"X-API-Key":ck}}); if(!r.ok) throw new Error(); setKi(await r.json()); } catch { setKi({key_prefix:ck.slice(0,12),tier:"free",daily_limit:100,requests_today:23,remaining:77}); }};
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 700, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Dashboard</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Dashboard</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Developer Portal</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 48 }}>Manage your API access and monitor usage.</p>
 
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 16, padding: 36, marginBottom: 20 }}>
-      <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, color: t.white, marginBottom: 24 }}>Generate API Key</h3>
+      <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, color: t.white, marginBottom: 24 }}>Generate API Key</h3>
       {!apiKey ? (<div>
-        <input type="email" placeholder="your@email.com" value={email} onChange={e=>setEmail(e.target.value)} style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 14, marginBottom: 10, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
-        <input type="text" placeholder="Name (optional)" value={name} onChange={e=>setName(e.target.value)} style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 14, marginBottom: 16, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
-        <button onClick={create} disabled={!email||ld} style={{ width: "100%", background: email?`linear-gradient(135deg,${t.red},${t.redDim})`:t.surface2, color: email?"#fff":t.dim, border: "none", padding: "16px 0", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: email?"pointer":"not-allowed", fontFamily: "'Source Code Pro', monospace" }}>{ld?"Creating...":"Generate Key"}</button>
+        <input type="email" placeholder="your@email.com" value={email} onChange={e=>setEmail(e.target.value)} style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 16, marginBottom: 10, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
+        <input type="text" placeholder="Name (optional)" value={name} onChange={e=>setName(e.target.value)} style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 16, marginBottom: 16, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
+        <button onClick={create} disabled={!email||ld} style={{ width: "100%", background: email?`linear-gradient(135deg,${t.red},${t.redDim})`:t.surface2, color: email?"#fff":t.dim, border: "none", padding: "16px 0", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: email?"pointer":"not-allowed", fontFamily: "'Source Code Pro', monospace" }}>{ld?"Creating...":"Generate Key"}</button>
       </div>) : (<div>
         <div style={{ background: t.redBg, border: "1px solid rgba(230,57,70,0.2)", borderRadius: 10, padding: 24, marginBottom: 20 }}>
-          <p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>⚠ Save this key — shown only once</p>
-          <code onClick={()=>navigator.clipboard?.writeText(apiKey.key)} title="Click to copy" style={{ display: "block", background: t.bg, padding: "14px 18px", borderRadius: 8, color: t.white, fontSize: 13, fontFamily: "'Source Code Pro', monospace", wordBreak: "break-all", cursor: "pointer", border: `1px solid ${t.border}` }}>{apiKey.key}</code>
+          <p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>⚠ Save this key — shown only once</p>
+          <code onClick={()=>navigator.clipboard?.writeText(apiKey.key)} title="Click to copy" style={{ display: "block", background: t.bg, padding: "14px 18px", borderRadius: 8, color: t.white, fontSize: 15, fontFamily: "'Source Code Pro', monospace", wordBreak: "break-all", cursor: "pointer", border: `1px solid ${t.border}` }}>{apiKey.key}</code>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          {[{l:"Tier",v:apiKey.tier,c:t.red},{l:"Daily Limit",v:apiKey.daily_limit?.toLocaleString(),c:t.white}].map((s,i) => (<div key={i} style={{ background: t.bg, borderRadius: 10, padding: 20, textAlign: "center", border: `1px solid ${t.border}` }}><div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.l}</div><div style={{ fontSize: 22, fontWeight: 700, color: s.c, fontFamily: "'Source Code Pro', monospace" }}>{s.v}</div></div>))}
+          {[{l:"Tier",v:apiKey.tier,c:t.red},{l:"Daily Limit",v:apiKey.daily_limit?.toLocaleString(),c:t.white}].map((s,i) => (<div key={i} style={{ background: t.bg, borderRadius: 10, padding: 20, textAlign: "center", border: `1px solid ${t.border}` }}><div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.l}</div><div style={{ fontSize: 16, fontWeight: 700, color: s.c, fontFamily: "'Source Code Pro', monospace" }}>{s.v}</div></div>))}
         </div>
       </div>)}
     </div>
 
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 16, padding: 36 }}>
-      <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, color: t.white, marginBottom: 24 }}>Check Usage</h3>
+      <h3 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, color: t.white, marginBottom: 24 }}>Check Usage</h3>
       <div style={{ display: "flex", gap: 10 }}>
-        <input type="text" placeholder="Paste your API key" value={ck} onChange={e=>setCk(e.target.value)} style={{ flex: 1, background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 13, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
-        <button onClick={check} style={{ background: t.surface2, color: t.text, border: `1px solid ${t.border}`, padding: "14px 24px", borderRadius: 8, fontSize: 13, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Check</button>
+        <input type="text" placeholder="Paste your API key" value={ck} onChange={e=>setCk(e.target.value)} style={{ flex: 1, background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 15, outline: "none", fontFamily: "'Source Code Pro', monospace" }} />
+        <button onClick={check} style={{ background: t.surface2, color: t.text, border: `1px solid ${t.border}`, padding: "14px 24px", borderRadius: 8, fontSize: 15, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Check</button>
       </div>
       {ki&&<div style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-        {[{l:"Tier",v:ki.tier,c:t.red},{l:"Used Today",v:ki.requests_today,c:t.gold},{l:"Remaining",v:ki.remaining,c:t.blue}].map((s,i) => (<div key={i} style={{ background: t.bg, borderRadius: 10, padding: 18, textAlign: "center", border: `1px solid ${t.border}` }}><div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.l}</div><div style={{ fontSize: 18, fontWeight: 700, color: s.c }}>{s.v}</div></div>))}
+        {[{l:"Tier",v:ki.tier,c:t.red},{l:"Used Today",v:ki.requests_today,c:t.gold},{l:"Remaining",v:ki.remaining,c:t.blue}].map((s,i) => (<div key={i} style={{ background: t.bg, borderRadius: 10, padding: 18, textAlign: "center", border: `1px solid ${t.border}` }}><div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.l}</div><div style={{ fontSize: 16, fontWeight: 700, color: s.c }}>{s.v}</div></div>))}
       </div>}
     </div>
   </div>);
@@ -1573,7 +1573,7 @@ function ExplorePage({ setPage }) {
   const d = selectedDonor || demoDonorProfile;
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Explore</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Explore</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Explore political money</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 28, fontFamily: "'Source Serif 4', Georgia, serif" }}>Search donors, explore profiles, and ask questions — no API key needed.</p>
 
@@ -1581,7 +1581,7 @@ function ExplorePage({ setPage }) {
     <div style={{ display: "flex", gap: 6, marginBottom: 28 }}>
       {[["search","Search donors"],["donor","Donor profile"],["ask","Ask AI"]].map(([k,l]) => (
         <button key={k} onClick={() => setTab(k)} style={{
-          padding: "10px 22px", borderRadius: 8, fontSize: 13,
+          padding: "10px 22px", borderRadius: 8, fontSize: 15,
           fontFamily: "'Source Code Pro', monospace", cursor: "pointer",
           background: tab === k ? t.redBg : t.surface,
           border: `1px solid ${tab === k ? t.red + "44" : t.border}`,
@@ -1597,7 +1597,7 @@ function ExplorePage({ setPage }) {
         <input type="text" placeholder="Search by donor name, company, or PAC..." value={query} onChange={e => setQuery(e.target.value)} onKeyDown={e => e.key === "Enter" && search()}
           style={{ flex: 1, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 15, fontFamily: "'Source Code Pro', monospace", outline: "none", boxSizing: "border-box" }}
           onFocus={e => e.target.style.borderColor = t.red} onBlur={e => e.target.style.borderColor = t.border} />
-        <button onClick={search} disabled={loading} style={{ background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: loading ? "wait" : "pointer", fontFamily: "'Source Code Pro', monospace", minWidth: 120 }}>{loading ? "..." : "Search"}</button>
+        <button onClick={search} disabled={loading} style={{ background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: loading ? "wait" : "pointer", fontFamily: "'Source Code Pro', monospace", minWidth: 120 }}>{loading ? "..." : "Search"}</button>
       </div>
 
       {results && (Array.isArray(results) ? results : []).map((donor, i) => (
@@ -1612,15 +1612,15 @@ function ExplorePage({ setPage }) {
           <div>
             <div style={{ fontSize: 15, fontWeight: 600, color: t.white, marginBottom: 4 }}>{donor.name}</div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.redBg, color: t.red }}>{donor.type}</span>
-              {donor.employer && <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.employer}</span>}
-              {donor.occupation && !donor.employer && <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.occupation}</span>}
-              {!donor.employer && !donor.occupation && donor.industry && <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.industry}</span>}
-              {donor.state && <span style={{ fontSize: 11, color: t.dim }}>{donor.state}</span>}
-              {donor.source === "fec" && <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 3, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>FEC LIVE</span>}
+              <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.redBg, color: t.red }}>{donor.type}</span>
+              {donor.employer && <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.employer}</span>}
+              {donor.occupation && !donor.employer && <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.occupation}</span>}
+              {!donor.employer && !donor.occupation && donor.industry && <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{donor.industry}</span>}
+              {donor.state && <span style={{ fontSize: 15, color: t.dim }}>{donor.state}</span>}
+              {donor.source === "fec" && <span style={{ fontSize: 16, padding: "2px 6px", borderRadius: 3, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>FEC LIVE</span>}
             </div>
           </div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 18, fontWeight: 700, color: t.white }}>${Math.round(donor.total || donor.total_contributed || 0).toLocaleString()}</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white }}>${Math.round(donor.total || donor.total_contributed || 0).toLocaleString()}</div>
         </div>
       ))}
 
@@ -1633,14 +1633,14 @@ function ExplorePage({ setPage }) {
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 16 }}>
           <div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{d.name}</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{d.name}</div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: d.employer || d.occupation ? 8 : 0 }}>
-              <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.redBg, color: t.red, border: `1px solid ${t.red}22` }}>{d.type}</span>
-              <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold, border: `1px solid ${t.gold}22` }}>{d.industry}</span>
-              {d.state && <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.12)", color: t.blue }}>{d.state}</span>}
+              <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.redBg, color: t.red, border: `1px solid ${t.red}22` }}>{d.type}</span>
+              <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold, border: `1px solid ${t.gold}22` }}>{d.industry}</span>
+              {d.state && <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.12)", color: t.blue }}>{d.state}</span>}
             </div>
             {(d.employer || d.occupation) && (
-              <div style={{ display: "flex", gap: 16, fontSize: 13, color: t.dim }}>
+              <div style={{ display: "flex", gap: 16, fontSize: 15, color: t.dim }}>
                 {d.employer && <span>Employer: <strong style={{ color: t.text }}>{d.employer}</strong></span>}
                 {d.occupation && <span>Occupation: <strong style={{ color: t.text }}>{d.occupation}</strong></span>}
                 {d.city && <span>{d.city}, {d.state}</span>}
@@ -1648,7 +1648,7 @@ function ExplorePage({ setPage }) {
             )}
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>Total contributed</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>Total contributed</div>
             <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 32, fontWeight: 700, color: t.white }}>${Math.round(d.total || 0).toLocaleString()}</div>
           </div>
         </div>
@@ -1664,7 +1664,7 @@ function ExplorePage({ setPage }) {
           { label: "Concentration", value: d.velocity?.concentration || "N/A", color: t.red },
         ].map((s, i) => (
           <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "14px 16px" }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.label}</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 6 }}>{s.label}</div>
             <div style={{ fontSize: 16, fontWeight: 700, color: s.color }}>{s.value}</div>
           </div>
         ))}
@@ -1672,7 +1672,7 @@ function ExplorePage({ setPage }) {
 
       {/* Party split visual */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Party distribution</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Party distribution</div>
         {d.byParty && (() => {
           const rTotal = d.byParty.R?.total || 0;
           const dTotal = d.byParty.D?.total || 0;
@@ -1681,10 +1681,10 @@ function ExplorePage({ setPage }) {
           const dPct = 100 - rPct;
           return (<div>
             <div style={{ display: "flex", borderRadius: 6, overflow: "hidden", height: 32, marginBottom: 12 }}>
-              <div style={{ width: `${rPct}%`, background: t.red, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", transition: "width 0.5s" }}>{rPct}% REP</div>
-              <div style={{ width: `${dPct}%`, background: t.blue, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", transition: "width 0.5s" }}>{dPct}% DEM</div>
+              <div style={{ width: `${rPct}%`, background: t.red, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", transition: "width 0.5s" }}>{rPct}% REP</div>
+              <div style={{ width: `${dPct}%`, background: t.blue, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", transition: "width 0.5s" }}>{dPct}% DEM</div>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: t.dim }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, color: t.dim }}>
               <span>${rTotal.toLocaleString()} ({d.byParty.R?.count || 0} donations)</span>
               <span>${dTotal.toLocaleString()} ({d.byParty.D?.count || 0} donations)</span>
             </div>
@@ -1694,15 +1694,15 @@ function ExplorePage({ setPage }) {
 
       {/* Yearly spending bar chart */}
       {d.byYear && (<div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Spending by year</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Spending by year</div>
         <div style={{ display: "flex", alignItems: "end", gap: 6, height: 120 }}>
           {Object.entries(d.byYear).map(([year, amount], i) => {
             const maxVal = Math.max(...Object.values(d.byYear));
             const pct = maxVal > 0 ? (amount / maxVal) * 100 : 0;
             return (<div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim }}>${(amount / 1000).toFixed(0)}k</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>${(amount / 1000).toFixed(0)}k</div>
               <div style={{ width: "100%", height: `${pct}%`, minHeight: 4, background: `linear-gradient(to top, ${t.red}, ${t.gold})`, borderRadius: "4px 4px 0 0", transition: "height 0.5s" }} />
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, color: t.dim }}>{year}</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{year}</div>
             </div>);
           })}
         </div>
@@ -1710,14 +1710,14 @@ function ExplorePage({ setPage }) {
 
       {/* Top recipients */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Top recipients</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Top recipients</div>
         {(d.topRecipients || []).map((r, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < (d.topRecipients || []).length - 1 ? `1px solid ${t.border}` : "none" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1 }}>
-              <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: r.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(r.party), minWidth: 32, textAlign: "center" }}>{pl(r.party)}</span>
+              <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: r.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(r.party), minWidth: 32, textAlign: "center" }}>{pl(r.party)}</span>
               <div>
-                <div style={{ fontSize: 14, color: t.white, fontWeight: 500 }}>{r.name}</div>
-                <div style={{ fontSize: 11, color: t.dim }}>{r.office} · {r.state}{r.committees ? ` · ${r.committees}` : ""}</div>
+                <div style={{ fontSize: 16, color: t.white, fontWeight: 500 }}>{r.name}</div>
+                <div style={{ fontSize: 15, color: t.dim }}>{r.office} · {r.state}{r.committees ? ` · ${r.committees}` : ""}</div>
               </div>
             </div>
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 600, color: t.white }}>${(r.total || 0).toLocaleString()}</div>
@@ -1727,15 +1727,15 @@ function ExplorePage({ setPage }) {
 
       {/* Recent donations */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Recent donations</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Recent donations</div>
         {(d.recentDonations || []).map((don, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < (d.recentDonations || []).length - 1 ? `1px solid ${t.border}` : "none" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ width: 4, height: 4, borderRadius: "50%", background: pc(don.party), flexShrink: 0 }} />
-              <span style={{ fontSize: 13, color: t.text }}>{don.recipient}</span>
-              <span style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{don.date}</span>
+              <span style={{ fontSize: 15, color: t.text }}>{don.recipient}</span>
+              <span style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{don.date}</span>
             </div>
-            <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 14, fontWeight: 600, color: t.white }}>${(don.amount || 0).toLocaleString()}</span>
+            <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 600, color: t.white }}>${(don.amount || 0).toLocaleString()}</span>
           </div>
         ))}
       </div>
@@ -1743,51 +1743,51 @@ function ExplorePage({ setPage }) {
       {/* Lobbying + contracts sidebar */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20 }}>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Lobbying activity</div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: t.white, marginBottom: 8 }}>{d.lobbying?.spend || "N/A"}</div>
-          <div style={{ fontSize: 12, color: t.dim, marginBottom: 8 }}>{d.lobbying?.filings || 0} filings</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Lobbying activity</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8 }}>{d.lobbying?.spend || "N/A"}</div>
+          <div style={{ fontSize: 16, color: t.dim, marginBottom: 8 }}>{d.lobbying?.filings || 0} filings</div>
           <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
             {(d.lobbying?.issues || []).map((issue, i) => (
-              <span key={i} style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{issue}</span>
+              <span key={i} style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>{issue}</span>
             ))}
           </div>
         </div>
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20 }}>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts</div>
-          <div style={{ fontSize: 22, fontWeight: 700, color: t.white, marginBottom: 8 }}>{d.contracts?.total || "N/A"}</div>
-          <div style={{ fontSize: 12, color: t.dim, marginBottom: 8 }}>{d.contracts?.count || 0} contracts</div>
-          <div style={{ fontSize: 12, color: t.text }}>{d.contracts?.agency || ""}</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8 }}>{d.contracts?.total || "N/A"}</div>
+          <div style={{ fontSize: 16, color: t.dim, marginBottom: 8 }}>{d.contracts?.count || 0} contracts</div>
+          <div style={{ fontSize: 16, color: t.text }}>{d.contracts?.agency || ""}</div>
         </div>
       </div>
 
       {/* AI analysis CTA */}
       <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 24, textAlign: "center" }}>
         <p style={{ color: t.red, fontSize: 15, fontWeight: 600, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>Want AI analysis of this donor's motivations?</p>
-        <p style={{ color: t.dim, fontSize: 13, marginBottom: 16 }}>Our AI cross-references donations, lobbying, contracts, and legislation to identify likely motivations.</p>
-        <button onClick={() => setPage("pricing")} style={{ background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, color: "#fff", border: "none", padding: "12px 28px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Upgrade to Pro →</button>
+        <p style={{ color: t.dim, fontSize: 15, marginBottom: 16 }}>Our AI cross-references donations, lobbying, contracts, and legislation to identify likely motivations.</p>
+        <button onClick={() => setPage("pricing")} style={{ background: `linear-gradient(135deg, ${t.red}, ${t.redDim})`, color: "#fff", border: "none", padding: "12px 28px", borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Upgrade to Pro →</button>
       </div>
     </div>)}
 
     {/* ASK AI TAB */}
     {tab === "ask" && (<div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Ask a question about political money</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Ask a question about political money</div>
         <textarea value={aiQuestion} onChange={e => setAiQuestion(e.target.value)} placeholder="e.g. Why does the oil industry donate so heavily to the Energy Committee? What defense contractors have the most influence?" rows={3}
-          style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 14, fontFamily: "'Source Serif 4', Georgia, serif", outline: "none", resize: "vertical" }}
+          style={{ width: "100%", boxSizing: "border-box", background: t.bg, border: `1px solid ${t.border}`, borderRadius: 8, padding: "14px 18px", color: t.white, fontSize: 16, fontFamily: "'Source Serif 4', Georgia, serif", outline: "none", resize: "vertical" }}
           onFocus={e => e.target.style.borderColor = t.red} onBlur={e => e.target.style.borderColor = t.border} />
-        <button onClick={askAi} disabled={loading || !aiQuestion.trim()} style={{ marginTop: 12, background: aiQuestion.trim() ? `linear-gradient(135deg, ${t.red}, ${t.redDim})` : t.surface2, color: aiQuestion.trim() ? "#fff" : t.dim, border: "none", padding: "14px 32px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: aiQuestion.trim() ? "pointer" : "not-allowed", fontFamily: "'Source Code Pro', monospace" }}>{loading ? "Analyzing..." : "Ask AI"}</button>
+        <button onClick={askAi} disabled={loading || !aiQuestion.trim()} style={{ marginTop: 12, background: aiQuestion.trim() ? `linear-gradient(135deg, ${t.red}, ${t.redDim})` : t.surface2, color: aiQuestion.trim() ? "#fff" : t.dim, border: "none", padding: "14px 32px", borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: aiQuestion.trim() ? "pointer" : "not-allowed", fontFamily: "'Source Code Pro', monospace" }}>{loading ? "Analyzing..." : "Ask AI"}</button>
       </div>
 
       {/* Example questions */}
       {!aiAnswer && (<div>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 12 }}>Try these questions</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 12 }}>Try these questions</div>
         {[
           "Why does ExxonMobil donate to both parties?",
           "Which defense contractors have the highest influence scores?",
           "What bills are pharmaceutical companies lobbying on right now?",
           "Show me the money flow from oil companies to the Energy Committee",
         ].map((q, i) => (
-          <div key={i} onClick={() => { setAiQuestion(q); }} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 18px", marginBottom: 6, cursor: "pointer", transition: "all 0.2s", fontSize: 14, color: t.text, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}
+          <div key={i} onClick={() => { setAiQuestion(q); }} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 8, padding: "12px 18px", marginBottom: 6, cursor: "pointer", transition: "all 0.2s", fontSize: 16, color: t.text, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}
             onMouseOver={e => { e.currentTarget.style.background = t.surface2; e.currentTarget.style.borderColor = t.red + "33"; }}
             onMouseOut={e => { e.currentTarget.style.background = t.surface; e.currentTarget.style.borderColor = t.border; }}
           >"{q}"</div>
@@ -1797,16 +1797,16 @@ function ExplorePage({ setPage }) {
       {/* AI Answer */}
       {aiAnswer && (<div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, borderLeft: `3px solid ${t.red}` }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red }}>AI analysis</div>
-          {aiAnswer.confidence && <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>Confidence: {aiAnswer.confidence}/10</span>}
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red }}>AI analysis</div>
+          {aiAnswer.confidence && <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>Confidence: {aiAnswer.confidence}/10</span>}
         </div>
-        <p style={{ color: t.text, fontSize: 14, lineHeight: 1.85, marginBottom: 16, fontFamily: "'Source Serif 4', Georgia, serif" }}>{aiAnswer.answer}</p>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.85, marginBottom: 16, fontFamily: "'Source Serif 4', Georgia, serif" }}>{aiAnswer.answer}</p>
         {aiAnswer.sources && (<div style={{ display: "flex", gap: 6 }}>
           {aiAnswer.sources.map((s, i) => (
-            <span key={i} style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, background: "rgba(90,159,212,0.1)", color: t.blue, fontFamily: "'Source Code Pro', monospace" }}>{s}</span>
+            <span key={i} style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, background: "rgba(90,159,212,0.1)", color: t.blue, fontFamily: "'Source Code Pro', monospace" }}>{s}</span>
           ))}
         </div>)}
-        <p style={{ color: t.dim, fontSize: 11, marginTop: 12, fontFamily: "'Source Code Pro', monospace", fontStyle: "italic" }}>AI-generated inference based on public records. Not a statement of confirmed fact.</p>
+        <p style={{ color: t.dim, fontSize: 15, marginTop: 12, fontFamily: "'Source Code Pro', monospace", fontStyle: "italic" }}>AI-generated inference based on public records. Not a statement of confirmed fact.</p>
       </div>)}
     </div>)}
   </div>);
@@ -1815,16 +1815,16 @@ function ExplorePage({ setPage }) {
 function LegalSection({ title, children }) {
   return (<div style={{ marginBottom: 32 }}>
     <h3 style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 12 }}>{title}</h3>
-    <div style={{ color: t.text, fontSize: 14, lineHeight: 1.85 }}>{children}</div>
+    <div style={{ color: t.text, fontSize: 16, lineHeight: 1.85 }}>{children}</div>
   </div>);
 }
 
 function PrivacyPage() {
   const updated = "April 4, 2026";
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 780, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Privacy Policy</h1>
-    <p style={{ color: t.dim, fontSize: 13, marginBottom: 40, fontFamily: "'Source Code Pro', monospace" }}>Last updated: {updated}</p>
+    <p style={{ color: t.dim, fontSize: 15, marginBottom: 40, fontFamily: "'Source Code Pro', monospace" }}>Last updated: {updated}</p>
 
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 36 }}>
 
@@ -1925,9 +1925,9 @@ function PrivacyPage() {
 function TermsPage() {
   const updated = "April 4, 2026";
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 780, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Terms of Service</h1>
-    <p style={{ color: t.dim, fontSize: 13, marginBottom: 40, fontFamily: "'Source Code Pro', monospace" }}>Last updated: {updated}</p>
+    <p style={{ color: t.dim, fontSize: 15, marginBottom: 40, fontFamily: "'Source Code Pro', monospace" }}>Last updated: {updated}</p>
 
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 36 }}>
 
@@ -2181,15 +2181,15 @@ function SpendingPage() {
   };
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Government Spending</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Government Spending</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Where your tax dollars go</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 24, fontFamily: "'Source Serif 4', Georgia, serif" }}>Every spending bill that passed, what it funds, how it affects you, and who profits.</p>
 
     {/* Main tab toggle */}
     <div style={{ display: "flex", gap: 6, marginBottom: 28 }}>
-      <button onClick={() => setMainTab("bills")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "bills" ? t.redBg : t.surface, border: `1px solid ${mainTab === "bills" ? t.red + "44" : t.border}`, color: mainTab === "bills" ? t.red : t.dim, fontWeight: mainTab === "bills" ? 600 : 400 }}>FY2026 spending bills</button>
-      <button onClick={() => setMainTab("impact")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "impact" ? t.redBg : t.surface, border: `1px solid ${mainTab === "impact" ? t.red + "44" : t.border}`, color: mainTab === "impact" ? t.red : t.dim, fontWeight: mainTab === "impact" ? 600 : 400 }}>Economic impact analysis</button>
-      <button onClick={() => setMainTab("prices")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "prices" ? t.redBg : t.surface, border: `1px solid ${mainTab === "prices" ? t.red + "44" : t.border}`, color: mainTab === "prices" ? t.red : t.dim, fontWeight: mainTab === "prices" ? 600 : 400 }}>Your cost of living</button>
+      <button onClick={() => setMainTab("bills")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "bills" ? t.redBg : t.surface, border: `1px solid ${mainTab === "bills" ? t.red + "44" : t.border}`, color: mainTab === "bills" ? t.red : t.dim, fontWeight: mainTab === "bills" ? 600 : 400 }}>FY2026 spending bills</button>
+      <button onClick={() => setMainTab("impact")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "impact" ? t.redBg : t.surface, border: `1px solid ${mainTab === "impact" ? t.red + "44" : t.border}`, color: mainTab === "impact" ? t.red : t.dim, fontWeight: mainTab === "impact" ? 600 : 400 }}>Economic impact analysis</button>
+      <button onClick={() => setMainTab("prices")} style={{ padding: "10px 22px", borderRadius: 8, fontSize: 15, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", background: mainTab === "prices" ? t.redBg : t.surface, border: `1px solid ${mainTab === "prices" ? t.red + "44" : t.border}`, color: mainTab === "prices" ? t.red : t.dim, fontWeight: mainTab === "prices" ? 600 : 400 }}>Your cost of living</button>
     </div>
 
     {/* ── SPENDING BILLS TAB ── */}
@@ -2197,7 +2197,7 @@ function SpendingPage() {
       {/* Total spending banner */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
         <div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>FY2026 total discretionary spending</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>FY2026 total discretionary spending</div>
           <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, fontWeight: 700, color: t.red }}>$1.7 trillion</div>
         </div>
         <div style={{ display: "flex", gap: 16 }}>
@@ -2207,7 +2207,7 @@ function SpendingPage() {
             { label: "Non-defense", value: "$814B", color: t.blue },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center", padding: "8px 16px", background: t.bg, borderRadius: 8, border: `1px solid ${t.border}` }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{s.label}</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{s.label}</div>
               <div style={{ fontSize: 16, fontWeight: 700, color: s.color }}>{s.value}</div>
             </div>
           ))}
@@ -2229,14 +2229,14 @@ function SpendingPage() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", gap: 12 }}>
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                  <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, fontWeight: 700, color: t.red }}>{bill.bill}</span>
-                  <span style={{ fontSize: 10, padding: "2px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: sc.bg, color: sc.color, fontWeight: 600 }}>{bill.status}</span>
+                  <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 700, color: t.red }}>{bill.bill}</span>
+                  <span style={{ fontSize: 15, padding: "2px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: sc.bg, color: sc.color, fontWeight: 600 }}>{bill.status}</span>
                 </div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: t.white, marginBottom: 4 }}>{bill.title}</div>
-                <div style={{ fontSize: 12, color: t.dim }}>{bill.signedDate} · House: {bill.votes.house} · Senate: {bill.votes.senate}</div>
+                <div style={{ fontSize: 16, color: t.dim }}>{bill.signedDate} · House: {bill.votes.house} · Senate: {bill.votes.senate}</div>
               </div>
               <div style={{ textAlign: "right", minWidth: 100 }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 22, fontWeight: 700, color: t.white }}>{bill.totalFunding}</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white }}>{bill.totalFunding}</div>
                 <span style={{ color: t.dim, fontSize: 16, transform: isOpen ? "rotate(180deg)" : "none", display: "inline-block", transition: "transform 0.2s" }}>▾</span>
               </div>
             </div>
@@ -2245,38 +2245,38 @@ function SpendingPage() {
           {/* Expanded bill detail */}
           {isOpen && (<div style={{ background: t.surface, border: `1px solid ${t.border}`, borderTop: "none", borderRadius: "0 0 12px 12px", padding: 24 }}>
             {/* Funding breakdown */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Funding breakdown</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Funding breakdown</div>
             {bill.divisions.map((div, di) => (
               <div key={di} style={{ display: "flex", justifyContent: "space-between", alignItems: "start", padding: "12px 0", borderBottom: di < bill.divisions.length - 1 ? `1px solid ${t.border}` : "none" }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: t.white, marginBottom: 4 }}>{div.name}</div>
-                  <div style={{ fontSize: 12, color: t.dim, lineHeight: 1.7 }}>{div.details}</div>
+                  <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 4 }}>{div.name}</div>
+                  <div style={{ fontSize: 16, color: t.dim, lineHeight: 1.7 }}>{div.details}</div>
                 </div>
                 <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white, minWidth: 100, textAlign: "right" }}>{div.amount}</div>
               </div>
             ))}
 
             {/* Consumer impact */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 24, marginBottom: 12 }}>How this affects you</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 24, marginBottom: 12 }}>How this affects you</div>
             {bill.consumerImpact.map((ci, i) => (
               <div key={i} style={{ background: t.bg, borderRadius: 10, padding: "16px 20px", marginBottom: 8, border: `1px solid ${t.border}` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: t.white }}>{ci.what}</span>
-                  <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{ci.who}</span>
+                  <span style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{ci.what}</span>
+                  <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{ci.who}</span>
                 </div>
-                <p style={{ fontSize: 13, color: t.text, lineHeight: 1.7, marginBottom: 4 }}>{ci.how}</p>
-                <p style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>Source: {ci.source}</p>
+                <p style={{ fontSize: 15, color: t.text, lineHeight: 1.7, marginBottom: 4 }}>{ci.how}</p>
+                <p style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>Source: {ci.source}</p>
               </div>
             ))}
 
             {/* Top contractors */}
             {bill.topContractors.length > 0 && (<div>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginTop: 24, marginBottom: 12 }}>Top contractors profiting from this bill</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginTop: 24, marginBottom: 12 }}>Top contractors profiting from this bill</div>
               {bill.topContractors.map((tc, i) => (
                 <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < bill.topContractors.length - 1 ? `1px solid ${t.border}` : "none" }}>
                   <div>
-                    <span style={{ fontSize: 14, color: t.white, fontWeight: 500 }}>{tc.name}</span>
-                    <span style={{ color: t.dim, fontSize: 12, marginLeft: 10 }}>{tc.type}</span>
+                    <span style={{ fontSize: 16, color: t.white, fontWeight: 500 }}>{tc.name}</span>
+                    <span style={{ color: t.dim, fontSize: 16, marginLeft: 10 }}>{tc.type}</span>
                   </div>
                   <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 700, color: t.white }}>{tc.amount}</span>
                 </div>
@@ -2285,8 +2285,8 @@ function SpendingPage() {
 
             {/* Donor connection — the PolitiTrack link */}
             <div style={{ marginTop: 20, padding: 16, background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 10 }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Follow the money</div>
-              <p style={{ color: t.text, fontSize: 13, lineHeight: 1.7 }}>{bill.donorConnection}</p>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Follow the money</div>
+              <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7 }}>{bill.donorConnection}</p>
             </div>
           </div>)}
         </div>);
@@ -2294,7 +2294,7 @@ function SpendingPage() {
 
       {/* Source disclaimer */}
       <div style={{ marginTop: 24, padding: 16, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10 }}>
-        <p style={{ color: t.dim, fontSize: 11, lineHeight: 1.7, fontFamily: "'Source Code Pro', monospace" }}>
+        <p style={{ color: t.dim, fontSize: 15, lineHeight: 1.7, fontFamily: "'Source Code Pro', monospace" }}>
           Bill data from Congress.gov and the House/Senate Appropriations Committees. Funding figures from CBO cost estimates and committee reports. Consumer impact analysis based on public data from BLS, CMS, USDA, HUD, DoD, and cited academic research. Contractor data from USASpending.gov. Donor/lobbying data from FEC and Senate LDA filings via PolitiTrack. This page is nonpartisan and presents fiscal data without policy recommendations.
         </p>
       </div>
@@ -2303,8 +2303,8 @@ function SpendingPage() {
     {/* ── YOUR COST OF LIVING TAB ── */}
     {mainTab === "prices" && (<div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 24, borderLeft: `4px solid ${t.red}` }}>
-        <div style={{ fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>How government spending hits your wallet</div>
-        <p style={{ color: t.text, fontSize: 14, lineHeight: 1.8 }}>Side-by-side comparison of what everyday items cost last year vs. now. Prices from BLS Consumer Price Index, USDA food data, AAA fuel gauge, and Census housing data.</p>
+        <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>How government spending hits your wallet</div>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>Side-by-side comparison of what everyday items cost last year vs. now. Prices from BLS Consumer Price Index, USDA food data, AAA fuel gauge, and Census housing data.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 24 }}>
@@ -2314,9 +2314,9 @@ function SpendingPage() {
           { label: "Real wage growth after inflation", value: "+0.3%", sub: "Barely keeping up", color: t.gold },
         ].map((s, i) => (
           <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20, textAlign: "center" }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 8 }}>{s.label}</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 8 }}>{s.label}</div>
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 28, fontWeight: 700, color: s.color || "#ef4444" }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: t.dim, marginTop: 4 }}>{s.sub}</div>
+            <div style={{ fontSize: 16, color: t.dim, marginTop: 4 }}>{s.sub}</div>
           </div>
         ))}
       </div>
@@ -2366,13 +2366,13 @@ function SpendingPage() {
       ].map((cat, ci) => (
         <div key={ci} style={{ marginBottom: 20 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-            <span style={{ fontSize: 22 }}>{cat.icon}</span>
+            <span style={{ fontSize: 18 }}>{cat.icon}</span>
             <span style={{ fontSize: 16, fontWeight: 700, color: t.white }}>{cat.category}</span>
           </div>
-          <div style={{ fontSize: 12, color: t.dim, marginBottom: 10, padding: "10px 14px", background: t.surface, borderRadius: 8, border: `1px solid ${t.border}`, lineHeight: 1.7 }}>{cat.note}</div>
+          <div style={{ fontSize: 16, color: t.dim, marginBottom: 10, padding: "10px 14px", background: t.surface, borderRadius: 8, border: `1px solid ${t.border}`, lineHeight: 1.7 }}>{cat.note}</div>
           <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 3fr", gap: 0, background: "#1d3557", borderRadius: "10px 10px 0 0", padding: "10px 16px" }}>
             {["Item", "2025", "2026", "Change", "What's driving it"].map((h, i) => (
-              <div key={i} style={{ fontSize: 10, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase" }}>{h}</div>
+              <div key={i} style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase" }}>{h}</div>
             ))}
           </div>
           {cat.items.map((item, ii) => {
@@ -2380,26 +2380,26 @@ function SpendingPage() {
             const isBig = item.change.includes("$") || parseInt(item.change) > 10;
             return (
               <div key={ii} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 3fr", gap: 0, padding: "12px 16px", background: ii % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, borderRadius: ii === cat.items.length - 1 ? "0 0 10px 10px" : 0 }}>
-                <div style={{ fontSize: 13, color: t.white, fontWeight: 500 }}>{item.item}</div>
-                <div style={{ fontSize: 13, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{item.y2025}</div>
-                <div style={{ fontSize: 13, color: t.white, fontFamily: "'Source Code Pro', monospace", fontWeight: 600 }}>{item.y2026}</div>
-                <div style={{ fontSize: 13, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: isNeg ? "#22c55e" : isBig ? "#ef4444" : t.gold }}>{item.change}</div>
-                <div style={{ fontSize: 11, color: t.dim, lineHeight: 1.6 }}>{item.driver}</div>
+                <div style={{ fontSize: 15, color: t.white, fontWeight: 500 }}>{item.item}</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{item.y2025}</div>
+                <div style={{ fontSize: 15, color: t.white, fontFamily: "'Source Code Pro', monospace", fontWeight: 600 }}>{item.y2026}</div>
+                <div style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: isNeg ? "#22c55e" : isBig ? "#ef4444" : t.gold }}>{item.change}</div>
+                <div style={{ fontSize: 15, color: t.dim, lineHeight: 1.6 }}>{item.driver}</div>
               </div>
             );
           })}
-          <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>Source: {cat.source}</div>
+          <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>Source: {cat.source}</div>
         </div>
       ))}
 
       <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 24, marginTop: 8 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>The bottom line</div>
-        <p style={{ color: t.text, fontSize: 14, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$5,400 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs +84%), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
-        <p style={{ color: t.dim, fontSize: 11, marginTop: 12, fontFamily: "'Source Code Pro', monospace" }}>Sources: BLS CPI Feb 2026 (USDL-26-0437), BLS 2025 Year in Review, USDA ERS, AAA, KFF, Census, EIA.</p>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>The bottom line</div>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$5,400 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs +84%), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
+        <p style={{ color: t.dim, fontSize: 15, marginTop: 12, fontFamily: "'Source Code Pro', monospace" }}>Sources: BLS CPI Feb 2026 (USDL-26-0437), BLS 2025 Year in Review, USDA ERS, AAA, KFF, Census, EIA.</p>
       </div>
 
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginTop: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 16 }}>Follow the money — who profits from higher prices?</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 16 }}>Follow the money — who profits from higher prices?</div>
         {[
           { industry: "Oil & gas companies", profit: "Record refining margins", donated: "$42M to Congress (2024)", link: "Lobby against fuel efficiency & renewables" },
           { industry: "Health insurance", profit: "UnitedHealth $22.4B net income", donated: "$28M to Congress (2024)", link: "Lobby against Medicare expansion" },
@@ -2409,16 +2409,16 @@ function SpendingPage() {
         ].map((row, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "start", padding: "12px 0", borderBottom: i < 4 ? `1px solid ${t.border}` : "none", gap: 16 }}>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: t.white, marginBottom: 2 }}>{row.industry}</div>
-              <div style={{ fontSize: 12, color: t.dim }}>{row.profit}</div>
+              <div style={{ fontSize: 16, fontWeight: 600, color: t.white, marginBottom: 2 }}>{row.industry}</div>
+              <div style={{ fontSize: 16, color: t.dim }}>{row.profit}</div>
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, color: t.gold, fontFamily: "'Source Code Pro', monospace", marginBottom: 2 }}>{row.donated}</div>
-              <div style={{ fontSize: 11, color: t.dim }}>{row.link}</div>
+              <div style={{ fontSize: 16, color: t.gold, fontFamily: "'Source Code Pro', monospace", marginBottom: 2 }}>{row.donated}</div>
+              <div style={{ fontSize: 15, color: t.dim }}>{row.link}</div>
             </div>
           </div>
         ))}
-        <p style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 12 }}>Donation data: FEC via PolitiTrack. Lobbying: Senate LDA. Profits: SEC filings.</p>
+        <p style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 12 }}>Donation data: FEC via PolitiTrack. Lobbying: Senate LDA. Profits: SEC filings.</p>
       </div>
     </div>)}
 
@@ -2428,7 +2428,7 @@ function SpendingPage() {
       <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
         {impactTopics.map((tp, i) => (
           <button key={i} onClick={() => { setActiveTopic(i); setActiveSection(null); }} style={{
-            padding: "12px 22px", borderRadius: 10, fontSize: 13, cursor: "pointer",
+            padding: "12px 22px", borderRadius: 10, fontSize: 15, cursor: "pointer",
             fontFamily: "'Source Code Pro', monospace",
             background: activeTopic === i ? t.redBg : t.surface,
             border: `1px solid ${activeTopic === i ? t.red + "44" : t.border}`,
@@ -2445,13 +2445,13 @@ function SpendingPage() {
           <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 32, marginBottom: 20, borderLeft: `4px solid ${t.red}` }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 16 }}>
               <div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{tp.headline}</div>
-                <p style={{ color: t.text, fontSize: 14, lineHeight: 1.8, maxWidth: 600 }}>{tp.summary}</p>
+                <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{tp.headline}</div>
+                <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8, maxWidth: 600 }}>{tp.summary}</p>
               </div>
               <div style={{ textAlign: "right", minWidth: 180 }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{tp.totalLabel}</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>{tp.totalLabel}</div>
                 <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 40, fontWeight: 700, color: t.red }}>{tp.totalCost}</div>
-                <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>Updated: {tp.updated}</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>Updated: {tp.updated}</div>
               </div>
             </div>
           </div>
@@ -2467,17 +2467,17 @@ function SpendingPage() {
                 display: "flex", justifyContent: "space-between", alignItems: "center",
               }}>
                 <span style={{ fontSize: 15, fontWeight: 600, color: t.white }}>{section.title}</span>
-                <span style={{ color: t.dim, fontSize: 18, transform: activeSection === si ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
+                <span style={{ color: t.dim, fontSize: 16, transform: activeSection === si ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
               </div>
               {activeSection === si && (
                 <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderTop: "none", borderRadius: "0 0 12px 12px", padding: "8px 0" }}>
                   {section.data.map((d, di) => (
                     <div key={di} style={{ padding: "14px 24px", borderBottom: di < section.data.length - 1 ? `1px solid ${t.border}` : "none", display: "flex", justifyContent: "space-between", alignItems: "start", gap: 16 }}>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: 14, color: t.text, marginBottom: 4 }}>{d.label}</div>
-                        <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>Source: {d.source}</div>
+                        <div style={{ fontSize: 16, color: t.text, marginBottom: 4 }}>{d.label}</div>
+                        <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>Source: {d.source}</div>
                       </div>
-                      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 18, fontWeight: 700, color: sentimentColor(d.value), textAlign: "right", minWidth: 160 }}>{d.value}</div>
+                      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: sentimentColor(d.value), textAlign: "right", minWidth: 160 }}>{d.value}</div>
                     </div>
                   ))}
                 </div>
@@ -2487,15 +2487,15 @@ function SpendingPage() {
 
           {/* Economists */}
           {tp.economists && (<div style={{ marginTop: 24 }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 12 }}>Economist perspectives</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 12 }}>Economist perspectives</div>
             {tp.economists.map((econ, ei) => (
               <div key={ei} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 8, borderLeft: `3px solid ${t.gold}` }}>
                 <div style={{ marginBottom: 8 }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: t.white }}>{econ.name}</span>
-                  <span style={{ color: t.dim, fontSize: 13, marginLeft: 12 }}>{econ.affiliation}</span>
+                  <span style={{ color: t.dim, fontSize: 15, marginLeft: 12 }}>{econ.affiliation}</span>
                 </div>
-                <p style={{ color: t.text, fontSize: 13, lineHeight: 1.8, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic", marginBottom: 6 }}>"{econ.view}"</p>
-                <p style={{ color: t.dim, fontSize: 11, fontFamily: "'Source Code Pro', monospace" }}>Source: {econ.source}</p>
+                <p style={{ color: t.text, fontSize: 15, lineHeight: 1.8, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic", marginBottom: 6 }}>"{econ.view}"</p>
+                <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>Source: {econ.source}</p>
               </div>
             ))}
           </div>)}
@@ -2865,7 +2865,7 @@ function MyDistrictPage({ setPage }) {
   const costIcon = (dir) => dir === "up" ? "▲" : dir === "down" ? "▼" : "●";
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>My District</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>My District</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Your money, your representatives</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 28, fontFamily: "'Source Serif 4', Georgia, serif" }}>Enter your ZIP code to see who represents you, who funds them, how they voted, and what it costs you personally.</p>
 
@@ -2875,10 +2875,10 @@ function MyDistrictPage({ setPage }) {
       <p style={{ color: t.text, fontSize: 16, marginBottom: 20 }}>Enter your ZIP code to see your personalized district dashboard</p>
       <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
         <input type="text" placeholder="ZIP code" value={zip} onChange={e => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))} onKeyDown={e => e.key === "Enter" && zip.length >= 5 && lookup()}
-          style={{ width: 180, background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 24, fontFamily: "'Source Code Pro', monospace", outline: "none", letterSpacing: 6, textAlign: "center", boxSizing: "border-box" }} />
+          style={{ width: 180, background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 16, fontFamily: "'Source Code Pro', monospace", outline: "none", letterSpacing: 6, textAlign: "center", boxSizing: "border-box" }} />
         <button onClick={lookup} disabled={zip.length < 5 || loading} style={{ background: zip.length >= 5 ? `linear-gradient(135deg, ${t.red}, ${t.redDim})` : t.surface2, color: zip.length >= 5 ? "#fff" : t.dim, border: "none", padding: "16px 36px", borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: zip.length >= 5 ? "pointer" : "not-allowed", fontFamily: "'Source Code Pro', monospace" }}>{loading ? "Loading..." : "Show my district"}</button>
       </div>
-      <p style={{ fontSize: 11, color: t.dim, marginTop: 12 }}>Your ZIP code is not stored. Used only to find your representatives.</p>
+      <p style={{ fontSize: 15, color: t.dim, marginTop: 12 }}>Your ZIP code is not stored. Used only to find your representatives.</p>
     </div>)}
 
     {/* Dashboard */}
@@ -2886,50 +2886,50 @@ function MyDistrictPage({ setPage }) {
       {/* Header bar */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
         <div>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.dim }}>District: </span>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.white, fontWeight: 600 }}>{dd.state}-{dd.district} · {dd.region}</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>District: </span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.white, fontWeight: 600 }}>{dd.state}-{dd.district} · {dd.region}</span>
         </div>
-        <button onClick={() => { setLoaded(false); setZip(""); }} style={{ fontSize: 12, color: t.dim, background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Change ZIP</button>
+        <button onClick={() => { setLoaded(false); setZip(""); }} style={{ fontSize: 16, color: t.dim, background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Change ZIP</button>
       </div>
 
       {/* Cost impact banner */}
       <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <div>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Your estimated annual cost increase (2025 → 2026)</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Your estimated annual cost increase (2025 → 2026)</div>
             <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 42, fontWeight: 700, color: t.red }}>+${dd.costImpact.annualIncrease.toLocaleString()}/yr</div>
-            <div style={{ fontSize: 14, color: t.text, marginTop: 4 }}>That's <strong style={{ color: t.white }}>+${dd.costImpact.monthlyIncrease}/month</strong> more than last year for a household in {dd.region}</div>
+            <div style={{ fontSize: 16, color: t.text, marginTop: 4 }}>That's <strong style={{ color: t.white }}>+${dd.costImpact.monthlyIncrease}/month</strong> more than last year for a household in {dd.region}</div>
           </div>
           <div style={{ textAlign: "center", padding: "16px 24px", background: "rgba(230,57,70,0.08)", borderRadius: 10 }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>Political money score</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>Political money score</div>
             <div style={{ fontSize: 36, fontWeight: 700, color: dd.politicalMoneyScore > 70 ? t.red : dd.politicalMoneyScore > 40 ? t.gold : "#22c55e" }}>{dd.politicalMoneyScore}</div>
-            <div style={{ fontSize: 10, color: t.dim }}>out of 100 (higher = more donor influence)</div>
+            <div style={{ fontSize: 15, color: t.dim }}>out of 100 (higher = more donor influence)</div>
           </div>
         </div>
       </div>
 
       {/* Personal cost breakdown — what their reps voted for costs them */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How your reps' votes affect your wallet</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How your reps' votes affect your wallet</div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, background: "#1d3557", borderRadius: "10px 10px 0 0", padding: "10px 16px" }}>
           {["Category", "Monthly", "Annual", "Why it costs you more (and which bill)"].map((h, i) => (
-            <div key={i} style={{ fontSize: 10, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase" }}>{h}</div>
+            <div key={i} style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase" }}>{h}</div>
           ))}
         </div>
         {dd.costImpact.breakdown.map((row, i) => (
           <div key={i} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, padding: "14px 16px", background: i % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, borderRadius: i === dd.costImpact.breakdown.length - 1 ? "0 0 10px 10px" : 0 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: t.white }}>{row.category}</div>
-            <div style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.monthly}</div>
-            <div style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.annual}</div>
+            <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{row.category}</div>
+            <div style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.monthly}</div>
+            <div style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.annual}</div>
             <div>
-              <div style={{ fontSize: 12, color: t.text, marginBottom: 4 }}>{row.driver}</div>
-              <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{row.billConnection}</div>
+              <div style={{ fontSize: 16, color: t.text, marginBottom: 4 }}>{row.driver}</div>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace" }}>{row.billConnection}</div>
             </div>
           </div>
         ))}
         <div style={{ padding: "16px", background: t.bg, borderRadius: "0 0 10px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: 14, fontWeight: 600, color: t.white }}>Total increase for your area</span>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 20, fontWeight: 700, color: "#ef4444" }}>+${dd.costImpact.monthlyIncrease}/mo · +${dd.costImpact.annualIncrease.toLocaleString()}/yr</span>
+          <span style={{ fontSize: 16, fontWeight: 600, color: t.white }}>Total increase for your area</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: "#ef4444" }}>+${dd.costImpact.monthlyIncrease}/mo · +${dd.costImpact.annualIncrease.toLocaleString()}/yr</span>
         </div>
       </div>
 
@@ -2939,91 +2939,91 @@ function MyDistrictPage({ setPage }) {
           {/* Rep header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ width: 52, height: 52, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 700, color: pc(rep.party), border: `2px solid ${pc(rep.party)}44` }}>
+              <div style={{ width: 52, height: 52, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.party), border: `2px solid ${pc(rep.party)}44` }}>
                 {rep.name.split(" ").pop()[0]}
               </div>
               <div>
-                <div onClick={() => setViewingRep(ri)} style={{ fontSize: 18, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
+                <div onClick={() => setViewingRep(ri)} style={{ fontSize: 16, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
                   onMouseOver={e => e.target.style.textDecorationColor = t.red}
                   onMouseOut={e => e.target.style.textDecorationColor = t.red + "44"}
-                >{rep.name} <span style={{ fontSize: 12, color: t.red, fontWeight: 400 }}>→ view profile</span></div>
+                >{rep.name} <span style={{ fontSize: 16, color: t.red, fontWeight: 400 }}>→ view profile</span></div>
                 <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                  <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "REP" : "DEM"}</span>
-                  <span style={{ fontSize: 11, color: t.dim }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Rep, District ${rep.district}`} · {rep.state}</span>
+                  <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "REP" : "DEM"}</span>
+                  <span style={{ fontSize: 15, color: t.dim }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Rep, District ${rep.district}`} · {rep.state}</span>
                 </div>
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
-              <div style={{ fontSize: 20, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
             </div>
           </div>
 
           {/* Committees */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
             {rep.committees.map((c, ci) => (
-              <span key={ci} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, background: "rgba(90,159,212,0.1)", color: t.blue, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
+              <span key={ci} style={{ fontSize: 15, padding: "4px 10px", borderRadius: 6, background: "rgba(90,159,212,0.1)", color: t.blue, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
             ))}
           </div>
 
           {/* Votes and YOUR cost */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>How they voted — what they said — and what it costs you</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>How they voted — what they said — and what it costs you</div>
           {rep.votes.map((v, vi) => (
             <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
               {/* Vote header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 12, gap: 12 }}>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
-                    <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim }}>{v.bill}</span>
-                    {v.amount !== "N/A" && <span style={{ fontSize: 11, color: t.dim }}>· {v.amount}</span>}
+                    <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
+                    <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{v.bill}</span>
+                    {v.amount !== "N/A" && <span style={{ fontSize: 15, color: t.dim }}>· {v.amount}</span>}
                   </div>
-                  <div style={{ fontSize: 14, color: t.white, fontWeight: 600 }}>{v.title}</div>
+                  <div style={{ fontSize: 16, color: t.white, fontWeight: 600 }}>{v.title}</div>
                 </div>
                 <div style={{ textAlign: "right", minWidth: 200, padding: "8px 12px", background: costColor(v.costDir) + "12", borderRadius: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
-                    <span style={{ color: costColor(v.costDir), fontSize: 14, fontWeight: 700 }}>{costIcon(v.costDir)}</span>
-                    <span style={{ fontSize: 13, color: costColor(v.costDir), fontWeight: 700 }}>{v.yourCost}</span>
+                    <span style={{ color: costColor(v.costDir), fontSize: 16, fontWeight: 700 }}>{costIcon(v.costDir)}</span>
+                    <span style={{ fontSize: 15, color: costColor(v.costDir), fontWeight: 700 }}>{v.yourCost}</span>
                   </div>
                 </div>
               </div>
 
               {/* What they said */}
               {v.quote && (<div style={{ marginBottom: 12, padding: "14px 18px", borderLeft: `3px solid ${t.gold}`, background: t.surface }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 6 }}>What they said</div>
-                <p style={{ color: t.text, fontSize: 13, lineHeight: 1.7, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
-                <p style={{ color: t.dim, fontSize: 10, fontFamily: "'Source Code Pro', monospace", marginTop: 6 }}>— {v.quoteSource}</p>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 6 }}>What they said</div>
+                <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
+                <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginTop: 6 }}>— {v.quoteSource}</p>
               </div>)}
 
               {/* Follow the money reality */}
               {v.reality && (<div style={{ padding: "14px 18px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)" }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 6 }}>Follow the money</div>
-                <p style={{ color: t.text, fontSize: 12, lineHeight: 1.7 }}>{v.reality}</p>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 6 }}>Follow the money</div>
+                <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>{v.reality}</p>
               </div>)}
             </div>
           ))}
 
           {/* Top donors to this rep */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 20, marginBottom: 10 }}>Who funds this representative</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 20, marginBottom: 10 }}>Who funds this representative</div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             <div>
-              <div style={{ fontSize: 11, color: t.dim, marginBottom: 6 }}>Top donors</div>
+              <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top donors</div>
               {rep.topDonors.map((d, di) => (
                 <div key={di} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
-                  <span style={{ fontSize: 12, color: t.text }}>{d.name}</span>
-                  <span style={{ fontSize: 12, fontFamily: "'Source Code Pro', monospace", color: t.white, fontWeight: 600 }}>${d.amount.toLocaleString()}</span>
+                  <span style={{ fontSize: 16, color: t.text }}>{d.name}</span>
+                  <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", color: t.white, fontWeight: 600 }}>${d.amount.toLocaleString()}</span>
                 </div>
               ))}
             </div>
             <div>
-              <div style={{ fontSize: 11, color: t.dim, marginBottom: 6 }}>Top industries</div>
+              <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top industries</div>
               {rep.topIndustries.map((ind, ii) => {
                 const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
                 return (
                   <div key={ii} style={{ marginBottom: 6 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                      <span style={{ fontSize: 12, color: t.text }}>{ind.name}</span>
-                      <span style={{ fontSize: 11, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+                      <span style={{ fontSize: 16, color: t.text }}>{ind.name}</span>
+                      <span style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
                     </div>
                     <div style={{ height: 4, background: t.bg, borderRadius: 2 }}>
                       <div style={{ height: 4, background: pc(rep.party), borderRadius: 2, width: `${(ind.total / maxInd) * 100}%`, transition: "width 0.5s" }} />
@@ -3038,13 +3038,13 @@ function MyDistrictPage({ setPage }) {
 
       {/* Local federal contracts */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts in your area</div>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts in your area</div>
         {dd.localContracts.map((c, ci) => (
           <div key={ci} style={{ display: "flex", justifyContent: "space-between", alignItems: "start", padding: "12px 0", borderBottom: ci < dd.localContracts.length - 1 ? `1px solid ${t.border}` : "none" }}>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: t.white }}>{c.contractor}</div>
-              <div style={{ fontSize: 12, color: t.dim }}>{c.description}</div>
-              <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 2 }}>{c.agency}</div>
+              <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{c.contractor}</div>
+              <div style={{ fontSize: 16, color: t.dim }}>{c.description}</div>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 2 }}>{c.agency}</div>
             </div>
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white }}>{c.amount}</div>
           </div>
@@ -3064,91 +3064,91 @@ function MyDistrictPage({ setPage }) {
         return (<div style={{ background: t.surface, border: `1px solid ${t.red}33`, borderRadius: 16, padding: 0, marginBottom: 20, overflow: "hidden" }}>
           {/* Profile header */}
           <div style={{ background: `linear-gradient(135deg, ${t.surface2}, ${t.surface})`, padding: "32px 32px 24px", borderBottom: `1px solid ${t.border}` }}>
-            <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, color: t.dim, fontSize: 12, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 16 }}>← Back to district</button>
+            <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, color: t.dim, fontSize: 16, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 16 }}>← Back to district</button>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 20 }}>
               <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
                 <div style={{ width: 72, height: 72, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: pc(rep.party), border: `3px solid ${pc(rep.party)}44` }}>
                   {rep.name.split(" ").pop()[0]}
                 </div>
                 <div>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
                   <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
-                    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : "Democrat"}</span>
-                    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative, District ${rep.district}`}</span>
-                    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{rep.state}</span>
+                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : "Democrat"}</span>
+                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative, District ${rep.district}`}</span>
+                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{rep.state}</span>
                   </div>
                   <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
                     {rep.committees.map((c, ci) => (
-                      <span key={ci} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 4, background: t.bg, border: `1px solid ${t.border}`, color: t.text, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
+                      <span key={ci} style={{ fontSize: 15, padding: "3px 8px", borderRadius: 4, background: t.bg, border: `1px solid ${t.border}`, color: t.text, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
                     ))}
                   </div>
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
                 <div style={{ fontSize: 28, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total from top industries</div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: t.white }}>${(rep.totalFromTopIndustries || 0).toLocaleString()}</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total from top industries</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: t.white }}>${(rep.totalFromTopIndustries || 0).toLocaleString()}</div>
               </div>
             </div>
           </div>
 
           <div style={{ padding: 32 }}>
             {/* Contact info */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Contact information</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Contact information</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28 }}>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (DC office)</div>
-                <div style={{ fontSize: 14, color: t.text, marginBottom: 8 }}>Find their direct number on their official website. The U.S. Capitol switchboard can connect you to any member:</div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
-                <div style={{ fontSize: 11, color: t.dim }}>Capitol switchboard · Mon-Fri 9am-5pm ET · Ask for {rep.name} by name</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (DC office)</div>
+                <div style={{ fontSize: 16, color: t.text, marginBottom: 8 }}>Find their direct number on their official website. The U.S. Capitol switchboard can connect you to any member:</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
+                <div style={{ fontSize: 15, color: t.dim }}>Capitol switchboard · Mon-Fri 9am-5pm ET · Ask for {rep.name} by name</div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
-                <div style={{ fontSize: 13, color: t.text, marginBottom: 12 }}>Most offices require you to use their web contact form for written messages.</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
+                <div style={{ fontSize: 15, color: t.text, marginBottom: 12 }}>Most offices require you to use their web contact form for written messages.</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 18px", borderRadius: 8, fontSize: 12, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
+                  <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 18px", borderRadius: 8, fontSize: 16, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
                 </div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mailing address</div>
-                <div style={{ fontSize: 14, color: t.white, lineHeight: 1.7 }}>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mailing address</div>
+                <div style={{ fontSize: 16, color: t.white, lineHeight: 1.7 }}>
                   {rep.name}<br />
                   {rep.chamber === "Senate" ? "United States Senate" : "United States House of Representatives"}<br />
                   Washington, DC {rep.chamber === "Senate" ? "20510" : "20515"}
                 </div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Tip</div>
-                <div style={{ fontSize: 13, color: t.text, lineHeight: 1.7 }}>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Tip</div>
+                <div style={{ fontSize: 15, color: t.text, lineHeight: 1.7 }}>
                   <strong style={{ color: t.gold }}>Phone calls are most effective.</strong> Call the Capitol switchboard at (202) 224-3121, ask for your rep by name. Give your name and ZIP code. State your concern in 1-2 sentences. Staffers tally every call.
                 </div>
               </div>
             </div>
 
             {/* Voting record with quotes */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record & what they said</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record & what they said</div>
             {rep.votes.map((v, vi) => (
               <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 10 }}>
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
-                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim }}>{v.bill}</span>
+                      <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
+                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{v.bill}</span>
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: t.white }}>{v.title}</div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{v.title}</div>
                   </div>
                   <div style={{ padding: "6px 12px", background: costColor(v.costDir) + "12", borderRadius: 6 }}>
-                    <span style={{ fontSize: 12, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
+                    <span style={{ fontSize: 16, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
                   </div>
                 </div>
                 {v.quote && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.gold}`, background: t.surface, marginBottom: 8, borderRadius: "0 8px 8px 0" }}>
-                  <p style={{ color: t.text, fontSize: 13, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
-                  <p style={{ color: t.dim, fontSize: 10, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
+                  <p style={{ color: t.text, fontSize: 15, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
+                  <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
                 </div>)}
                 {v.reality && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)", borderRadius: "0 8px 8px 0" }}>
-                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
-                  <p style={{ color: t.text, fontSize: 12, lineHeight: 1.7 }}>{v.reality}</p>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
+                  <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>{v.reality}</p>
                 </div>)}
               </div>
             ))}
@@ -3156,26 +3156,26 @@ function MyDistrictPage({ setPage }) {
             {/* Top donors + industries side by side */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
               <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
                 {rep.topDonors.map((d, di) => (
                   <div key={di} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
                     <div>
-                      <div style={{ fontSize: 13, color: t.white, fontWeight: 500 }}>{d.name}</div>
-                      <div style={{ fontSize: 10, color: t.dim }}>{d.industry}</div>
+                      <div style={{ fontSize: 15, color: t.white, fontWeight: 500 }}>{d.name}</div>
+                      <div style={{ fontSize: 15, color: t.dim }}>{d.industry}</div>
                     </div>
-                    <span style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: t.white }}>${d.amount.toLocaleString()}</span>
+                    <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: t.white }}>${d.amount.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
               <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
                 {rep.topIndustries.map((ind, ii) => {
                   const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
                   return (
                     <div key={ii} style={{ marginBottom: 10 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                        <span style={{ fontSize: 13, color: t.text }}>{ind.name}</span>
-                        <span style={{ fontSize: 12, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+                        <span style={{ fontSize: 15, color: t.text }}>{ind.name}</span>
+                        <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
                       </div>
                       <div style={{ height: 6, background: t.bg, borderRadius: 3 }}>
                         <div style={{ height: 6, background: pc(rep.party), borderRadius: 3, width: `${(ind.total / maxInd) * 100}%` }} />
@@ -3187,39 +3187,39 @@ function MyDistrictPage({ setPage }) {
             </div>
 
             {/* How to reach them */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>How to reach {rep.name.split(" ").pop()}</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>How to reach {rep.name.split(" ").pop()}</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (most effective)</div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
-                <div style={{ fontSize: 12, color: t.dim }}>U.S. Capitol switchboard · Ask for {rep.name} by name</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (most effective)</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
+                <div style={{ fontSize: 16, color: t.dim }}>U.S. Capitol switchboard · Ask for {rep.name} by name</div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
-                <div style={{ fontSize: 13, color: t.text, marginBottom: 12 }}>Find their direct phone, email, and contact form on their official website.</div>
-                <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface2, border: `1px solid ${t.border}`, color: t.text, padding: "10px 20px", borderRadius: 8, fontSize: 13, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
+                <div style={{ fontSize: 15, color: t.text, marginBottom: 12 }}>Find their direct phone, email, and contact form on their official website.</div>
+                <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface2, border: `1px solid ${t.border}`, color: t.text, padding: "10px 20px", borderRadius: 8, fontSize: 15, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mail</div>
-                <div style={{ fontSize: 13, color: t.white, lineHeight: 1.6 }}>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mail</div>
+                <div style={{ fontSize: 15, color: t.white, lineHeight: 1.6 }}>
                   {rep.name}<br />
                   {rep.chamber === "Senate" ? "United States Senate" : "United States House of Representatives"}<br />
                   Washington, DC {rep.chamber === "Senate" ? "20510" : "20515"}
                 </div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Search social media</div>
+                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Search social media</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={`https://twitter.com/search?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>X / Twitter</a>
-                  <a href={`https://facebook.com/search/pages?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Facebook</a>
+                  <a href={`https://twitter.com/search?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>X / Twitter</a>
+                  <a href={`https://facebook.com/search/pages?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Facebook</a>
                 </div>
               </div>
             </div>
 
             <div style={{ marginTop: 20, padding: 16, background: t.surface2, borderRadius: 10, border: `1px solid ${t.border}` }}>
-              <div style={{ fontSize: 12, color: t.text, lineHeight: 1.7 }}>
+              <div style={{ fontSize: 16, color: t.text, lineHeight: 1.7 }}>
                 <strong style={{ color: t.gold }}>Tip:</strong> The Capitol switchboard <strong style={{ color: t.white }}>(202) 224-3121</strong> connects to any member of Congress. Give the operator the member's name and they'll transfer you. Tell the staffer your name and ZIP code, then state your concern in 1-2 sentences. They tally every call by topic. For written messages, use the official contact form on their website.
               </div>
             </div>
@@ -3227,7 +3227,7 @@ function MyDistrictPage({ setPage }) {
         </div>);
       })()}
 
-      <p style={{ fontSize: 10, color: t.dim, textAlign: "center", marginTop: 16, fontFamily: "'Source Code Pro', monospace" }}>Data from FEC, BLS CPI, Congress.gov, USASpending. Cost estimates based on BLS regional CPI data and household averages. Actual costs vary by household size and spending patterns.</p>
+      <p style={{ fontSize: 15, color: t.dim, textAlign: "center", marginTop: 16, fontFamily: "'Source Code Pro', monospace" }}>Data from FEC, BLS CPI, Congress.gov, USASpending. Cost estimates based on BLS regional CPI data and household averages. Actual costs vary by household size and spending patterns.</p>
     </div>)}
   </div>);
 }
@@ -3290,14 +3290,14 @@ function ContactRepPage() {
   const viewing = viewingRep !== null && reps ? reps[viewingRep] : null;
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 950, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Contact Your Representatives</span></div>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Contact Your Representatives</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Find and contact your representatives</h1>
     <p style={{ color: t.dim, fontSize: 15, marginBottom: 32, fontFamily: "'Source Serif 4', Georgia, serif" }}>Enter your ZIP code to find your Congress members with all their contact information.</p>
 
     {/* ZIP lookup */}
     <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
       <input type="text" placeholder="Enter ZIP code" value={zip} onChange={e => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))} onKeyDown={e => e.key === "Enter" && lookupReps()}
-        style={{ width: 200, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 22, fontFamily: "'Source Code Pro', monospace", outline: "none", letterSpacing: 4, textAlign: "center", boxSizing: "border-box" }}
+        style={{ width: 200, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "16px 20px", color: t.white, fontSize: 16, fontFamily: "'Source Code Pro', monospace", outline: "none", letterSpacing: 4, textAlign: "center", boxSizing: "border-box" }}
         onFocus={e => e.target.style.borderColor = t.red} onBlur={e => e.target.style.borderColor = t.border} />
       <button onClick={lookupReps} disabled={loading || zip.length < 5} style={{
         background: zip.length >= 5 ? `linear-gradient(135deg, ${t.red}, ${t.redDim})` : t.surface2,
@@ -3319,25 +3319,25 @@ function ContactRepPage() {
           onMouseOut={e => { e.currentTarget.style.borderColor = t.border; e.currentTarget.style.background = t.surface; }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ width: 48, height: 48, borderRadius: "50%", background: pc(rep.partyShort) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 700, color: pc(rep.partyShort), border: `2px solid ${pc(rep.partyShort)}44`, overflow: "hidden" }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: pc(rep.partyShort) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.partyShort), border: `2px solid ${pc(rep.partyShort)}44`, overflow: "hidden" }}>
               {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : rep.name.split(" ").pop()[0]}
             </div>
             <div>
-              <div style={{ fontSize: 17, fontWeight: 700, color: t.white }}>{rep.name}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: t.white }}>{rep.name}</div>
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.partyShort === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.partyShort) }}>{rep.party}</span>
-                <span style={{ fontSize: 12, color: t.dim }}>{rep.title}</span>
+                <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.partyShort === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.partyShort) }}>{rep.party}</span>
+                <span style={{ fontSize: 16, color: t.dim }}>{rep.title}</span>
               </div>
             </div>
           </div>
-          <span style={{ color: t.red, fontSize: 14, fontFamily: "'Source Code Pro', monospace" }}>View profile →</span>
+          <span style={{ color: t.red, fontSize: 16, fontFamily: "'Source Code Pro', monospace" }}>View profile →</span>
         </div>
       ))}
     </div>)}
 
     {/* Full rep profile */}
     {viewing && (<div>
-      <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "8px 16px", borderRadius: 6, color: t.dim, fontSize: 12, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 20 }}>← Back to all representatives</button>
+      <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "8px 16px", borderRadius: 6, color: t.dim, fontSize: 16, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 20 }}>← Back to all representatives</button>
 
       {/* Profile header */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden", marginBottom: 16 }}>
@@ -3349,9 +3349,9 @@ function ContactRepPage() {
             <div>
               <div style={{ fontSize: 26, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{viewing.name}</div>
               <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
-                <span style={{ fontSize: 11, padding: "3px 12px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: viewing.partyShort === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(viewing.partyShort) }}>{viewing.party}</span>
-                <span style={{ fontSize: 11, padding: "3px 12px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{viewing.title}</span>
-                <span style={{ fontSize: 11, padding: "3px 12px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{viewing.state}</span>
+                <span style={{ fontSize: 15, padding: "3px 12px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: viewing.partyShort === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(viewing.partyShort) }}>{viewing.party}</span>
+                <span style={{ fontSize: 15, padding: "3px 12px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{viewing.title}</span>
+                <span style={{ fontSize: 15, padding: "3px 12px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{viewing.state}</span>
               </div>
             </div>
           </div>
@@ -3359,38 +3359,38 @@ function ContactRepPage() {
 
         <div style={{ padding: 32 }}>
           {/* Contact cards */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Contact information</div>
+          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Contact information</div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
             {/* Phone */}
             <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24 }}>
-              <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Phone (most effective)</div>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Phone (most effective)</div>
               {viewing.phones.length > 0 ? viewing.phones.map((phone, pi) => (
                 <div key={pi} style={{ marginBottom: 8 }}>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: t.white }}>{phone}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: t.white }}>{phone}</div>
                 </div>
               )) : <div style={{ color: t.dim }}>Not available</div>}
-              <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>Mon-Fri 9am-5pm ET. Tell the staffer your name, ZIP code, and concern.</div>
+              <div style={{ fontSize: 15, color: t.dim, marginTop: 8 }}>Mon-Fri 9am-5pm ET. Tell the staffer your name, ZIP code, and concern.</div>
             </div>
 
             {/* Website */}
             <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24 }}>
-              <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Official website</div>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Official website</div>
               {viewing.urls.length > 0 ? viewing.urls.map((url, ui) => (
                 <div key={ui} style={{ marginBottom: 8 }}>
-                  <div style={{ fontSize: 14, color: t.white, marginBottom: 8, wordBreak: "break-all" }}>{url.replace("https://", "").replace("http://", "")}</div>
-                  <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 13, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Visit website →</a>
+                  <div style={{ fontSize: 16, color: t.white, marginBottom: 8, wordBreak: "break-all" }}>{url.replace("https://", "").replace("http://", "")}</div>
+                  <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 15, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Visit website →</a>
                 </div>
               )) : <div style={{ color: t.dim }}>Not available</div>}
-              <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>Most offices have a contact form on their website for written messages.</div>
+              <div style={{ fontSize: 15, color: t.dim, marginTop: 8 }}>Most offices have a contact form on their website for written messages.</div>
             </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
             {/* Mailing address */}
             <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24 }}>
-              <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Mailing address</div>
-              <div style={{ fontSize: 14, color: t.white, lineHeight: 1.8 }}>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Mailing address</div>
+              <div style={{ fontSize: 16, color: t.white, lineHeight: 1.8 }}>
                 {viewing.name}<br />
                 {viewing.address ? (<>{viewing.address.line1}<br />{viewing.address.city}, {viewing.address.state} {viewing.address.zip}</>) : (<>{viewing.chamber === "Senate" ? "United States Senate" : "United States House of Representatives"}<br />Washington, DC {viewing.chamber === "Senate" ? "20510" : "20515"}</>)}
               </div>
@@ -3398,27 +3398,27 @@ function ContactRepPage() {
 
             {/* Email */}
             <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24 }}>
-              <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Email</div>
+              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8, letterSpacing: 1, textTransform: "uppercase" }}>Email</div>
               {viewing.emails.length > 0 ? viewing.emails.map((email, ei) => (
                 <div key={ei}>
-                  <div style={{ fontSize: 14, color: t.blue, marginBottom: 8 }}>{email}</div>
-                  <a href={`mailto:${email}`} style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 13, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Send email →</a>
+                  <div style={{ fontSize: 16, color: t.blue, marginBottom: 8 }}>{email}</div>
+                  <a href={`mailto:${email}`} style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 15, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Send email →</a>
                 </div>
               )) : (<div>
-                <div style={{ fontSize: 13, color: t.dim, marginBottom: 8 }}>Most members don't publish a direct email. Use their website contact form instead.</div>
-                {viewing.urls.length > 0 && <a href={viewing.urls[0]} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 13, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Open contact form →</a>}
+                <div style={{ fontSize: 15, color: t.dim, marginBottom: 8 }}>Most members don't publish a direct email. Use their website contact form instead.</div>
+                {viewing.urls.length > 0 && <a href={viewing.urls[0]} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 24px", borderRadius: 8, fontSize: 15, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Open contact form →</a>}
               </div>)}
             </div>
           </div>
 
           {/* Social media */}
           {viewing.channels && viewing.channels.length > 0 && (<div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
-            <div style={{ fontSize: 10, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 12, letterSpacing: 1, textTransform: "uppercase" }}>Social media</div>
+            <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 12, letterSpacing: 1, textTransform: "uppercase" }}>Social media</div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {viewing.channels.map((ch, ci) => {
                 const urls = { Twitter: `https://twitter.com/${ch.id}`, Facebook: `https://facebook.com/${ch.id}`, YouTube: `https://youtube.com/${ch.id}`, Instagram: `https://instagram.com/${ch.id}` };
                 return (
-                  <a key={ci} href={urls[ch.type] || "#"} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 8, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontSize: 13, fontFamily: "'Source Code Pro', monospace" }}>
+                  <a key={ci} href={urls[ch.type] || "#"} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 8, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>
                     <span style={{ fontWeight: 600 }}>{ch.type}</span>
                     <span style={{ color: t.dim }}>@{ch.id}</span>
                   </a>
@@ -3429,7 +3429,7 @@ function ContactRepPage() {
 
           {/* Tips */}
           <div style={{ padding: 20, background: t.surface2, borderRadius: 10, border: `1px solid ${t.border}` }}>
-            <div style={{ fontSize: 12, color: t.text, lineHeight: 1.8 }}>
+            <div style={{ fontSize: 16, color: t.text, lineHeight: 1.8 }}>
               <strong style={{ color: t.gold }}>How to be heard:</strong> Phone calls are the most effective way to reach your representative — staffers tally every call by topic. Call the DC office, give your name and ZIP code, and state your concern in 1-2 sentences. For written messages, use their official website contact form. Handwritten letters carry more weight than emails. Be specific — reference bill numbers and explain how the issue affects you personally.
             </div>
           </div>
@@ -3440,10 +3440,10 @@ function ContactRepPage() {
     {!reps && (<div style={{ textAlign: "center", padding: "60px 0", color: t.dim }}>
       <div style={{ fontSize: 48, marginBottom: 16, opacity: 0.4 }}>🏛</div>
       <p style={{ fontSize: 15 }}>Enter your ZIP code above to find your representatives</p>
-      <p style={{ fontSize: 12, marginTop: 8 }}>We'll show you their phone numbers, websites, mailing addresses, and social media.</p>
+      <p style={{ fontSize: 16, marginTop: 8 }}>We'll show you their phone numbers, websites, mailing addresses, and social media.</p>
     </div>)}
 
-    <p style={{ fontSize: 10, color: t.dim, textAlign: "center", marginTop: 24, fontFamily: "'Source Code Pro', monospace" }}>
+    <p style={{ fontSize: 15, color: t.dim, textAlign: "center", marginTop: 24, fontFamily: "'Source Code Pro', monospace" }}>
       Your ZIP code is used only for the real-time lookup and is not stored. Representative data from Google Civic Information API.
     </p>
   </div>);
@@ -3453,8 +3453,8 @@ function Footer({ setPage }) {
   return (<footer style={{ borderTop: `1px solid ${t.border}`, padding: "56px 32px 48px", maxWidth: 1200, margin: "0 auto" }}>
     <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
       <div style={{ maxWidth: 300 }}>
-        <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 18, color: t.white, marginBottom: 12 }}>POLITI<span style={{ color: t.red }}>TRACK</span></div>
-        <p style={{ color: t.dim, fontSize: 13, lineHeight: 1.7 }}>Free, nonpartisan civic transparency platform. See where your tax dollars go, who funds your representatives, and how their votes affect your wallet.</p>
+        <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 16, color: t.white, marginBottom: 12 }}>POLITI<span style={{ color: t.red }}>TRACK</span></div>
+        <p style={{ color: t.dim, fontSize: 15, lineHeight: 1.7 }}>Free, nonpartisan civic transparency platform. See where your tax dollars go, who funds your representatives, and how their votes affect your wallet.</p>
       </div>
       <div style={{ display: "flex", gap: 48 }}>
         {[
@@ -3463,16 +3463,16 @@ function Footer({ setPage }) {
           {title:"Data sources",links:[["#","FEC.gov"],["#","Senate LDA"],["#","Congress.gov"],["#","USASpending.gov"],["#","BLS / CPI"]]},
           {title:"Legal",links:[["privacy","Privacy Policy"],["terms","Terms of Service"]]},
         ].map((col,i) => (
-          <div key={i}><p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>{col.title}</p>
-          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>h!=="#"&&setPage(h)} style={{ color: t.text, fontSize: 13, marginBottom: 10, cursor: h!=="#"?"pointer":"default" }} onMouseOver={e=>h!=="#"&&(e.target.style.color=t.red)} onMouseOut={e=>h!=="#"&&(e.target.style.color=t.text)}>{l}</p>))}</div>
+          <div key={i}><p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>{col.title}</p>
+          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>h!=="#"&&setPage(h)} style={{ color: t.text, fontSize: 15, marginBottom: 10, cursor: h!=="#"?"pointer":"default" }} onMouseOver={e=>h!=="#"&&(e.target.style.color=t.red)} onMouseOut={e=>h!=="#"&&(e.target.style.color=t.text)}>{l}</p>))}</div>
         ))}
       </div>
     </div>
     <div style={{ marginTop: 48, paddingTop: 24, borderTop: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-      <span style={{ color: t.dim, fontSize: 12 }}>© 2026 PolitiTrack. All rights reserved. Free for public use.</span>
+      <span style={{ color: t.dim, fontSize: 16 }}>© 2026 PolitiTrack. All rights reserved. Free for public use.</span>
       <div style={{ display: "flex", gap: 20 }}>
-        <span onClick={() => setPage("privacy")} style={{ color: t.dim, fontSize: 11, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Privacy</span>
-        <span onClick={() => setPage("terms")} style={{ color: t.dim, fontSize: 11, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Terms</span>
+        <span onClick={() => setPage("privacy")} style={{ color: t.dim, fontSize: 15, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Privacy</span>
+        <span onClick={() => setPage("terms")} style={{ color: t.dim, fontSize: 15, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Terms</span>
       </div>
     </div>
   </footer>);
@@ -3526,7 +3526,7 @@ export default function App() {
 
   const pages = { home: <HomePage setPage={setPage} />, explore: <ExplorePage setPage={setPage} />, district: <MyDistrictPage setPage={setPage} />, demo: <DemoPage />, flow: <MoneyFlowPage />, spending: <SpendingPage />, contact: <ContactRepPage />, docs: <DocsPage />, pricing: <PricingPage setPage={setPage} />, dashboard: <DashboardPage />, privacy: <PrivacyPage />, terms: <TermsPage /> };
 
-  return (<div style={{ background: t.bg, color: t.text, minHeight: "100vh", position: "relative" }}>
+  return (<div style={{ background: t.bg, color: t.text, minHeight: "100vh", position: "relative", fontSize: 18 }}>
     <Stars />
     <div style={{ position: "relative", zIndex: 1 }}><Nav page={page} setPage={setPage} scrolled={scrolled} />{pages[page]||pages.home}<Footer setPage={setPage} /></div>
   </div>);
