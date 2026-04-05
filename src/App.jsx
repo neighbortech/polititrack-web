@@ -39,7 +39,7 @@ function Counter({ end, suffix = "" }) {
 
 function Nav({ page, setPage, scrolled }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navItems = [["home","Home"],["explore","Explore"],["district","My District"],["flow","Money Flow"],["spending","Spending"],["contact","Contact Rep"],["docs","API"],["pricing","Pricing"]];
+  const navItems = [["home","Home"],["district","My District"],["explore","Explore"],["spending","Spending"],["flow","Money Flow"],["contact","Contact Rep"]];
 
   return (<nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled || mobileOpen ? "rgba(8,9,13,0.95)" : "transparent", backdropFilter: scrolled ? "blur(24px)" : "none", borderBottom: scrolled ? `1px solid ${t.border}` : "none", transition: "all 0.4s" }}>
     <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72, padding: "0 32px" }}>
@@ -48,13 +48,17 @@ function Nav({ page, setPage, scrolled }) {
         <span style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 20, fontWeight: 700, color: t.white }}>POLITI<span style={{ color: t.red }}>TRACK</span></span>
       </div>
       {/* Desktop nav */}
-      <div style={{ display: "flex", gap: 4 }} className="desktop-nav">
+      <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="desktop-nav">
         {navItems.map(([k,l]) => (
-          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 18px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
+          <button key={k} onClick={() => setPage(k)} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.dim, padding: "8px 16px", borderRadius: 8, fontSize: 12, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s", fontWeight: page===k ? 600 : 400 }}
             onMouseOver={e => { if(page!==k) e.target.style.color = t.text }}
             onMouseOut={e => { if(page!==k) e.target.style.color = t.dim }}
           >{l}</button>
         ))}
+        <div style={{ width: 1, height: 20, background: t.border, margin: "0 4px" }} />
+        <button onClick={() => setPage("pricing")} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "8px 12px", borderRadius: 8, fontSize: 11, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", transition: "all 0.2s" }}
+          onMouseOver={e => e.target.style.color = t.text} onMouseOut={e => e.target.style.color = t.dim}
+        >Developers</button>
       </div>
       {/* Mobile hamburger */}
       <button onClick={() => setMobileOpen(!mobileOpen)} className="mobile-hamburger" style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: 8 }}>
@@ -68,6 +72,8 @@ function Nav({ page, setPage, scrolled }) {
       {navItems.map(([k,l]) => (
         <button key={k} onClick={() => { setPage(k); setMobileOpen(false); }} style={{ background: page===k ? t.redBg : "transparent", border: page===k ? "1px solid rgba(230,57,70,0.25)" : "1px solid transparent", color: page===k ? t.red : t.text, padding: "12px 18px", borderRadius: 8, fontSize: 14, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left", fontWeight: page===k ? 600 : 400 }}>{l}</button>
       ))}
+      <div style={{ height: 1, background: t.border, margin: "8px 0" }} />
+      <button onClick={() => { setPage("pricing"); setMobileOpen(false); }} style={{ background: "transparent", border: "1px solid transparent", color: t.dim, padding: "12px 18px", borderRadius: 8, fontSize: 13, fontFamily: "'Source Code Pro', monospace", cursor: "pointer", textAlign: "left" }}>Developers & API</button>
     </div>)}
     <style>{`
       @media (max-width: 768px) {
@@ -3448,21 +3454,22 @@ function Footer({ setPage }) {
     <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
       <div style={{ maxWidth: 300 }}>
         <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 18, color: t.white, marginBottom: 12 }}>POLITI<span style={{ color: t.red }}>TRACK</span></div>
-        <p style={{ color: t.dim, fontSize: 13, lineHeight: 1.7 }}>Nonpartisan political donation tracking powered by AI. Five federal data sources. One unified API.</p>
+        <p style={{ color: t.dim, fontSize: 13, lineHeight: 1.7 }}>Free, nonpartisan civic transparency platform. See where your tax dollars go, who funds your representatives, and how their votes affect your wallet.</p>
       </div>
       <div style={{ display: "flex", gap: 48 }}>
         {[
-          {title:"Product",links:[["demo","Live Demo"],["flow","Money Flow"],["spending","Gov Spending"],["docs","API Docs"],["pricing","Pricing"],["dashboard","Dashboard"]]},
-          {title:"Data Sources",links:[["#","FEC.gov"],["#","Senate LDA"],["#","Congress.gov"],["#","USASpending.gov"],["#","ProPublica"]]},
+          {title:"Free tools",links:[["district","My District"],["explore","Search Donors"],["spending","Gov Spending"],["flow","Money Flow"],["contact","Contact Your Rep"]]},
+          {title:"For developers",links:[["pricing","API & Pricing"],["docs","API Docs"],["dashboard","Get API Key"]]},
+          {title:"Data sources",links:[["#","FEC.gov"],["#","Senate LDA"],["#","Congress.gov"],["#","USASpending.gov"],["#","BLS / CPI"]]},
           {title:"Legal",links:[["privacy","Privacy Policy"],["terms","Terms of Service"]]},
         ].map((col,i) => (
           <div key={i}><p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>{col.title}</p>
-          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>h!=="#"&&setPage(h)} style={{ color: t.text, fontSize: 13, marginBottom: 10, cursor: "pointer" }} onMouseOver={e=>e.target.style.color=t.red} onMouseOut={e=>e.target.style.color=t.text}>{l}</p>))}</div>
+          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>h!=="#"&&setPage(h)} style={{ color: t.text, fontSize: 13, marginBottom: 10, cursor: h!=="#"?"pointer":"default" }} onMouseOver={e=>h!=="#"&&(e.target.style.color=t.red)} onMouseOut={e=>h!=="#"&&(e.target.style.color=t.text)}>{l}</p>))}</div>
         ))}
       </div>
     </div>
     <div style={{ marginTop: 48, paddingTop: 24, borderTop: `1px solid ${t.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-      <span style={{ color: t.dim, fontSize: 12 }}>© 2026 PolitiTrack. All rights reserved.</span>
+      <span style={{ color: t.dim, fontSize: 12 }}>© 2026 PolitiTrack. All rights reserved. Free for public use.</span>
       <div style={{ display: "flex", gap: 20 }}>
         <span onClick={() => setPage("privacy")} style={{ color: t.dim, fontSize: 11, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Privacy</span>
         <span onClick={() => setPage("terms")} style={{ color: t.dim, fontSize: 11, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }} onMouseOver={e=>e.target.style.color=t.text} onMouseOut={e=>e.target.style.color=t.dim}>Terms</span>
@@ -3472,7 +3479,7 @@ function Footer({ setPage }) {
 }
 
 const PAGE_META = {
-  home: { title: "PolitiTrack — Political Donation Tracking API with AI Analysis", path: "/" },
+  home: { title: "PolitiTrack — See Where Your Tax Dollars Go | Free Political Transparency Tool", path: "/" },
   explore: { title: "Explore Political Donations — Search, Analyze, Discover | PolitiTrack", path: "/explore" },
   district: { title: "My District — See How Your Reps' Votes Cost You Money | PolitiTrack", path: "/district" },
   demo: { title: "Live Demo — Search Political Donations | PolitiTrack", path: "/demo" },
