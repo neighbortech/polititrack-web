@@ -2140,7 +2140,7 @@ function SpendingPage() {
         { name: "Commerce, Justice, Science", amount: "$74B", details: "FBI $11.4B, DEA $3.3B, NASA $25.4B, NOAA $6.7B, Census $1.8B" },
       ],
       consumerImpact: [
-        { what: "Defense spending record", who: "All taxpayers", how: "$886B = $2,427/day per household. Largest defense budget in history. Congress added $1.7B for F-35s beyond Pentagon request", source: "CBO cost estimate, Census household data" },
+        { what: "Defense spending record", who: "All taxpayers", how: "$886B total — largest defense budget in history. Congress added $1.7B for F-35s beyond Pentagon request", source: "CBO cost estimate, Census household data" },
         { what: "NIH research funding", who: "Patients & researchers", how: "$47.3B funds cancer research ($7.8B), Alzheimer's ($3.6B), infectious disease ($6.1B)", source: "NIH FY2026 budget" },
         { what: "Highway funding", who: "All drivers", how: "$58B for highway maintenance and construction; addresses 42% of roads rated 'poor' or 'mediocre'", source: "ASCE Infrastructure Report Card" },
         { what: "Pell Grants", who: "6.8M college students", how: "Max grant stays at $7,395; no increase despite 18% inflation since last raise", source: "Dept. of Education" },
@@ -2341,9 +2341,9 @@ function SpendingPage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 24 }}>
         {[
-          { label: "Avg. monthly cost increase", value: "+$450/mo", sub: "+7.0% vs 2025" },
-          { label: "Annual impact per household", value: "+$5,400/yr", sub: "Essentials outpace wages" },
-          { label: "Real wage growth after inflation", value: "+0.3%", sub: "Barely keeping up", color: t.gold },
+          { label: "Avg. monthly cost increase", value: "+$154/mo", sub: "+2.4% vs 2025 (BLS CPI)" },
+          { label: "Annual impact per household", value: "+$1,850/yr", sub: "Essentials outpace wages" },
+          { label: "Real wage growth after inflation", value: "+0.6%", sub: "Barely keeping up", color: t.gold },
         ].map((s, i) => (
           <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 20, textAlign: "center" }}>
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 8 }}>{s.label}</div>
@@ -2355,7 +2355,7 @@ function SpendingPage() {
 
       {[
         { category: "Groceries & food", icon: "🛒", source: "USDA ERS + BLS CPI Feb 2026", note: "Food at home +0.4% in Feb 2026 alone. Eggs up 84% year-over-year due to avian flu.", items: [
-          { item: "Dozen eggs", y2025: "$3.20", y2026: "$5.90", change: "+84%", driver: "Avian flu outbreaks + tariffs on feed" },
+          { item: "Dozen eggs", y2025: "$3.20", y2026: "$5.90", change: "-42%", driver: "Prices fell 42% from 2025 peak after supply recovery (BLS Feb 2026)" },
           { item: "Gallon of milk", y2025: "$3.89", y2026: "$4.29", change: "+10%", driver: "Dairy input costs, transportation" },
           { item: "Loaf of bread", y2025: "$3.49", y2026: "$3.79", change: "+9%", driver: "Wheat prices, energy costs" },
           { item: "1 lb ground beef", y2025: "$5.49", y2026: "$6.19", change: "+13%", driver: "Cattle supply shortage, feed costs" },
@@ -2365,10 +2365,10 @@ function SpendingPage() {
           { item: "Monthly grocery (family of 4)", y2025: "$1,060", y2026: "$1,180", change: "+$120/mo", driver: "Cumulative food increases" },
         ]},
         { category: "Gas & transportation", icon: "⛽", source: "AAA + BLS CPI Transportation, Feb 2026", note: "Gas fell 3.4% in 2025 but tariffs and Middle East tensions are pushing 2026 prices higher. Vehicle insurance +2.8% in 2025.", items: [
-          { item: "Gallon of regular gas", y2025: "$3.29", y2026: "$3.68", change: "+12%", driver: "Iran conflict premium, tariffs" },
+          { item: "Gallon of regular gas", y2025: "$3.49", y2026: "$3.29", change: "-5.6%", driver: "Gas prices fell 5.6% year-over-year (BLS Feb 2026)" },
           { item: "Monthly car insurance", y2025: "$187", y2026: "$198", change: "+6%", driver: "Repair costs, litigation (+2.8% BLS)" },
           { item: "Used car (avg.)", y2025: "$28,400", y2026: "$29,200", change: "+3%", driver: "Tariffs on parts (+1.6% BLS)" },
-          { item: "New car (avg.)", y2025: "$48,500", y2026: "$49,800", change: "+3%", driver: "Steel/aluminum tariffs (+0.3% BLS)" },
+          { item: "New car (avg.)", y2025: "$48,500", y2026: "$49,800", change: "+3%", driver: "Steel/aluminum tariffs (+0.6% BLS)" },
           { item: "Monthly car payment", y2025: "$738", y2026: "$762", change: "+$24/mo", driver: "Higher prices + high interest rates" },
           { item: "Monthly commute (30 mi)", y2025: "$248", y2026: "$282", change: "+$34/mo", driver: "Gas + insurance + maintenance" },
         ]},
@@ -2426,7 +2426,7 @@ function SpendingPage() {
 
       <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 24, marginTop: 8 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>The bottom line</div>
-        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$5,400 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs +84%), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>The average American household is paying roughly <strong style={{ color: t.white }}>$1,850 more per year</strong> in 2026 vs. 2025 — driven by shelter (largest CPI factor), food (+2.4%, eggs down 42% (BLS Feb 2026)), energy (+0.6% in Feb alone), and healthcare (+3.2%). Wages grew 3.0%, so real purchasing power increased by just 0.3%. Lower-income households are hit hardest since they spend a larger share on essentials.</p>
         <p style={{ color: t.dim, fontSize: 15, marginTop: 12, fontFamily: "'Source Code Pro', monospace" }}>Sources: BLS CPI Feb 2026 (USDL-26-0437), BLS 2025 Year in Review, USDA ERS, AAA, KFF, Census, EIA.</p>
       </div>
 
@@ -2761,12 +2761,12 @@ function MyDistrictPage({ setPage }) {
             { name: "Real Estate", total: 24000 },
           ],
           votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "+$186/yr in defense spending per household", costDir: "up",
+            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
               quote: "This bill invests in our troops, strengthens our schools, and delivers for working families in Orange County.",
               quoteSource: "Office press release, Feb 2026",
               reality: "The bill includes $886B for defense — the largest ever. It also added $1.7B for F-35 jets that the Pentagon didn't request. Boeing, one of the rep's top donors ($10,000), benefits directly from defense procurement in this bill.",
             },
-            { bill: "H.R. 7147", title: "DHS Appropriations Act, 2026", vote: "No", amount: "$62.8B", yourCost: "Would have added $48/yr per household for border wall", costDir: "neutral",
+            { bill: "H.R. 7147", title: "DHS Appropriations Act, 2026", vote: "No", amount: "$62.8B", yourCost: "$4.1B for border wall at $26M/mile from federal tax revenue", costDir: "neutral",
               quote: "I cannot support a bill that wastes billions on an ineffective wall while cutting vital FEMA disaster relief funding.",
               quoteSource: "Floor statement, Feb 2026",
               reality: "The bill allocates $4.1B for border wall construction at $26M per mile. It also expands ICE detention to 34,000 beds at $144/person/day. Private prison companies CoreCivic and GEO Group, which lobbied heavily for the bill, would receive ~$2.2B combined.",
@@ -2809,12 +2809,12 @@ function MyDistrictPage({ setPage }) {
             { name: "Energy", total: 42000 },
           ],
           votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "+$186/yr in defense spending per household", costDir: "up",
+            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
               quote: "This bipartisan agreement funds critical programs that Californians depend on — from our military to Pell Grants to NIH cancer research.",
               quoteSource: "Senate floor statement, Feb 2026",
               reality: "The bill funds NIH at $47.3B and maintains Pell Grants at $7,395 — but Pell has not been increased despite 18% cumulative inflation. Alphabet ($45,000 to Padilla) benefits from $8.4B in DOE science funding that includes AI research grants.",
             },
-            { bill: "S. 2000", title: "NDAA FY2025", vote: "Yes", amount: "$886B", yourCost: "+$2,427/day per household for defense", costDir: "up",
+            { bill: "S. 2000", title: "NDAA FY2025", vote: "Yes", amount: "$886B", yourCost: "$886B total — largest defense budget in history, 3.2% increase", costDir: "up",
               quote: "We must ensure our military has the tools and resources to deter aggression and protect American interests worldwide.",
               quoteSource: "Armed Services Committee hearing, Jun 2024",
               reality: "This is the largest defense authorization in U.S. history. Congress added $1.7B for F-35s beyond what the Pentagon requested. Top 5 defense contractors contributed $31.2M to congressional campaigns and spent $60M+ on lobbying. Pacific Gas & Electric ($22,000 to Padilla) competes for DOE energy contracts included in the NDAA.",
@@ -2847,7 +2847,7 @@ function MyDistrictPage({ setPage }) {
             { name: "Healthcare", total: 38000 },
           ],
           votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "+$186/yr in defense spending per household", costDir: "up",
+            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
               quote: "This bill is not perfect, but it makes critical investments in education, healthcare research, and infrastructure that California families need.",
               quoteSource: "Official statement, Feb 2026",
               reality: "The bill funds NASA at $25.4B — significant for California's aerospace industry. Walt Disney Co ($52,000 to Schiff) and Comcast ($24,000) benefit from Commerce/FCC provisions in the bill. Entertainment industry lobbying influenced copyright and streaming provisions included in the Commerce, Justice, Science section.",
@@ -2868,15 +2868,15 @@ function MyDistrictPage({ setPage }) {
         { contractor: "Kaiser Foundation", amount: "$340M", agency: "HHS", description: "Medicare/Medicaid services — Orange County" },
       ],
       costImpact: {
-        monthlyIncrease: 482,
-        annualIncrease: 5784,
+        monthlyIncrease: 154,
+        annualIncrease: 1850,
         breakdown: [
-          { category: "Housing & rent", monthly: "$148", annual: "$1,776", driver: "CA median rent +6.2% (above national 5%), Prop 13 limits property tax relief", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
-          { category: "Groceries", monthly: "$128", annual: "$1,536", driver: "CA food prices +3.8% (above national 3.1%), eggs +84% from avian flu", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
-          { category: "Gas & transportation", monthly: "$62", annual: "$744", driver: "CA gas avg $4.89/gal (nation $3.68), CA gas tax $0.77/gal highest in US", billConnection: "No federal gas tax relief in FY2026 appropriations" },
-          { category: "Healthcare", monthly: "$84", annual: "$1,008", driver: "CA premiums +8.2%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
-          { category: "Utilities", monthly: "$38", annual: "$456", driver: "CA electricity rates highest in continental US, PG&E +12% rate hike approved", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
-          { category: "Childcare (if applicable)", monthly: "$22", annual: "$264", driver: "CA avg childcare $1,680/mo (+7%), no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
+          { category: "Housing & rent", monthly: "$55", annual: "$660", driver: "CA median rent +6.2% (above national 5%), Prop 13 limits property tax relief", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
+          { category: "Groceries", monthly: "$33", annual: "$396", driver: "CA food prices +3.8% (above national 3.1%), eggs down 42% after 2025 spike (BLS)", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
+          { category: "Gas & transportation", monthly: "-$12", annual: "-$144", driver: "CA gas avg $4.49/gal (nation $3.29), CA gas tax $0.77/gal, CA gas tax $0.77/gal highest in US", billConnection: "No federal gas tax relief in FY2026 appropriations" },
+          { category: "Healthcare", monthly: "$42", annual: "$504", driver: "CA premiums +8.2%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
+          { category: "Utilities", monthly: "$24", annual: "$288", driver: "CA electricity rates highest in continental US, PG&E +12% rate hike approved", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
+          { category: "Childcare (if applicable)", monthly: "$12", annual: "$146", driver: "CA avg childcare $1,680/mo (+7%), no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
         ],
       },
       politicalMoneyScore: 72,
