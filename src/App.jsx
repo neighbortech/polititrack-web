@@ -3090,118 +3090,59 @@ function MyDistrictPage({ setPage }) {
         return (<div style={{ background: t.surface, border: `1px solid ${t.red}33`, borderRadius: 16, padding: 0, marginBottom: 20, overflow: "hidden" }}>
           {/* Profile header */}
           <div style={{ background: `linear-gradient(135deg, ${t.surface2}, ${t.surface})`, padding: "32px 32px 24px", borderBottom: `1px solid ${t.border}` }}>
-            <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, color: t.dim, fontSize: 16, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 16 }}>← Back to district</button>
+            <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, color: t.dim, fontSize: 14, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 16 }}>← Back to district</button>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 20 }}>
               <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
                 <div style={{ width: 72, height: 72, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: pc(rep.party), border: `3px solid ${pc(rep.party)}44` }}>
                   {rep.name.split(" ").pop()[0]}
                 </div>
                 <div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
-                  <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
-                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : "Democrat"}</span>
-                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative, District ${rep.district}`}</span>
-                    <span style={{ fontSize: 15, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{rep.state}</span>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
+                  <div style={{ display: "flex", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : "Democrat"}</span>
+                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative, District ${rep.district}`}</span>
+                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{rep.state}</span>
                   </div>
                   <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
                     {rep.committees.map((c, ci) => (
-                      <span key={ci} style={{ fontSize: 15, padding: "3px 8px", borderRadius: 4, background: t.bg, border: `1px solid ${t.border}`, color: t.text, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
+                      <span key={ci} style={{ fontSize: 12, padding: "3px 8px", borderRadius: 4, background: t.bg, border: `1px solid ${t.border}`, color: t.text, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
                     ))}
                   </div>
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
                 <div style={{ fontSize: 28, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total from top industries</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: t.white }}>${(rep.totalFromTopIndustries || 0).toLocaleString()}</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total from top industries</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>${(rep.totalFromTopIndustries || 0).toLocaleString()}</div>
               </div>
             </div>
           </div>
 
           <div style={{ padding: 32 }}>
-            {/* Contact info */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Contact information</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28 }}>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (DC office)</div>
-                <div style={{ fontSize: 16, color: t.text, marginBottom: 8 }}>Find their direct number on their official website. The U.S. Capitol switchboard can connect you to any member:</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
-                <div style={{ fontSize: 15, color: t.dim }}>Capitol switchboard · Mon-Fri 9am-5pm ET · Ask for {rep.name} by name</div>
-              </div>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
-                <div style={{ fontSize: 15, color: t.text, marginBottom: 12 }}>Most offices require you to use their web contact form for written messages.</div>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface, border: `1px solid ${t.border}`, color: t.text, padding: "10px 18px", borderRadius: 8, fontSize: 16, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
-                </div>
-              </div>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mailing address</div>
-                <div style={{ fontSize: 16, color: t.white, lineHeight: 1.7 }}>
-                  {rep.name}<br />
-                  {rep.chamber === "Senate" ? "United States Senate" : "United States House of Representatives"}<br />
-                  Washington, DC {rep.chamber === "Senate" ? "20510" : "20515"}
-                </div>
-              </div>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Tip</div>
-                <div style={{ fontSize: 15, color: t.text, lineHeight: 1.7 }}>
-                  <strong style={{ color: t.gold }}>Phone calls are most effective.</strong> Call the Capitol switchboard at (202) 224-3121, ask for your rep by name. Give your name and ZIP code. State your concern in 1-2 sentences. Staffers tally every call.
-                </div>
-              </div>
-            </div>
-
-            {/* Voting record with quotes */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record & what they said</div>
-            {rep.votes.map((v, vi) => (
-              <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 10 }}>
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
-                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{v.bill}</span>
-                    </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{v.title}</div>
-                  </div>
-                  <div style={{ padding: "6px 12px", background: costColor(v.costDir) + "12", borderRadius: 6 }}>
-                    <span style={{ fontSize: 16, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
-                  </div>
-                </div>
-                {v.quote && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.gold}`, background: t.surface, marginBottom: 8, borderRadius: "0 8px 8px 0" }}>
-                  <p style={{ color: t.text, fontSize: 15, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
-                  <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
-                </div>)}
-                {v.reality && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)", borderRadius: "0 8px 8px 0" }}>
-                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
-                  <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>{v.reality}</p>
-                </div>)}
-              </div>
-            ))}
-
-            {/* Top donors + industries side by side */}
+            {/* Top donors + industries — RIGHT UNDER NAME */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
               <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
                 {rep.topDonors.map((d, di) => (
                   <div key={di} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
                     <div>
                       <div style={{ fontSize: 15, color: t.white, fontWeight: 500 }}>{d.name}</div>
-                      <div style={{ fontSize: 15, color: t.dim }}>{d.industry}</div>
+                      <div style={{ fontSize: 13, color: t.dim }}>{d.industry}</div>
                     </div>
                     <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: t.white }}>${d.amount.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
               <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
                 {rep.topIndustries.map((ind, ii) => {
                   const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
                   return (
                     <div key={ii} style={{ marginBottom: 10 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
                         <span style={{ fontSize: 15, color: t.text }}>{ind.name}</span>
-                        <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+                        <span style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
                       </div>
                       <div style={{ height: 6, background: t.bg, borderRadius: 3 }}>
                         <div style={{ height: 6, background: pc(rep.party), borderRadius: 3, width: `${(ind.total / maxInd) * 100}%` }} />
@@ -3212,43 +3153,57 @@ function MyDistrictPage({ setPage }) {
               </div>
             </div>
 
-            {/* How to reach them */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>How to reach {rep.name.split(" ").pop()}</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Phone (most effective)</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 4 }}>(202) 224-3121</div>
-                <div style={{ fontSize: 16, color: t.dim }}>U.S. Capitol switchboard · Ask for {rep.name} by name</div>
+            {/* Contact info — SINGLE CLEAN SECTION */}
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Contact information</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, marginBottom: 28 }}>
+              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+                <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Phone</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>(202) 224-3121</div>
+                <div style={{ fontSize: 12, color: t.dim, marginTop: 4 }}>Capitol switchboard</div>
               </div>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Official website & contact form</div>
-                <div style={{ fontSize: 15, color: t.text, marginBottom: 12 }}>Find their direct phone, email, and contact form on their official website.</div>
-                <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", background: t.surface2, border: `1px solid ${t.border}`, color: t.text, padding: "10px 20px", borderRadius: 8, fontSize: 15, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Find on {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
+              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+                <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Website</div>
+                <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: t.blue, textDecoration: "none" }}>Visit {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
               </div>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Mail</div>
-                <div style={{ fontSize: 15, color: t.white, lineHeight: 1.6 }}>
-                  {rep.name}<br />
-                  {rep.chamber === "Senate" ? "United States Senate" : "United States House of Representatives"}<br />
-                  Washington, DC {rep.chamber === "Senate" ? "20510" : "20515"}
-                </div>
+              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+                <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Mail</div>
+                <div style={{ fontSize: 13, color: t.white, lineHeight: 1.5 }}>{rep.name}<br />{rep.chamber === "Senate" ? "U.S. Senate" : "U.S. House"}<br />Washington, DC {rep.chamber === "Senate" ? "20510" : "20515"}</div>
               </div>
-              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20 }}>
-                <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 8 }}>Search social media</div>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={`https://twitter.com/search?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>X / Twitter</a>
-                  <a href={`https://facebook.com/search/pages?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 16, padding: "6px 14px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none", fontFamily: "'Source Code Pro', monospace" }}>Facebook</a>
+              <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
+                <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Social</div>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                  <a href={`https://twitter.com/search?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, padding: "4px 10px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none" }}>X</a>
+                  <a href={`https://facebook.com/search/pages?q=${encodeURIComponent(rep.name)}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, padding: "4px 10px", borderRadius: 6, background: t.surface, border: `1px solid ${t.border}`, color: t.text, textDecoration: "none" }}>FB</a>
                 </div>
               </div>
             </div>
 
-            <div style={{ marginTop: 20, padding: 16, background: t.surface2, borderRadius: 10, border: `1px solid ${t.border}` }}>
-              <div style={{ fontSize: 16, color: t.text, lineHeight: 1.7 }}>
-                <strong style={{ color: t.gold }}>Tip:</strong> The Capitol switchboard <strong style={{ color: t.white }}>(202) 224-3121</strong> connects to any member of Congress. Give the operator the member's name and they'll transfer you. Tell the staffer your name and ZIP code, then state your concern in 1-2 sentences. They tally every call by topic. For written messages, use the official contact form on their website.
+            {/* Voting record with quotes */}
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record & what they said</div>
+            {rep.votes.map((v, vi) => (
+              <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 10 }}>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
+                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.dim }}>{v.bill}</span>
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{v.title}</div>
+                  </div>
+                  <div style={{ padding: "6px 12px", background: costColor(v.costDir) + "12", borderRadius: 6 }}>
+                    <span style={{ fontSize: 13, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
+                  </div>
+                </div>
+                {v.quote && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.gold}`, background: t.surface, marginBottom: 8, borderRadius: "0 8px 8px 0" }}>
+                  <p style={{ color: t.text, fontSize: 14, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
+                  <p style={{ color: t.dim, fontSize: 12, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
+                </div>)}
+                {v.reality && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)", borderRadius: "0 8px 8px 0" }}>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
+                  <p style={{ color: t.text, fontSize: 14, lineHeight: 1.7 }}>{v.reality}</p>
+                </div>)}
               </div>
-            </div>
+            ))}
           </div>
         </div>);
       })()}
