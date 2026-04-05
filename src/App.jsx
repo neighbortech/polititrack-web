@@ -3,6 +3,21 @@ import { useState, useEffect, useRef, useMemo } from "react";
 const API_BASE = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
 const CIVIC_KEY = import.meta.env.VITE_GOOGLE_CIVIC_KEY || "";
 
+// ── DATA FRESHNESS — Update these when you refresh the data ──
+const DATA_UPDATED = {
+  gas: "April 4, 2026",         // Source: AAA gasprices.aaa.com
+  cpi: "February 2026",         // Source: BLS CPI release (March 11, 2026)
+  spending: "April 4, 2026",    // Source: Congress.gov, CBO
+  fec: "April 4, 2026",         // Source: FEC api.open.fec.gov
+  iran: "April 4, 2026",        // Source: Pentagon, CSIS, CNBC, Wikipedia
+  district: "April 4, 2026",    // Source: Google Civic API + FEC
+  costOfLiving: "April 4, 2026",// Source: AAA, BLS, USDA, KFF
+};
+
+function DataTimestamp({ label, color }) {
+  return (<span style={{ fontSize: 11, color: color || t.dim, fontFamily: "'Source Code Pro', monospace" }}>Data as of {label}</span>);
+}
+
 const t = {
   bg: "#0b0e14", surface: "#141820", surface2: "#1c2130", border: "#2a3145",
   text: "#cdd3e0", dim: "#7d879e", white: "#f2f4f8",
@@ -332,7 +347,10 @@ function CycleStats() {
 
     {/* Political Donations row */}
     <div style={{ marginBottom: 8 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 8, paddingLeft: 4 }}>Political donations</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 8, paddingLeft: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span>Political donations</span>
+        <DataTimestamp label={DATA_UPDATED.fec} />
+      </div>
       <div style={{ display: "flex", background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden" }}>
         <StatCard label="Total raised" value={d.total} prefix="$" suffix="B" color={t.red} />
         <div style={{ width: 1, background: t.border }} />
@@ -348,7 +366,10 @@ function CycleStats() {
 
     {/* Tax Dollars row */}
     <div style={{ marginBottom: 12 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.gold, marginBottom: 8, paddingLeft: 4 }}>Your tax dollars</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: t.gold, marginBottom: 8, paddingLeft: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span>Your tax dollars</span>
+        <DataTimestamp label={DATA_UPDATED.spending} />
+      </div>
       <div style={{ display: "flex", background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden" }}>
         <StatCard label="Total gov spending" value={d.govSpending} prefix="$" suffix="T" color={t.gold} />
         <div style={{ width: 1, background: t.border }} />
@@ -2229,7 +2250,10 @@ function SpendingPage() {
       {/* Total spending banner */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
         <div>
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>FY2026 total discretionary spending</div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim }}>FY2026 total discretionary spending</div>
+            <DataTimestamp label={DATA_UPDATED.spending} />
+          </div>
           <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, fontWeight: 700, color: t.red }}>$1.7 trillion</div>
         </div>
         <div style={{ display: "flex", gap: 16 }}>
@@ -2335,8 +2359,11 @@ function SpendingPage() {
     {/* ── YOUR COST OF LIVING TAB ── */}
     {mainTab === "prices" && (<div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 24, borderLeft: `4px solid ${t.red}` }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 8, fontFamily: "'Libre Baskerville', Georgia, serif" }}>How government spending hits your wallet</div>
-        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>Side-by-side comparison of what everyday items cost last year vs. now. Prices from BLS Consumer Price Index, USDA food data, AAA fuel gauge, and Census housing data.</p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>How government spending hits your wallet</div>
+          <DataTimestamp label={DATA_UPDATED.costOfLiving} />
+        </div>
+        <p style={{ color: t.text, fontSize: 16, lineHeight: 1.8 }}>Side-by-side comparison of what everyday items cost last year vs. now. Gas prices reflect Iran war impact since Feb 28. Sources: AAA, BLS CPI, USDA, Census.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 24 }}>
@@ -2364,8 +2391,8 @@ function SpendingPage() {
           { item: "Restaurant meal (avg.)", y2025: "$16.80", y2026: "$17.90", change: "+7%", driver: "Labor + food input inflation" },
           { item: "Monthly grocery (family of 4)", y2025: "$1,060", y2026: "$1,180", change: "+$120/mo", driver: "Cumulative food increases" },
         ]},
-        { category: "Gas & transportation", icon: "⛽", source: "AAA + BLS CPI Transportation, Feb 2026", note: "Gas surged 30%+ since the Iran war began Feb 28, 2026. National avg crossed $4/gal on March 31. CA at $5.87/gal. Oil prices up 55% to $110+/barrel. Vehicle insurance +2.8% in 2025.", items: [
-          { item: "Gallon of regular gas", y2025: "$3.00", y2026: "$4.00", change: "+33%", driver: "Gas surged 30%+ since Iran war began Feb 28 — now over $4/gal nationally (GasBuddy, AAA)" },
+        { category: "Gas & transportation", icon: "⛽", source: "AAA + BLS CPI Transportation, Feb 2026", note: "Iran war (Feb 28) surged gas from $2.98 to $4.10 nationally (+38%). CA statewide $5.89, LA $6.00. Brent crude up 55% to $110+/barrel. First time above $4 since Aug 2022 (AAA, April 4). Vehicle insurance +2.8% in 2025.", items: [
+          { item: "Gallon of regular gas", y2025: "$2.98", y2026: "$4.10", change: "+38%", driver: "Gas surged 30%+ since Iran war began Feb 28 — now over $4/gal nationally (GasBuddy, AAA)" },
           { item: "Monthly car insurance", y2025: "$187", y2026: "$198", change: "+6%", driver: "Repair costs, litigation (+2.8% BLS)" },
           { item: "Used car (avg.)", y2025: "$28,400", y2026: "$29,200", change: "+3%", driver: "Tariffs on parts (+1.6% BLS)" },
           { item: "New car (avg.)", y2025: "$48,500", y2026: "$49,800", change: "+3%", driver: "Steel/aluminum tariffs (+0.6% BLS)" },
@@ -2543,8 +2570,8 @@ const impactTopics = [
       icon: "⚔️",
       headline: "Cost of U.S. military operations in Iran",
       updated: "April 2026",
-      totalCost: "$45B+ (36 days in)",
-      totalLabel: "Estimated total cost (2025-2026)",
+      totalCost: "$45B+",
+      totalLabel: "Cost in first 36 days (as of April 4)",
       summary: "U.S. military operations in and around Iran have escalated significantly since late 2025. Based on historical patterns from Iraq and Afghanistan, combined with current deployment data and Pentagon budget documents, economists project significant fiscal impact on federal spending, consumer prices, and long-term debt.",
       sections: [
         {
@@ -2873,7 +2900,7 @@ function MyDistrictPage({ setPage }) {
         breakdown: [
           { category: "Housing & rent", monthly: "$55", annual: "$660", driver: "CA median rent +6.2% (above national 5%), Prop 13 limits property tax relief", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
           { category: "Groceries", monthly: "$33", annual: "$396", driver: "CA food prices +3.8% (above national 3.1%), eggs down 42% (BLS Feb data), but food prices rising again due to war-driven diesel and shipping cost increases", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
-          { category: "Gas & transportation", monthly: "$95", annual: "$1,140", driver: "Iran war surged gas 30%+ since Feb 28. National avg $4/gal, CA $5.87/gal (GasBuddy). Oil up 55% to $110+/barrel", billConnection: "No federal gas tax relief in FY2026 appropriations" },
+          { category: "Gas & transportation", monthly: "$95", annual: "$1,140", driver: "Iran war surged gas 30%+ since Feb 28. National avg $4/gal, CA $5.89/gal statewide, $6.00 in LA (GasBuddy). Oil up 55% to $110+/barrel", billConnection: "No federal gas tax relief in FY2026 appropriations" },
           { category: "Healthcare", monthly: "$42", annual: "$504", driver: "CA premiums +8.2%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
           { category: "Utilities", monthly: "$24", annual: "$288", driver: "CA electricity rates highest in continental US, PG&E +12% rate hike approved", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
           { category: "Childcare (if applicable)", monthly: "$12", annual: "$146", driver: "CA avg childcare $1,680/mo (+7%), no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
@@ -2928,7 +2955,10 @@ function MyDistrictPage({ setPage }) {
       {viewingRep === null && <div style={{ background: t.redBg, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
           <div>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8 }}>Your estimated annual cost increase (2025 → 2026)</div>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>Your estimated annual cost increase (2025 → 2026)</span>
+              <DataTimestamp label={DATA_UPDATED.costOfLiving} />
+            </div>
             <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 42, fontWeight: 700, color: t.red }}>+${dd.costImpact.annualIncrease.toLocaleString()}/yr</div>
             <div style={{ fontSize: 16, color: t.text, marginTop: 4 }}>That's <strong style={{ color: t.white }}>+${dd.costImpact.monthlyIncrease}/month</strong> more than last year for a household in {dd.region}</div>
           </div>
