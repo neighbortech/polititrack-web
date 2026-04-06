@@ -2910,10 +2910,14 @@ function MyDistrictPage({ setPage }) {
     },
   };
 
+  const [apiReps, setApiReps] = useState(null);
+  const [apiState, setApiState] = useState("CA");
+
   const lookup = async () => {
     if (!zip.trim() || zip.length < 5) return;
     setLoading(true);
     setViewingRep(null);
+    setApiReps(null);
 
     try {
       const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
@@ -2922,14 +2926,14 @@ function MyDistrictPage({ setPage }) {
         const data = await r.json();
         const members = data.results || [];
         if (members.length > 0) {
-          // Build reps array from API data and merge with demo voting/donor data
-          const demoRep = districtData["92801"].reps[0]; // template for voting data
+          const demoRep = districtData["92801"].reps[0];
           const demoSen1 = districtData["92801"].reps[1];
           const demoSen2 = districtData["92801"].reps[2];
           
-          const apiReps = members.map((m, i) => {
+          let senCount = 0;
+          const built = members.map((m) => {
             const isSenator = m.chamber === "Senate";
-            const template = isSenator ? (i === 0 ? demoSen1 : demoSen2) : demoRep;
+            const template = isSenator ? (senCount++ === 0 ? demoSen1 : demoSen2) : demoRep;
             return {
               ...template,
               name: m.name,
@@ -2938,17 +2942,11 @@ function MyDistrictPage({ setPage }) {
               district: m.district || "",
               state: m.state || "",
               votedWithParty: template.votedWithParty || "N/A",
-              committees: template.committees || [],
-              topDonors: template.topDonors || [],
-              topIndustries: template.topIndustries || [],
-              votes: template.votes || [],
-              totalFromTopIndustries: template.totalFromTopIndustries || 0,
             };
           });
 
-          // Update districtData dynamically
-          dynamicReps.current = apiReps;
-          dynamicState.current = members[0]?.state || "CA";
+          setApiReps(built);
+          setApiState(members[0]?.state || "CA");
         }
       }
     } catch (e) {
@@ -2959,14 +2957,10 @@ function MyDistrictPage({ setPage }) {
     setLoading(false);
   };
 
-  const dynamicReps = useRef(null);
-  const dynamicState = useRef("CA");
-
-  // Use API reps if available, otherwise fall back to demo data
   const dd = {
     ...districtData["92801"],
-    reps: dynamicReps.current || districtData["92801"].reps,
-    state: dynamicState.current || "CA",
+    reps: apiReps || districtData["92801"].reps,
+    state: apiState,
   };
   const pc = (p) => p === "R" ? t.red : t.blue;
   const costColor = (dir) => dir === "up" ? "#ef4444" : dir === "down" ? "#22c55e" : t.gold;
