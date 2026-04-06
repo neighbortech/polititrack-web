@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 
 const API_BASE = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
-const CIVIC_KEY = import.meta.env.VITE_GOOGLE_CIVIC_KEY || "";
+// Google Civic API was shut down April 2025. Now using WhoIsMyRepresentative.com + Congress.gov via our API proxy.
 
 // ── DATA FRESHNESS — Update these when you refresh the data ──
 const DATA_UPDATED = {
@@ -10,7 +10,7 @@ const DATA_UPDATED = {
   spending: "April 4, 2026",    // Source: Congress.gov, CBO
   fec: "April 4, 2026",         // Source: FEC api.open.fec.gov
   iran: "April 4, 2026",        // Source: Pentagon, CSIS, CNBC, Wikipedia
-  district: "April 4, 2026",    // Source: Google Civic API + FEC
+  district: "April 4, 2026",    // Source: Congress.gov + WhoIsMyRepresentative.com + FEC
   costOfLiving: "April 4, 2026",// Source: AAA, BLS, USDA, KFF
 };
 
@@ -1941,14 +1941,14 @@ function PrivacyPage() {
       </LegalSection>
 
       <LegalSection title="14. Third-party services and APIs">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Google Civic Information API:</strong> When you use the "My District" or "Contact Your Representative" features and enter your ZIP code, we send that ZIP code to the Google Civic Information API to look up your congressional representatives. This request is subject to Google's Privacy Policy (policies.google.com/privacy). We do not store your ZIP code on our servers — it is used only for the real-time lookup and is not retained after the page session ends.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Representative lookup:</strong> When you use the "My District" or "Contact Your Representative" features and enter your ZIP code, we send that ZIP code to WhoIsMyRepresentative.com and Congress.gov to look up your congressional representatives. We do not store your ZIP code on our servers — it is used only for the real-time lookup and is not retained after the page session ends.</p>
         <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Federal Election Commission (FEC) API:</strong> When you search for donors or view donation data, we query the FEC's public API (api.open.fec.gov) in real time. Search queries you enter (such as donor names) are sent to the FEC as part of these API calls. The FEC's privacy policy governs how they handle these requests.</p>
         <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Stripe:</strong> Payment processing is handled by Stripe. When you subscribe to a paid plan, your payment information is collected and processed entirely by Stripe. We do not receive or store your credit card details. Stripe's privacy policy applies to all payment data.</p>
         <p><strong style={{ color: t.white }}>No other third-party tracking:</strong> We do not use Google Analytics, Facebook Pixel, advertising trackers, or any other third-party analytics or tracking services on our website.</p>
       </LegalSection>
 
       <LegalSection title="15. My District and Contact Your Representative features">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>ZIP code lookups:</strong> Your ZIP code is sent to the Google Civic Information API to identify your representatives. It is not stored on our servers, saved to any database, or used for any purpose other than the real-time lookup you requested.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>ZIP code lookups:</strong> Your ZIP code is sent to WhoIsMyRepresentative.com and Congress.gov to identify your representatives. It is not stored on our servers, saved to any database, or used for any purpose other than the real-time lookup you requested.</p>
         <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Contact form data:</strong> When you compose a message to your representative using our Contact Your Representative tool, all message content (your name, email, subject, and message body) remains entirely in your web browser. This data is never sent to PolitiTrack's servers. When you click "Copy message," the text is copied to your device's clipboard. When you click "Open official website," you are redirected to the representative's own contact page. PolitiTrack does not send, transmit, intercept, or store any messages you compose.</p>
         <p><strong style={{ color: t.white }}>Cost impact estimates:</strong> The personalized cost estimates shown on the My District page (such as annual cost increases) are calculated in your browser based on publicly available data. No personal financial information is collected, and we do not know or store your actual household costs.</p>
       </LegalSection>
@@ -2079,7 +2079,7 @@ function TermsPage() {
       </LegalSection>
 
       <LegalSection title="20. Contact Your Representative feature">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>CONTACT INFORMATION ONLY:</strong> The Contact Your Representative feature provides publicly available contact information for elected officials, including phone numbers, mailing addresses, official website URLs, and social media accounts. This information is sourced from the Google Civic Information API and official government directories. PolitiTrack does not send, compose, or transmit messages on behalf of users.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>CONTACT INFORMATION ONLY:</strong> The Contact Your Representative feature provides publicly available contact information for elected officials, including phone numbers, mailing addresses, official website URLs, and social media accounts. This information is sourced from WhoIsMyRepresentative.com, Congress.gov, and official government directories. PolitiTrack does not send, compose, or transmit messages on behalf of users.</p>
         <p><strong style={{ color: t.white }}>NO RESPONSIBILITY FOR USER ACTIONS:</strong> PolitiTrack is not responsible for any communications users initiate with elected officials using contact information provided on the Service. Users are solely responsible for ensuring their communications comply with all applicable laws.</p>
       </LegalSection>
 
@@ -3449,7 +3449,7 @@ function ContactRepPage() {
     </div>)}
 
     <p style={{ fontSize: 15, color: t.dim, textAlign: "center", marginTop: 24, fontFamily: "'Source Code Pro', monospace" }}>
-      Your ZIP code is used only for the real-time lookup and is not stored. Representative data from Google Civic Information API.
+      Your ZIP code is used only for the real-time lookup and is not stored. Representative data from WhoIsMyRepresentative.com and Congress.gov.
     </p>
   </div>);
 }
