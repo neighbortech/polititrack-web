@@ -1312,9 +1312,9 @@ function PricingPage({ setPage }) {
           ["AI natural language queries", "Soon", "✗", "✗", "✗"],
           ["Cross-source connection discovery", "Soon", "✗", "✗", "✗"],
         ].map((row, ri) => (
-          <>{row.map((cell, ci) => (
+          <div key={ri} style={{display:"contents"}}>{row.map((cell, ci) => (
             <div key={`${ri}-${ci}`} style={{ padding: "10px 12px", fontSize: 16, color: cell === "✓" ? "#22c55e" : cell === "✗" ? "#ef4444" : cell === "Soon" ? t.gold : t.text, background: ri % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, fontWeight: ci === 0 ? 500 : 400, borderRadius: ri === 11 && ci === 0 ? "0 0 0 8px" : ri === 11 && ci === 4 ? "0 0 8px 0" : 0 }}>{cell}</div>
-          ))}</>
+          ))}</div>
         ))}
       </div>
     </div>
@@ -2721,6 +2721,24 @@ const impactTopics = [
   ];
 
 
+function normalizeParty(p) {
+  if (!p) return "I";
+  const pl = p.toLowerCase().trim();
+  if (pl === "r" || pl.startsWith("rep")) return "R";
+  if (pl === "d" || pl.startsWith("dem")) return "D";
+  return "I";
+}
+
+function normalizeVote(v) {
+  if (!v) return "Not recorded";
+  const vl = v.toLowerCase().trim();
+  if (vl === "yea" || vl === "yes" || vl === "aye") return "Yes";
+  if (vl === "nay" || vl === "no") return "No";
+  if (vl === "not voting" || vl === "not recorded") return "Not Voting";
+  if (vl === "present") return "Present";
+  return v;
+}
+
 function MyDistrictPage({ setPage }) {
   const [zip, setZip] = useState("");
   const [loaded, setLoaded] = useState(false);
@@ -2796,7 +2814,7 @@ function MyDistrictPage({ setPage }) {
 
           setDistrictResult({
             state: data.state || reps[0]?.state || "",
-            region: `${data.state || ""} District`,
+            region: "Your District",
             reps,
           });
           setDataSource("live");
@@ -2837,7 +2855,7 @@ function MyDistrictPage({ setPage }) {
 
           setDistrictResult({
             state: members[0]?.state || "",
-            region: `${members[0]?.state || ""} District`,
+            region: "Your District",
             reps,
           });
           setDataSource("demo");
@@ -2856,24 +2874,6 @@ function MyDistrictPage({ setPage }) {
     setLoaded(true);
     setLoading(false);
   };
-
-  function normalizeParty(p) {
-    if (!p) return "I";
-    const pl = p.toLowerCase().trim();
-    if (pl === "r" || pl.startsWith("rep")) return "R";
-    if (pl === "d" || pl.startsWith("dem")) return "D";
-    return "I";
-  }
-
-  function normalizeVote(v) {
-    if (!v) return "Not recorded";
-    const vl = v.toLowerCase().trim();
-    if (vl === "yea" || vl === "yes" || vl === "aye") return "Yes";
-    if (vl === "nay" || vl === "no") return "No";
-    if (vl === "not voting" || vl === "not recorded") return "Not Voting";
-    if (vl === "present") return "Present";
-    return v; // Return original if unrecognized
-  }
 
   const dd = districtResult;
   const pc = (p) => p === "R" ? t.red : t.blue;
@@ -2963,7 +2963,7 @@ function MyDistrictPage({ setPage }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ width: 52, height: 52, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.party), border: `2px solid ${pc(rep.party)}44`, overflow: "hidden" }}>
-                {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name.split(" ").pop() || "?")[0]}
+                {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name || "?").split(" ").pop()?.[0] || "?"}
               </div>
               <div>
                 <div onClick={() => { setViewingRep(ri); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ fontSize: 16, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
@@ -3092,7 +3092,7 @@ function MyDistrictPage({ setPage }) {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 20 }}>
               <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
                 <div style={{ width: 72, height: 72, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: pc(rep.party), border: `3px solid ${pc(rep.party)}44`, overflow: "hidden" }}>
-                  {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name.split(" ").pop() || "?")[0]}
+                  {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name || "?").split(" ").pop()?.[0] || "?"}
                 </div>
                 <div>
                   <div style={{ fontSize: 24, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
@@ -3248,7 +3248,7 @@ function ContactRepPage() {
             name: m.name,
             title: m.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative${m.district ? `, District ${m.district}` : ""}`,
             party: m.party === "R" ? "Republican" : m.party === "D" ? "Democratic" : m.party || "Unknown",
-            partyShort: m.party === "R" || m.party === "Republican" ? "R" : m.party === "D" || m.party === "Democratic" ? "D" : "I",
+            partyShort: normalizeParty(m.party),
             state: m.state || "",
             district: m.district || "",
             chamber: m.chamber || "House",
@@ -3307,7 +3307,7 @@ function ContactRepPage() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <div style={{ width: 48, height: 48, borderRadius: "50%", background: pc(rep.partyShort) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.partyShort), border: `2px solid ${pc(rep.partyShort)}44`, overflow: "hidden" }}>
-              {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : rep.name.split(" ").pop()[0]}
+              {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name || "?").split(" ").pop()?.[0] || "?"}
             </div>
             <div>
               <div style={{ fontSize: 15, fontWeight: 700, color: t.white }}>{rep.name}</div>
@@ -3331,7 +3331,7 @@ function ContactRepPage() {
         <div style={{ background: t.surface2, padding: "32px 32px 24px", borderBottom: `1px solid ${t.border}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
             <div style={{ width: 80, height: 80, borderRadius: "50%", background: pc(viewing.partyShort) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, fontWeight: 700, color: pc(viewing.partyShort), border: `3px solid ${pc(viewing.partyShort)}44`, overflow: "hidden", flexShrink: 0 }}>
-              {viewing.photoUrl ? <img src={viewing.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : viewing.name.split(" ").pop()[0]}
+              {viewing.photoUrl ? <img src={viewing.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (viewing.name || "?").split(" ").pop()?.[0] || "?"}
             </div>
             <div>
               <div style={{ fontSize: 26, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{viewing.name}</div>
@@ -3499,7 +3499,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    const onPop = () => setPageState(getPageFromPath());
+    const onPop = () => { setPageState(getPageFromPath()); window.scrollTo(0, 0); };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
