@@ -3256,45 +3256,100 @@ function ContactRepPage() {
     setViewingRep(null);
 
     try {
-      const apiKey = CIVIC_KEY;
-      const r = await fetch(`https://www.googleapis.com/civicinfo/v2/representatives?address=${zip}&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody&key=${apiKey}`);
-      if (r.ok) {
-        const data = await r.json();
-        const offices = data.offices || [];
-        const officials = data.officials || [];
-        const parsed = [];
-        for (const office of offices) {
-          for (const idx of office.officialIndices || []) {
-            const official = officials[idx];
-            if (!official) continue;
-            const isSenator = office.name.includes("Senator") || office.name.includes("Senate");
-            const districtMatch = office.name.match(/District (\d+)/);
-            parsed.push({
-              name: official.name,
-              title: isSenator ? "U.S. Senator" : `U.S. Representative, District ${districtMatch ? districtMatch[1] : ""}`,
-              party: official.party || "Unknown",
-              partyShort: official.party === "Republican" ? "R" : official.party === "Democratic" ? "D" : "I",
-              state: (data.normalizedInput || {}).state || "",
-              district: districtMatch ? districtMatch[1] : "",
-              chamber: isSenator ? "Senate" : "House",
-              phones: official.phones || [],
-              urls: official.urls || [],
-              photoUrl: official.photoUrl || null,
-              emails: official.emails || [],
-              channels: official.channels || [],
-              address: official.address ? official.address[0] : null,
-            });
-          }
+      // Use whoismyrepresentative.com XML → JSON proxy-free approach
+      // Or use the unitedstatesio API which maps ZIP to district
+      const districtRes = await fetch(`https://whoismyrepresentative.com/getall_mems.php?zip=${zip}&output=json`);
+      if (districtRes.ok) {
+        const data = await districtRes.json();
+        const members = data.results || [];
+        const parsed = members.map(m => {
+          const isSenator = m.name && m.link && m.link.includes("senate");
+          return {
+            name: m.name || "Unknown",
+            title: isSenator ? "U.S. Senator" : `U.S. Representative, District ${m.district || ""}`,
+            party: m.party === "R" ? "Republican" : m.party === "D" ? "Democratic" : m.party || "Unknown",
+            partyShort: m.party || "I",
+            state: m.state || "",
+            district: m.district || "",
+            chamber: isSenator ? "Senate" : "House",
+            phones: m.phone ? [m.phone] : ["(202) 224-3121"],
+            urls: m.link ? [m.link] : [],
+            photoUrl: null,
+            emails: [],
+            channels: [],
+            address: m.office ? { line1: m.office, city: "Washington", state: "DC", zip: isSenator ? "20510" : "20515" } : null,
+          };
+        });
+        if (parsed.length > 0) { setReps(parsed); setLoading(false); return; }
+      }
+
+      // Fallback: try ProPublica Congress API (free, no key needed for members list)
+      // Use state from ZIP (first 3 digits give rough state)
+      const stateFromZip = getStateFromZip(zip);
+      if (stateFromZip) {
+        const senRes = await fetch(`https://api.congress.gov/v3/member?stateCode=${stateFromZip}&currentMember=true&limit=10&api_key=DEMO_KEY`);
+        if (senRes.ok) {
+          const senData = await senRes.json();
+          const members = senData.members || [];
+          const parsed = members.filter(m => m.state === stateFromZip).map(m => ({
+            name: m.name || `${m.firstName} ${m.lastName}`,
+            title: m.terms?.slice(-1)[0]?.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative`,
+            party: m.partyName || "Unknown",
+            partyShort: m.partyName === "Republican" ? "R" : m.partyName === "Democratic" ? "D" : "I",
+            state: m.state || stateFromZip,
+            district: m.district?.toString() || "",
+            chamber: m.terms?.slice(-1)[0]?.chamber || "House",
+            phones: ["(202) 224-3121"],
+            urls: m.officialWebsiteUrl ? [m.officialWebsiteUrl] : [],
+            photoUrl: m.depiction?.imageUrl || null,
+            emails: [],
+            channels: [],
+            address: null,
+          }));
+          if (parsed.length > 0) { setReps(parsed); setLoading(false); return; }
         }
-        if (parsed.length > 0) { setReps(parsed); } else { throw new Error(); }
-      } else { throw new Error(); }
+      }
+
+      throw new Error("No data found");
     } catch {
+      // Demo fallback
       setReps([
-        { name: "Example Representative", title: "U.S. Representative, District 45", party: "Republican", partyShort: "R", state: "CA", district: "45", chamber: "House", phones: ["(202) 225-0001"], urls: ["https://www.house.gov/representatives/find-your-representative"], photoUrl: null, emails: [], channels: [{ type: "Twitter", id: "example" }], address: { line1: "Rayburn HOB", city: "Washington", state: "DC", zip: "20515" } },
-        { name: "Example Senator", title: "U.S. Senator", party: "Democratic", partyShort: "D", state: "CA", district: "", chamber: "Senate", phones: ["(202) 224-0001"], urls: ["https://www.senate.gov/senators/senators-contact.htm"], photoUrl: null, emails: [], channels: [{ type: "Twitter", id: "example" }], address: { line1: "Hart SOB", city: "Washington", state: "DC", zip: "20510" } },
+        { name: "Look up failed — try a full address", title: "Use a street address + ZIP for best results", party: "Unknown", partyShort: "I", state: "", district: "", chamber: "House", phones: ["(202) 224-3121"], urls: ["https://www.house.gov/representatives/find-your-representative"], photoUrl: null, emails: [], channels: [], address: null },
       ]);
     }
     setLoading(false);
+  };
+
+  // Helper: rough ZIP → state mapping
+  const getStateFromZip = (z) => {
+    const n = parseInt(z.substring(0, 3));
+    if (n >= 900 && n <= 961) return "CA"; if (n >= 100 && n <= 149) return "NY";
+    if (n >= 750 && n <= 799) return "TX"; if (n >= 330 && n <= 349) return "FL";
+    if (n >= 600 && n <= 629) return "IL"; if (n >= 150 && n <= 196) return "PA";
+    if (n >= 430 && n <= 458) return "OH"; if (n >= 200 && n <= 205) return "DC";
+    if (n >= 206 && n <= 219) return "MD"; if (n >= 220 && n <= 246) return "VA";
+    if (n >= 980 && n <= 994) return "WA"; if (n >= 300 && n <= 319) return "GA";
+    if (n >= 270 && n <= 289) return "NC"; if (n >= 480 && n <= 499) return "MI";
+    if (n >= 070 && n <= 89) return "NJ"; if (n >= 550 && n <= 567) return "MN";
+    if (n >= 530 && n <= 549) return "WI"; if (n >= 460 && n <= 479) return "IN";
+    if (n >= 850 && n <= 865) return "AZ"; if (n >= 800 && n <= 816) return "CO";
+    if (n >= 370 && n <= 385) return "TN"; if (n >= 630 && n <= 658) return "MO";
+    if (n >= 010 && n <= 27) return "MA"; if (n >= 247 && n <= 268) return "WV";
+    if (n >= 350 && n <= 369) return "AL"; if (n >= 290 && n <= 299) return "SC";
+    if (n >= 320 && n <= 329) return "FL"; if (n >= 386 && n <= 397) return "MS";
+    if (n >= 700 && n <= 714) return "LA"; if (n >= 400 && n <= 427) return "KY";
+    if (n >= 970 && n <= 979) return "OR"; if (n >= 500 && n <= 528) return "IA";
+    if (n >= 660 && n <= 679) return "KS"; if (n >= 570 && n <= 577) return "SD";
+    if (n >= 580 && n <= 588) return "ND"; if (n >= 680 && n <= 693) return "NE";
+    if (n >= 830 && n <= 838) return "ID"; if (n >= 820 && n <= 831) return "WY";
+    if (n >= 590 && n <= 599) return "MT"; if (n >= 870 && n <= 884) return "NM";
+    if (n >= 840 && n <= 847) return "UT"; if (n >= 889 && n <= 898) return "NV";
+    if (n >= 967 && n <= 968) return "HI"; if (n >= 995 && n <= 999) return "AK";
+    if (n >= 28 && n <= 29) return "RI"; if (n >= 60 && n <= 69) return "CT";
+    if (n >= 30 && n <= 38) return "NH"; if (n >= 39 && n <= 49) return "ME";
+    if (n >= 50 && n <= 59) return "VT"; if (n >= 715 && n <= 749) return "TX";
+    if (n >= 1 && n <= 9) return "PR"; 
+    return null;
   };
 
   const pc = (p) => p === "R" ? t.red : p === "D" ? t.blue : t.gold;
