@@ -2912,6 +2912,7 @@ function MyDistrictPage({ setPage }) {
 
   const [apiReps, setApiReps] = useState(null);
   const [apiState, setApiState] = useState("CA");
+  const [apiRegion, setApiRegion] = useState("Southern California");
 
   const lookup = async () => {
     if (!zip.trim() || zip.length < 5) return;
@@ -2919,11 +2920,16 @@ function MyDistrictPage({ setPage }) {
     setViewingRep(null);
     setApiReps(null);
 
+    const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
+    const url = `${apiBase}/api/v1/reps?zip=${zip}`;
+    console.log("PolitiTrack: Fetching reps from", url);
+
     try {
-      const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
-      const r = await fetch(`${apiBase}/api/v1/reps?zip=${zip}`);
+      const r = await fetch(url);
+      console.log("PolitiTrack: Response status", r.status);
       if (r.ok) {
         const data = await r.json();
+        console.log("PolitiTrack: Got data", data);
         const members = data.results || [];
         if (members.length > 0) {
           const demoRep = districtData["92801"].reps[0];
@@ -2936,21 +2942,23 @@ function MyDistrictPage({ setPage }) {
             const template = isSenator ? (senCount++ === 0 ? demoSen1 : demoSen2) : demoRep;
             return {
               ...template,
-              name: m.name,
-              party: m.party === "R" || m.party === "Republican" ? "R" : m.party === "D" || m.party === "Democratic" ? "D" : "I",
+              name: m.name || "Unknown",
+              party: (m.party === "R" || m.party === "Republican") ? "R" : (m.party === "D" || m.party === "Democratic") ? "D" : "I",
               chamber: m.chamber || "House",
-              district: m.district || "",
-              state: m.state || "",
+              district: m.district || template.district || "",
+              state: m.state || template.state || "CA",
               votedWithParty: template.votedWithParty || "N/A",
             };
           });
 
+          console.log("PolitiTrack: Built reps", built.map(r => r.name));
           setApiReps(built);
           setApiState(members[0]?.state || "CA");
+          setApiRegion(members[0]?.state ? `${members[0].state} District` : "Your District");
         }
       }
     } catch (e) {
-      console.log("Rep lookup failed, using demo data:", e);
+      console.error("PolitiTrack: Rep lookup failed", e);
     }
 
     setLoaded(true);
@@ -2961,6 +2969,7 @@ function MyDistrictPage({ setPage }) {
     ...districtData["92801"],
     reps: apiReps || districtData["92801"].reps,
     state: apiState,
+    region: apiRegion,
   };
   const pc = (p) => p === "R" ? t.red : t.blue;
   const costColor = (dir) => dir === "up" ? "#ef4444" : dir === "down" ? "#22c55e" : t.gold;
