@@ -2758,219 +2758,162 @@ const impactTopics = [
     },
   ];
 
+
 function MyDistrictPage({ setPage }) {
   const [zip, setZip] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [viewingRep, setViewingRep] = useState(null); // index of rep being viewed in detail
+  const [viewingRep, setViewingRep] = useState(null);
+  const [districtResult, setDistrictResult] = useState(null);
+  const [dataSource, setDataSource] = useState("none"); // "live" | "demo" | "none"
 
-  // Simulated district data — in production this calls your API + FEC + Congress.gov
-  const districtData = {
-    "92801": {
-      state: "CA", district: "46", region: "Southern California",
-      reps: [
-        {
-          name: "Rep. Lou Correa", party: "D", chamber: "House", district: "46", state: "CA",
-          photo: null,
-          committees: ["Homeland Security", "Judiciary"],
-          topDonors: [
-            { name: "Service Employees Intl Union", amount: 28500, industry: "Labor" },
-            { name: "Edison International", amount: 15000, industry: "Energy" },
-            { name: "Kaiser Permanente", amount: 12000, industry: "Healthcare" },
-            { name: "Boeing Co", amount: 10000, industry: "Defense" },
-            { name: "AT&T Inc", amount: 8500, industry: "Telecom" },
-          ],
-          topIndustries: [
-            { name: "Labor Unions", total: 82000 },
-            { name: "Healthcare", total: 54000 },
-            { name: "Energy", total: 38000 },
-            { name: "Defense", total: 28000 },
-            { name: "Real Estate", total: 24000 },
-          ],
-          votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
-              quote: "This bill invests in our troops, strengthens our schools, and delivers for working families in Orange County.",
-              quoteSource: "Office press release, Feb 2026",
-              reality: "The bill includes $886B for defense — the largest ever. It also added $1.7B for F-35 jets that the Pentagon didn't request. Boeing, one of the rep's top donors ($10,000), benefits directly from defense procurement in this bill.",
-            },
-            { bill: "H.R. 7147", title: "DHS Appropriations Act, 2026", vote: "No", amount: "$62.8B", yourCost: "$4.1B for border wall at $26M/mile from federal tax revenue", costDir: "neutral",
-              quote: "I cannot support a bill that wastes billions on an ineffective wall while cutting vital FEMA disaster relief funding.",
-              quoteSource: "Floor statement, Feb 2026",
-              reality: "The bill allocates $4.1B for border wall construction at $26M per mile. It also expands ICE detention to 34,000 beds at $144/person/day. Private prison companies CoreCivic and GEO Group, which lobbied heavily for the bill, would receive ~$2.2B combined.",
-            },
-            { bill: "H.R. 3944", title: "Agriculture, VA Appropriations", vote: "Yes", amount: "$284.7B", yourCost: "Preserved SNAP benefits at $234/person/month", costDir: "down",
-              quote: "This bill protects food assistance for millions of families and expands mental health services for our veterans.",
-              quoteSource: "Official statement, Nov 2025",
-              reality: "SNAP funding was maintained at current levels but not increased despite 3.1% food price inflation. VA healthcare received a 5.5% increase. Agricultural lobbying groups spent $186M in 2025 on this bill — the funding largely preserves existing farm subsidy structures.",
-            },
-            { bill: "H.R. 7006", title: "Financial Services & State Dept", vote: "Yes", amount: "$98.2B", yourCost: "IRS budget cut 13% — longer wait times for refunds", costDir: "up",
-              quote: "This bill funds critical diplomatic efforts and ensures responsible stewardship of taxpayer dollars.",
-              quoteSource: "Committee hearing remarks, Jan 2026",
-              reality: "The IRS budget was cut from $14.1B to $12.3B, which the Treasury Inspector General projects will increase phone wait times from 28 to 40+ minutes and slow refund processing. Tax preparation companies H&R Block and Intuit spent $12M combined lobbying for IRS budget cuts — a weaker IRS drives more customers to paid tax prep services.",
-            },
-            { bill: "S. 890", title: "Prescription Drug Pricing Reform", vote: "Yes", amount: "N/A", yourCost: "Savings of ~$300/yr on prescriptions for Medicare patients", costDir: "down",
-              quote: "No one should have to choose between paying for medication and paying their rent. This bill is a step in the right direction.",
-              quoteSource: "Town hall remarks, Apr 2024",
-              reality: "The bill originally allowed Medicare to negotiate prices on 250 drugs but was amended down to 50 after $8.1M in pharma lobbying. Pfizer and PhRMA lobbied specifically to exclude their top-selling drugs from the negotiation list. Kaiser Permanente, the rep's 3rd-largest donor ($12,000), benefits from the bill's insurance provisions.",
-            },
-          ],
-          totalFromTopIndustries: 226000,
-          votedWithParty: "94%",
-        },
-        {
-          name: "Sen. Alex Padilla", party: "D", chamber: "Senate", district: "", state: "CA",
-          photo: null,
-          committees: ["Judiciary", "Environment & Public Works", "Budget"],
-          topDonors: [
-            { name: "Alphabet Inc", amount: 45000, industry: "Technology" },
-            { name: "University of California", amount: 38000, industry: "Education" },
-            { name: "Walt Disney Co", amount: 32000, industry: "Entertainment" },
-            { name: "Kaiser Permanente", amount: 28000, industry: "Healthcare" },
-            { name: "Pacific Gas & Electric", amount: 22000, industry: "Energy" },
-          ],
-          topIndustries: [
-            { name: "Technology", total: 142000 },
-            { name: "Entertainment", total: 98000 },
-            { name: "Healthcare", total: 76000 },
-            { name: "Education", total: 54000 },
-            { name: "Energy", total: 42000 },
-          ],
-          votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
-              quote: "This bipartisan agreement funds critical programs that Californians depend on — from our military to Pell Grants to NIH cancer research.",
-              quoteSource: "Senate floor statement, Feb 2026",
-              reality: "The bill funds NIH at $47.3B and maintains Pell Grants at $7,395 — but Pell has not been increased despite 18% cumulative inflation. Alphabet ($45,000 to Padilla) benefits from $8.4B in DOE science funding that includes AI research grants.",
-            },
-            { bill: "S. 2000", title: "NDAA FY2025", vote: "Yes", amount: "$886B", yourCost: "$886B total — largest defense budget in history, 3.2% increase", costDir: "up",
-              quote: "We must ensure our military has the tools and resources to deter aggression and protect American interests worldwide.",
-              quoteSource: "Armed Services Committee hearing, Jun 2024",
-              reality: "This is the largest defense authorization in U.S. history. Congress added $1.7B for F-35s beyond what the Pentagon requested. Top 5 defense contractors contributed $31.2M to congressional campaigns and spent $60M+ on lobbying. Pacific Gas & Electric ($22,000 to Padilla) competes for DOE energy contracts included in the NDAA.",
-            },
-            { bill: "S. 890", title: "Prescription Drug Pricing Reform", vote: "Yes", amount: "N/A", yourCost: "Savings of ~$300/yr on prescriptions for Medicare patients", costDir: "down",
-              quote: "Californians pay some of the highest drug prices in the world. This bill finally gives Medicare the power to negotiate on behalf of seniors.",
-              quoteSource: "Press conference, May 2024",
-              reality: "The bill was weakened from 250 to 50 negotiable drugs after heavy pharma lobbying. Kaiser Permanente ($28,000 to Padilla) supported the bill as it shifts prescription costs favorably for large integrated health systems. The pharmaceutical industry spent $8.1M lobbying specifically on this bill.",
-            },
-          ],
-          totalFromTopIndustries: 412000,
-          votedWithParty: "97%",
-        },
-        {
-          name: "Sen. Adam Schiff", party: "D", chamber: "Senate", district: "", state: "CA",
-          photo: null,
-          committees: ["Judiciary", "Appropriations", "Intelligence"],
-          topDonors: [
-            { name: "Walt Disney Co", amount: 52000, industry: "Entertainment" },
-            { name: "Alphabet Inc", amount: 42000, industry: "Technology" },
-            { name: "Warner Bros Discovery", amount: 28000, industry: "Entertainment" },
-            { name: "Comcast Corp", amount: 24000, industry: "Telecom" },
-            { name: "Latham & Watkins", amount: 22000, industry: "Law" },
-          ],
-          topIndustries: [
-            { name: "Entertainment", total: 186000 },
-            { name: "Technology", total: 124000 },
-            { name: "Law Firms", total: 86000 },
-            { name: "Telecom", total: 52000 },
-            { name: "Healthcare", total: 38000 },
-          ],
-          votes: [
-            { bill: "H.R. 7148", title: "Consolidated Appropriations Act, 2026", vote: "Yes", amount: "$412B", yourCost: "$886B defense budget — 3.2% increase over FY2025, funded from federal income taxes", costDir: "up",
-              quote: "This bill is not perfect, but it makes critical investments in education, healthcare research, and infrastructure that California families need.",
-              quoteSource: "Official statement, Feb 2026",
-              reality: "The bill funds NASA at $25.4B — significant for California's aerospace industry. Walt Disney Co ($52,000 to Schiff) and Comcast ($24,000) benefit from Commerce/FCC provisions in the bill. Entertainment industry lobbying influenced copyright and streaming provisions included in the Commerce, Justice, Science section.",
-            },
-            { bill: "S. 890", title: "Prescription Drug Pricing Reform", vote: "Yes", amount: "N/A", yourCost: "Savings of ~$300/yr on prescriptions for Medicare patients", costDir: "down",
-              quote: "For too long, Americans have subsidized drug company profits. This bill begins to change that, though we must go further.",
-              quoteSource: "Senate floor remarks, May 2024",
-              reality: "Schiff publicly advocated for the stronger 250-drug version but voted for the weakened 50-drug compromise. The pharmaceutical industry is not among his top donor industries, making this vote more independent of donor influence than average. However, healthcare companies collectively contributed $38,000 to his campaigns.",
-            },
-          ],
-          totalFromTopIndustries: 486000,
-          votedWithParty: "96%",
-        },
-      ],
-      localContracts: [
-        { contractor: "Boeing Co", amount: "$2.4B", agency: "Dept. of Defense", description: "C-17 maintenance at Long Beach facility" },
-        { contractor: "Raytheon", amount: "$890M", agency: "Dept. of Defense", description: "Missile systems — Fullerton facility" },
-        { contractor: "Kaiser Foundation", amount: "$340M", agency: "HHS", description: "Medicare/Medicaid services — Orange County" },
-      ],
-      costImpact: {
-        monthlyIncrease: 231,
-        annualIncrease: 2770,
-        breakdown: [
-          { category: "Housing & rent", monthly: "$55", annual: "$660", driver: "CA median rent +6.2% (above national 5%), Prop 13 limits property tax relief", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
-          { category: "Groceries", monthly: "$33", annual: "$396", driver: "CA food prices +3.8% (above national 3.1%), eggs down 42% (BLS Feb data), but food prices rising again due to war-driven diesel and shipping cost increases", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
-          { category: "Gas & transportation", monthly: "$95", annual: "$1,140", driver: "Iran war surged gas 30%+ since Feb 28. National avg $4/gal, CA $5.89/gal statewide, $6.00 in LA (GasBuddy). Oil up 55% to $110+/barrel", billConnection: "No federal gas tax relief in FY2026 appropriations" },
-          { category: "Healthcare", monthly: "$42", annual: "$504", driver: "CA premiums +8.2%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
-          { category: "Utilities", monthly: "$24", annual: "$288", driver: "CA electricity rates highest in continental US, PG&E +12% rate hike approved", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
-          { category: "Childcare (if applicable)", monthly: "$12", annual: "$146", driver: "CA avg childcare $1,680/mo (+7%), no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
-        ],
-      },
-      politicalMoneyScore: 72,
-    },
+  // ── Static cost impact data (editorial — not from API) ──
+  const costImpactData = {
+    monthlyIncrease: 231,
+    annualIncrease: 2770,
+    breakdown: [
+      { category: "Housing & rent", monthly: "$55", annual: "$660", driver: "Median rent +5-6% nationally, shelter is largest CPI driver", billConnection: "H.R. 7148 HUD funding flat — 600K Section 8 waitlist unchanged" },
+      { category: "Groceries", monthly: "$33", annual: "$396", driver: "Food at home +2.4% (BLS Feb 2026), eggs down 42% from peak", billConnection: "H.R. 3944 preserved SNAP at $234/person/month but no increase" },
+      { category: "Gas & transportation", monthly: "$95", annual: "$1,140", driver: "Gas surged 30%+ since Iran conflict began Feb 28 (AAA)", billConnection: "No federal gas tax relief in FY2026 appropriations" },
+      { category: "Healthcare", monthly: "$42", annual: "$504", driver: "Premiums +7%, hospital costs +6.7% (BLS)", billConnection: "S.890 drug pricing reform saves ~$300/yr but only for Medicare patients" },
+      { category: "Utilities", monthly: "$24", annual: "$288", driver: "Electricity +6.7%, natural gas +10.8% (BLS 2025)", billConnection: "DOE funding in H.R. 7148 includes $4.1B for renewables but no rate relief" },
+      { category: "Childcare (if applicable)", monthly: "$12", annual: "$146", driver: "Avg childcare +7%, no federal expansion in FY2026", billConnection: "Head Start funded at $12.3B in H.R. 7148 but no universal pre-K" },
+    ],
   };
 
-  const [apiReps, setApiReps] = useState(null);
-  const [apiState, setApiState] = useState("CA");
-  const [apiRegion, setApiRegion] = useState("Southern California");
-
+  // ── Lookup function — calls the new /api/v1/district endpoint ──
   const lookup = async () => {
     if (!zip.trim() || zip.length < 5) return;
     setLoading(true);
     setViewingRep(null);
-    setApiReps(null);
+    setDistrictResult(null);
+    setDataSource("none");
 
     const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
-    const url = `${apiBase}/api/v1/reps?zip=${zip}`;
-    console.log("PolitiTrack: Fetching reps from", url);
 
+    // Try the new v2 district endpoint first (real FEC + Congress.gov data)
     try {
+      const url = `${apiBase}/api/v1/district?zip=${zip}`;
+      console.log("PolitiTrack: Fetching district data from", url);
       const r = await fetch(url);
-      console.log("PolitiTrack: Response status", r.status);
       if (r.ok) {
         const data = await r.json();
-        console.log("PolitiTrack: Got data", data);
+        console.log("PolitiTrack: Got district data", data);
+        if (data.representatives && data.representatives.length > 0) {
+          // Normalize party codes from API
+          const reps = data.representatives.map(rep => ({
+            ...rep,
+            party: normalizeParty(rep.party),
+            // Ensure arrays exist even if API returned nothing
+            topDonors: (rep.topDonors || []).map(d => ({
+              name: d.name || "Unknown",
+              amount: d.amount || 0,
+              industry: d.industry || "",
+            })),
+            topIndustries: (rep.topIndustries || []).map(ind => ({
+              name: ind.name || "Unknown",
+              total: ind.total || 0,
+            })),
+            votes: (rep.votes || []).map(v => ({
+              bill: v.bill || "",
+              title: v.title || "",
+              vote: normalizeVote(v.vote),
+              amount: v.amount || "N/A",
+              yourCost: v.yourCost || "",
+              costDir: v.costDir || "neutral",
+              status: v.status || "",
+              // quote/quoteSource/reality not available from API
+              quote: null,
+              quoteSource: null,
+              reality: null,
+            })),
+            totalFromTopIndustries: rep.totalFromTopIndustries || 0,
+            votedWithParty: rep.votedWithParty || "N/A",
+            committees: rep.committees || [],
+          }));
+
+          setDistrictResult({
+            state: data.state || reps[0]?.state || "",
+            region: `${data.state || ""} District`,
+            reps,
+          });
+          setDataSource("live");
+          setLoaded(true);
+          setLoading(false);
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn("PolitiTrack: District endpoint failed, falling back to /reps", e);
+    }
+
+    // Fallback: try the old /api/v1/reps endpoint (names only, no FEC data)
+    try {
+      const url = `${apiBase}/api/v1/reps?zip=${zip}`;
+      const r = await fetch(url);
+      if (r.ok) {
+        const data = await r.json();
         const members = data.results || [];
         if (members.length > 0) {
-          const demoRep = districtData["92801"].reps[0];
-          const demoSen1 = districtData["92801"].reps[1];
-          const demoSen2 = districtData["92801"].reps[2];
-          
-          let senCount = 0;
-          const built = members.map((m) => {
-            const isSenator = m.chamber === "Senate";
-            const template = isSenator ? (senCount++ === 0 ? demoSen1 : demoSen2) : demoRep;
-            return {
-              ...template,
-              name: m.name || "Unknown",
-              party: (m.party === "R" || m.party === "Republican") ? "R" : (m.party === "D" || m.party === "Democratic") ? "D" : "I",
-              chamber: m.chamber || "House",
-              district: m.district || template.district || "",
-              state: m.state || template.state || "CA",
-              votedWithParty: template.votedWithParty || "N/A",
-            };
-          });
+          const reps = members.map(m => ({
+            name: m.name || "Unknown",
+            party: normalizeParty(m.party),
+            chamber: m.chamber || "House",
+            district: m.district || "",
+            state: m.state || "",
+            phone: m.phone || "(202) 224-3121",
+            office: m.office || "",
+            website: m.website || "",
+            photoUrl: m.photoUrl || "",
+            committees: [],
+            topDonors: [],
+            topIndustries: [],
+            votes: [],
+            totalFromTopIndustries: 0,
+            votedWithParty: "N/A",
+          }));
 
-          console.log("PolitiTrack: Built reps", built.map(r => r.name));
-          setApiReps(built);
-          setApiState(members[0]?.state || "CA");
-          setApiRegion(members[0]?.state ? `${members[0].state} District` : "Your District");
+          setDistrictResult({
+            state: members[0]?.state || "",
+            region: `${members[0]?.state || ""} District`,
+            reps,
+          });
+          setDataSource("demo");
+          setLoaded(true);
+          setLoading(false);
+          return;
         }
       }
     } catch (e) {
       console.error("PolitiTrack: Rep lookup failed", e);
     }
 
+    // Nothing found
+    setDistrictResult(null);
+    setDataSource("none");
     setLoaded(true);
     setLoading(false);
   };
 
-  const dd = {
-    ...districtData["92801"],
-    reps: apiReps || districtData["92801"].reps,
-    state: apiState,
-    region: apiRegion,
-  };
+  function normalizeParty(p) {
+    if (!p) return "I";
+    const pl = p.toLowerCase().trim();
+    if (pl === "r" || pl.startsWith("rep")) return "R";
+    if (pl === "d" || pl.startsWith("dem")) return "D";
+    return "I";
+  }
+
+  function normalizeVote(v) {
+    if (!v) return "Not recorded";
+    const vl = v.toLowerCase().trim();
+    if (vl === "yea" || vl === "yes" || vl === "aye") return "Yes";
+    if (vl === "nay" || vl === "no") return "No";
+    if (vl === "not voting" || vl === "not recorded") return "Not Voting";
+    if (vl === "present") return "Present";
+    return v; // Return original if unrecognized
+  }
+
+  const dd = districtResult;
   const pc = (p) => p === "R" ? t.red : t.blue;
   const costColor = (dir) => dir === "up" ? "#ef4444" : dir === "down" ? "#22c55e" : t.gold;
   const costIcon = (dir) => dir === "up" ? "▲" : dir === "down" ? "▼" : "●";
@@ -2992,15 +2935,24 @@ function MyDistrictPage({ setPage }) {
       <p style={{ fontSize: 15, color: t.dim, marginTop: 12 }}>Your ZIP code is not stored. Used only to find your representatives.</p>
     </div>)}
 
+    {/* No results */}
+    {loaded && !dd && (<div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 40, textAlign: "center" }}>
+      <div style={{ fontSize: 48, marginBottom: 16, opacity: 0.5 }}>❌</div>
+      <p style={{ color: t.text, fontSize: 16, marginBottom: 16 }}>No representatives found for ZIP code {zip}</p>
+      <button onClick={() => { setLoaded(false); setZip(""); }} style={{ background: t.surface2, color: t.text, border: `1px solid ${t.border}`, padding: "12px 28px", borderRadius: 8, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Try another ZIP</button>
+    </div>)}
+
     {/* Dashboard */}
     {loaded && dd && (<div>
       {/* Header bar */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
         <div>
           <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>District: </span>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.white, fontWeight: 600 }}>{dd.state}-{dd.district} · {dd.region}</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.white, fontWeight: 600 }}>{dd.state} · {dd.region}</span>
+          {dataSource === "live" && <span style={{ marginLeft: 12, fontSize: 12, padding: "2px 8px", borderRadius: 4, background: "rgba(34,197,94,0.12)", color: "#22c55e", fontFamily: "'Source Code Pro', monospace" }}>LIVE DATA</span>}
+          {dataSource === "demo" && <span style={{ marginLeft: 12, fontSize: 12, padding: "2px 8px", borderRadius: 4, background: t.goldBg, color: t.gold, fontFamily: "'Source Code Pro', monospace" }}>NAMES ONLY — FEC data loading</span>}
         </div>
-        <button onClick={() => { setLoaded(false); setZip(""); }} style={{ fontSize: 16, color: t.dim, background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Change ZIP</button>
+        <button onClick={() => { setLoaded(false); setZip(""); setDistrictResult(null); }} style={{ fontSize: 16, color: t.dim, background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "'Source Code Pro', monospace" }}>Change ZIP</button>
       </div>
 
       {/* Cost impact banner */}
@@ -3011,18 +2963,13 @@ function MyDistrictPage({ setPage }) {
               <span>Your estimated annual cost increase (2025 → 2026)</span>
               <DataTimestamp label={DATA_UPDATED.costOfLiving} />
             </div>
-            <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 42, fontWeight: 700, color: t.red }}>+${dd.costImpact.annualIncrease.toLocaleString()}/yr</div>
-            <div style={{ fontSize: 16, color: t.text, marginTop: 4 }}>That's <strong style={{ color: t.white }}>+${dd.costImpact.monthlyIncrease}/month</strong> more than last year for a household in {dd.region}</div>
-          </div>
-          <div style={{ textAlign: "center", padding: "16px 24px", background: "rgba(230,57,70,0.08)", borderRadius: 10 }}>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 4 }}>Political money score</div>
-            <div style={{ fontSize: 36, fontWeight: 700, color: dd.politicalMoneyScore > 70 ? t.red : dd.politicalMoneyScore > 40 ? t.gold : "#22c55e" }}>{dd.politicalMoneyScore}</div>
-            <div style={{ fontSize: 15, color: t.dim }}>out of 100 (higher = more donor influence)</div>
+            <div style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 42, fontWeight: 700, color: t.red }}>+${costImpactData.annualIncrease.toLocaleString()}/yr</div>
+            <div style={{ fontSize: 16, color: t.text, marginTop: 4 }}>That's <strong style={{ color: t.white }}>+${costImpactData.monthlyIncrease}/month</strong> more than last year for a household in {dd.region}</div>
           </div>
         </div>
       </div>}
 
-      {/* Personal cost breakdown — what their reps voted for costs them */}
+      {/* Personal cost breakdown */}
       {viewingRep === null && <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 20 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>How your reps' votes affect your wallet</div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, background: "#1d3557", borderRadius: "10px 10px 0 0", padding: "10px 16px" }}>
@@ -3030,8 +2977,8 @@ function MyDistrictPage({ setPage }) {
             <div key={i} style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", letterSpacing: 1, textTransform: "uppercase" }}>{h}</div>
           ))}
         </div>
-        {dd.costImpact.breakdown.map((row, i) => (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, padding: "14px 16px", background: i % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, borderRadius: i === dd.costImpact.breakdown.length - 1 ? "0 0 10px 10px" : 0 }}>
+        {costImpactData.breakdown.map((row, i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 3fr", gap: 0, padding: "14px 16px", background: i % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, borderRadius: i === costImpactData.breakdown.length - 1 ? "0 0 10px 10px" : 0 }}>
             <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{row.category}</div>
             <div style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.monthly}</div>
             <div style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: "#ef4444" }}>{row.annual}</div>
@@ -3043,7 +2990,7 @@ function MyDistrictPage({ setPage }) {
         ))}
         <div style={{ padding: "16px", background: t.bg, borderRadius: "0 0 10px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <span style={{ fontSize: 16, fontWeight: 600, color: t.white }}>Total increase for your area</span>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: "#ef4444" }}>+${dd.costImpact.monthlyIncrease}/mo · +${dd.costImpact.annualIncrease.toLocaleString()}/yr</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: "#ef4444" }}>+${costImpactData.monthlyIncrease}/mo · +${costImpactData.annualIncrease.toLocaleString()}/yr</span>
         </div>
       </div>}
 
@@ -3053,8 +3000,8 @@ function MyDistrictPage({ setPage }) {
           {/* Rep header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ width: 52, height: 52, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.party), border: `2px solid ${pc(rep.party)}44` }}>
-                {rep.name.split(" ").pop()[0]}
+              <div style={{ width: 52, height: 52, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: pc(rep.party), border: `2px solid ${pc(rep.party)}44`, overflow: "hidden" }}>
+                {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name.split(" ").pop() || "?")[0]}
               </div>
               <div>
                 <div onClick={() => { setViewingRep(ri); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ fontSize: 16, fontWeight: 700, color: t.white, cursor: "pointer", textDecoration: "underline", textDecorationColor: t.red + "44", textUnderlineOffset: 4 }}
@@ -3062,108 +3009,115 @@ function MyDistrictPage({ setPage }) {
                   onMouseOut={e => e.target.style.textDecorationColor = t.red + "44"}
                 >{rep.name} <span style={{ fontSize: 16, color: t.red, fontWeight: 400 }}>→ view profile</span></div>
                 <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                  <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "REP" : "DEM"}</span>
-                  <span style={{ fontSize: 15, color: t.dim }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Rep, District ${rep.district}`} · {rep.state}</span>
+                  <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "REP" : rep.party === "D" ? "DEM" : "IND"}</span>
+                  <span style={{ fontSize: 15, color: t.dim }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Rep${rep.district ? `, District ${rep.district}` : ""}`} · {rep.state}</span>
                 </div>
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
+              {rep.totalFromTopIndustries > 0 && (<>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Top industry funding</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: t.gold }}>${rep.totalFromTopIndustries.toLocaleString()}</div>
+              </>)}
+              {rep.totalRaised > 0 && (<>
+                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, color: t.dim, marginTop: 4 }}>Total raised: ${Math.round(rep.totalRaised).toLocaleString()}</div>
+              </>)}
             </div>
           </div>
 
           {/* Committees */}
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
+          {rep.committees.length > 0 && (<div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
             {rep.committees.map((c, ci) => (
               <span key={ci} style={{ fontSize: 15, padding: "4px 10px", borderRadius: 6, background: "rgba(90,159,212,0.1)", color: t.blue, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
             ))}
-          </div>
+          </div>)}
 
-          {/* Votes and YOUR cost */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>How they voted — what they said — and what it costs you</div>
-          {rep.votes.map((v, vi) => (
-            <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
-              {/* Vote header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 12, gap: 12 }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
-                    <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{v.bill}</span>
-                    {v.amount !== "N/A" && <span style={{ fontSize: 15, color: t.dim }}>· {v.amount}</span>}
+          {/* Voting record */}
+          {rep.votes.length > 0 && (<>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 10 }}>How they voted on FY2026 bills</div>
+            {rep.votes.map((v, vi) => (
+              <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 12, gap: 12 }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                      <span style={{ fontSize: 15, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : v.vote === "No" ? t.redBg : t.goldBg, color: v.vote === "Yes" ? "#22c55e" : v.vote === "No" ? t.red : t.gold }}>{v.vote}</span>
+                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>{v.bill}</span>
+                      {v.amount !== "N/A" && <span style={{ fontSize: 15, color: t.dim }}>· {v.amount}</span>}
+                    </div>
+                    <div style={{ fontSize: 16, color: t.white, fontWeight: 600 }}>{v.title}</div>
                   </div>
-                  <div style={{ fontSize: 16, color: t.white, fontWeight: 600 }}>{v.title}</div>
+                  {v.yourCost && <div style={{ textAlign: "right", minWidth: 200, padding: "8px 12px", background: costColor(v.costDir) + "12", borderRadius: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
+                      <span style={{ color: costColor(v.costDir), fontSize: 16, fontWeight: 700 }}>{costIcon(v.costDir)}</span>
+                      <span style={{ fontSize: 15, color: costColor(v.costDir), fontWeight: 700 }}>{v.yourCost}</span>
+                    </div>
+                  </div>}
                 </div>
-                <div style={{ textAlign: "right", minWidth: 200, padding: "8px 12px", background: costColor(v.costDir) + "12", borderRadius: 8 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
-                    <span style={{ color: costColor(v.costDir), fontSize: 16, fontWeight: 700 }}>{costIcon(v.costDir)}</span>
-                    <span style={{ fontSize: 15, color: costColor(v.costDir), fontWeight: 700 }}>{v.yourCost}</span>
-                  </div>
-                </div>
+
+                {/* Quote (only available for editorial/curated content) */}
+                {v.quote && (<div style={{ marginBottom: 12, padding: "14px 18px", borderLeft: `3px solid ${t.gold}`, background: t.surface }}>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 6 }}>What they said</div>
+                  <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
+                  <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginTop: 6 }}>— {v.quoteSource}</p>
+                </div>)}
+
+                {/* Follow the money (only available for editorial/curated content) */}
+                {v.reality && (<div style={{ padding: "14px 18px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)" }}>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 6 }}>Follow the money</div>
+                  <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>{v.reality}</p>
+                </div>)}
               </div>
+            ))}
+          </>)}
 
-              {/* What they said */}
-              {v.quote && (<div style={{ marginBottom: 12, padding: "14px 18px", borderLeft: `3px solid ${t.gold}`, background: t.surface }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 6 }}>What they said</div>
-                <p style={{ color: t.text, fontSize: 15, lineHeight: 1.7, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
-                <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", marginTop: 6 }}>— {v.quoteSource}</p>
-              </div>)}
-
-              {/* Follow the money reality */}
-              {v.reality && (<div style={{ padding: "14px 18px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)" }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 6 }}>Follow the money</div>
-                <p style={{ color: t.text, fontSize: 16, lineHeight: 1.7 }}>{v.reality}</p>
-              </div>)}
+          {/* No vote data message */}
+          {rep.votes.length === 0 && dataSource === "demo" && (
+            <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, textAlign: "center", color: t.dim }}>
+              <p style={{ fontSize: 15 }}>Voting record data requires the CONGRESS_API_KEY environment variable to be set.</p>
             </div>
-          ))}
+          )}
 
           {/* Top donors to this rep */}
-          <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 20, marginBottom: 10 }}>Who funds this representative</div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-            <div>
-              <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top donors</div>
-              {rep.topDonors.map((d, di) => (
-                <div key={di} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
-                  <span style={{ fontSize: 16, color: t.text }}>{d.name}</span>
-                  <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", color: t.white, fontWeight: 600 }}>${d.amount.toLocaleString()}</span>
-                </div>
-              ))}
-            </div>
-            <div>
-              <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top industries</div>
-              {rep.topIndustries.map((ind, ii) => {
-                const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
-                return (
-                  <div key={ii} style={{ marginBottom: 6 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                      <span style={{ fontSize: 16, color: t.text }}>{ind.name}</span>
-                      <span style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
-                    </div>
-                    <div style={{ height: 4, background: t.bg, borderRadius: 2 }}>
-                      <div style={{ height: 4, background: pc(rep.party), borderRadius: 2, width: `${(ind.total / maxInd) * 100}%`, transition: "width 0.5s" }} />
-                    </div>
+          {(rep.topDonors.length > 0 || rep.topIndustries.length > 0) && (<>
+            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginTop: 20, marginBottom: 10 }}>Who funds this representative</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              {rep.topDonors.length > 0 && <div>
+                <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top donors</div>
+                {rep.topDonors.map((d, di) => (
+                  <div key={di} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
+                    <span style={{ fontSize: 16, color: t.text }}>{d.name}</span>
+                    <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", color: t.white, fontWeight: 600 }}>${d.amount.toLocaleString()}</span>
                   </div>
-                );
-              })}
+                ))}
+              </div>}
+              {rep.topIndustries.length > 0 && <div>
+                <div style={{ fontSize: 15, color: t.dim, marginBottom: 6 }}>Top industries</div>
+                {rep.topIndustries.map((ind, ii) => {
+                  const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
+                  return (
+                    <div key={ii} style={{ marginBottom: 6 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                        <span style={{ fontSize: 16, color: t.text }}>{ind.name}</span>
+                        <span style={{ fontSize: 15, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+                      </div>
+                      <div style={{ height: 4, background: t.bg, borderRadius: 2 }}>
+                        <div style={{ height: 4, background: pc(rep.party), borderRadius: 2, width: `${(ind.total / maxInd) * 100}%`, transition: "width 0.5s" }} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>}
             </div>
-          </div>
+          </>)}
+
+          {/* No FEC data message */}
+          {rep.topDonors.length === 0 && rep.topIndustries.length === 0 && dataSource === "demo" && (
+            <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, textAlign: "center", color: t.dim, marginTop: 12 }}>
+              <p style={{ fontSize: 15 }}>FEC donation data requires the FEC_API_KEY environment variable. Set it in your Vercel dashboard.</p>
+            </div>
+          )}
         </div>
       ))}
-
-      {/* Local federal contracts */}
-      {viewingRep === null && <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.blue, marginBottom: 12 }}>Federal contracts in your area</div>
-        {dd.localContracts.map((c, ci) => (
-          <div key={ci} style={{ display: "flex", justifyContent: "space-between", alignItems: "start", padding: "12px 0", borderBottom: ci < dd.localContracts.length - 1 ? `1px solid ${t.border}` : "none" }}>
-            <div>
-              <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{c.contractor}</div>
-              <div style={{ fontSize: 16, color: t.dim }}>{c.description}</div>
-              <div style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 2 }}>{c.agency}</div>
-            </div>
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, fontWeight: 700, color: t.white }}>{c.amount}</div>
-          </div>
-        ))}
-      </div>}
 
       {/* ── REP PROFILE PANEL ── */}
       {viewingRep !== null && dd.reps[viewingRep] && (() => {
@@ -3175,77 +3129,84 @@ function MyDistrictPage({ setPage }) {
             <button onClick={() => setViewingRep(null)} style={{ background: "none", border: `1px solid ${t.border}`, padding: "6px 14px", borderRadius: 6, color: t.dim, fontSize: 14, cursor: "pointer", fontFamily: "'Source Code Pro', monospace", marginBottom: 16 }}>← Back to district</button>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 20 }}>
               <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-                <div style={{ width: 72, height: 72, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: pc(rep.party), border: `3px solid ${pc(rep.party)}44` }}>
-                  {rep.name.split(" ").pop()[0]}
+                <div style={{ width: 72, height: 72, borderRadius: "50%", background: pc(rep.party) + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, fontWeight: 700, color: pc(rep.party), border: `3px solid ${pc(rep.party)}44`, overflow: "hidden" }}>
+                  {rep.photoUrl ? <img src={rep.photoUrl} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="" /> : (rep.name.split(" ").pop() || "?")[0]}
                 </div>
                 <div>
                   <div style={{ fontSize: 24, fontWeight: 700, color: t.white, fontFamily: "'Libre Baskerville', Georgia, serif" }}>{rep.name}</div>
                   <div style={{ display: "flex", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
-                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : "Democrat"}</span>
-                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative, District ${rep.district}`}</span>
+                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: rep.party === "R" ? t.redBg : "rgba(90,159,212,0.12)", color: pc(rep.party) }}>{rep.party === "R" ? "Republican" : rep.party === "D" ? "Democrat" : "Independent"}</span>
+                    <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: "rgba(90,159,212,0.1)", color: t.blue }}>{rep.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative${rep.district ? `, District ${rep.district}` : ""}`}</span>
                     <span style={{ fontSize: 13, padding: "3px 10px", borderRadius: 4, fontFamily: "'Source Code Pro', monospace", background: t.goldBg, color: t.gold }}>{rep.state}</span>
                   </div>
-                  <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
+                  {rep.committees.length > 0 && (<div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
                     {rep.committees.map((c, ci) => (
                       <span key={ci} style={{ fontSize: 12, padding: "3px 8px", borderRadius: 4, background: t.bg, border: `1px solid ${t.border}`, color: t.text, fontFamily: "'Source Code Pro', monospace" }}>{c}</span>
                     ))}
-                  </div>
+                  </div>)}
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim }}>Votes with party</div>
-                <div style={{ fontSize: 28, fontWeight: 700, color: t.gold }}>{rep.votedWithParty}</div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total from top industries</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>${(rep.totalFromTopIndustries || 0).toLocaleString()}</div>
+                {rep.totalFromTopIndustries > 0 && (<>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Top industry funding</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>${rep.totalFromTopIndustries.toLocaleString()}</div>
+                </>)}
+                {rep.totalRaised > 0 && (<>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.dim, marginTop: 8 }}>Total raised</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: t.gold }}>${Math.round(rep.totalRaised).toLocaleString()}</div>
+                </>)}
               </div>
             </div>
           </div>
 
           <div style={{ padding: 32 }}>
-            {/* Top donors + industries — RIGHT UNDER NAME */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
-              <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
-                {rep.topDonors.map((d, di) => (
-                  <div key={di} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
-                    <div>
-                      <div style={{ fontSize: 15, color: t.white, fontWeight: 500 }}>{d.name}</div>
-                      <div style={{ fontSize: 13, color: t.dim }}>{d.industry}</div>
-                    </div>
-                    <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: t.white }}>${d.amount.toLocaleString()}</span>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
-                {rep.topIndustries.map((ind, ii) => {
-                  const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
-                  return (
-                    <div key={ii} style={{ marginBottom: 10 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                        <span style={{ fontSize: 15, color: t.text }}>{ind.name}</span>
-                        <span style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+            {/* Top donors + industries */}
+            {(rep.topDonors.length > 0 || rep.topIndustries.length > 0) && (
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
+                {rep.topDonors.length > 0 && <div>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top campaign donors</div>
+                  {rep.topDonors.map((d, di) => (
+                    <div key={di} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: di < rep.topDonors.length - 1 ? `1px solid ${t.border}` : "none" }}>
+                      <div>
+                        <div style={{ fontSize: 15, color: t.white, fontWeight: 500 }}>{d.name}</div>
+                        {d.industry && <div style={{ fontSize: 13, color: t.dim }}>{d.industry}</div>}
                       </div>
-                      <div style={{ height: 6, background: t.bg, borderRadius: 3 }}>
-                        <div style={{ height: 6, background: pc(rep.party), borderRadius: 3, width: `${(ind.total / maxInd) * 100}%` }} />
-                      </div>
+                      <span style={{ fontSize: 16, fontFamily: "'Source Code Pro', monospace", fontWeight: 700, color: t.white }}>${d.amount.toLocaleString()}</span>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>}
+                {rep.topIndustries.length > 0 && <div>
+                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 10 }}>Top donor industries</div>
+                  {rep.topIndustries.map((ind, ii) => {
+                    const maxInd = Math.max(...rep.topIndustries.map(x => x.total));
+                    return (
+                      <div key={ii} style={{ marginBottom: 10 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                          <span style={{ fontSize: 15, color: t.text }}>{ind.name}</span>
+                          <span style={{ fontSize: 14, fontFamily: "'Source Code Pro', monospace", color: t.dim }}>${(ind.total / 1000).toFixed(0)}k</span>
+                        </div>
+                        <div style={{ height: 6, background: t.bg, borderRadius: 3 }}>
+                          <div style={{ height: 6, background: pc(rep.party), borderRadius: 3, width: `${(ind.total / maxInd) * 100}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>}
               </div>
-            </div>
+            )}
 
-            {/* Contact info — SINGLE CLEAN SECTION */}
+            {/* Contact info */}
             <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 12 }}>Contact information</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, marginBottom: 28 }}>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
                 <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Phone</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>(202) 224-3121</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: t.white }}>{rep.phone || "(202) 224-3121"}</div>
                 <div style={{ fontSize: 12, color: t.dim, marginTop: 4 }}>Capitol switchboard</div>
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
                 <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Website</div>
-                <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: t.blue, textDecoration: "none" }}>Visit {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>
+                {rep.website ? <a href={rep.website} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: t.blue, textDecoration: "none" }}>Visit official site →</a>
+                : <a href={`https://www.${rep.chamber === "Senate" ? "senate.gov/senators/senators-contact.htm" : "house.gov/representatives/find-your-representative"}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: t.blue, textDecoration: "none" }}>Visit {rep.chamber === "Senate" ? "senate.gov" : "house.gov"} →</a>}
               </div>
               <div style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 16 }}>
                 <div style={{ fontSize: 11, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginBottom: 6, letterSpacing: 1, textTransform: "uppercase" }}>Mail</div>
@@ -3260,40 +3221,47 @@ function MyDistrictPage({ setPage }) {
               </div>
             </div>
 
-            {/* Voting record with quotes */}
-            <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record & what they said</div>
-            {rep.votes.map((v, vi) => (
-              <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 10 }}>
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : t.redBg, color: v.vote === "Yes" ? "#22c55e" : t.red }}>{v.vote}</span>
-                      <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.dim }}>{v.bill}</span>
+            {/* Voting record */}
+            {rep.votes.length > 0 && (<>
+              <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: t.gold, marginBottom: 12 }}>Voting record on FY2026 bills</div>
+              {rep.votes.map((v, vi) => (
+                <div key={vi} style={{ background: t.bg, border: `1px solid ${t.border}`, borderRadius: 10, padding: 20, marginBottom: 10 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 10 }}>
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                        <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 4, fontWeight: 700, fontFamily: "'Source Code Pro', monospace", background: v.vote === "Yes" ? "rgba(34,197,94,0.12)" : v.vote === "No" ? t.redBg : t.goldBg, color: v.vote === "Yes" ? "#22c55e" : v.vote === "No" ? t.red : t.gold }}>{v.vote}</span>
+                        <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 13, color: t.dim }}>{v.bill}</span>
+                      </div>
+                      <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{v.title}</div>
                     </div>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: t.white }}>{v.title}</div>
+                    {v.yourCost && <div style={{ padding: "6px 12px", background: costColor(v.costDir) + "12", borderRadius: 6 }}>
+                      <span style={{ fontSize: 13, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
+                    </div>}
                   </div>
-                  <div style={{ padding: "6px 12px", background: costColor(v.costDir) + "12", borderRadius: 6 }}>
-                    <span style={{ fontSize: 13, color: costColor(v.costDir), fontWeight: 700 }}>{costIcon(v.costDir)} {v.yourCost}</span>
-                  </div>
+                  {v.quote && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.gold}`, background: t.surface, marginBottom: 8, borderRadius: "0 8px 8px 0" }}>
+                    <p style={{ color: t.text, fontSize: 14, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
+                    <p style={{ color: t.dim, fontSize: 12, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
+                  </div>)}
+                  {v.reality && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)", borderRadius: "0 8px 8px 0" }}>
+                    <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
+                    <p style={{ color: t.text, fontSize: 14, lineHeight: 1.7 }}>{v.reality}</p>
+                  </div>)}
                 </div>
-                {v.quote && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.gold}`, background: t.surface, marginBottom: 8, borderRadius: "0 8px 8px 0" }}>
-                  <p style={{ color: t.text, fontSize: 14, fontFamily: "'Source Serif 4', Georgia, serif", fontStyle: "italic" }}>"{v.quote}"</p>
-                  <p style={{ color: t.dim, fontSize: 12, fontFamily: "'Source Code Pro', monospace", marginTop: 4 }}>— {v.quoteSource}</p>
-                </div>)}
-                {v.reality && (<div style={{ padding: "12px 16px", borderLeft: `3px solid ${t.red}`, background: "rgba(230,57,70,0.04)", borderRadius: "0 8px 8px 0" }}>
-                  <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: t.red, marginBottom: 4 }}>Follow the money</div>
-                  <p style={{ color: t.text, fontSize: 14, lineHeight: 1.7 }}>{v.reality}</p>
-                </div>)}
-              </div>
-            ))}
+              ))}
+            </>)}
           </div>
         </div>);
       })()}
 
-      <p style={{ fontSize: 15, color: t.dim, textAlign: "center", marginTop: 16, fontFamily: "'Source Code Pro', monospace" }}>Data from FEC, BLS CPI, Congress.gov, USASpending. Cost estimates based on BLS regional CPI data and household averages. Actual costs vary by household size and spending patterns.</p>
+      <p style={{ fontSize: 15, color: t.dim, textAlign: "center", marginTop: 16, fontFamily: "'Source Code Pro', monospace" }}>
+        {dataSource === "live"
+          ? "Real data from FEC (api.open.fec.gov) and Congress.gov. Cost estimates based on BLS CPI data. Actual costs vary by household."
+          : "Data from FEC, BLS CPI, Congress.gov, USASpending. Cost estimates based on BLS regional CPI data and household averages. Actual costs vary by household size and spending patterns."}
+      </p>
     </div>)}
   </div>);
 }
+
 
 function ContactRepPage() {
   const [zip, setZip] = useState("");
