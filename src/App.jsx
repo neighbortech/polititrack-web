@@ -491,17 +491,17 @@ function HomePage({ setPage }) {
     <section style={{ padding: "100px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 64 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Data Pipeline</div>
-        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 12 }}>Five federal sources. <em style={{ color: t.gold }}>All public data.</em></h2>
-        <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>We pull from every major federal data source so you don't have to dig through government websites.</p>
+        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 12 }}>Real government data. <em style={{ color: t.gold }}>Live from the source.</em></h2>
+        <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>We pull live data from federal APIs so you don't have to dig through government websites.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 2 }}>
         {[
-          { name: "FEC", full: "Federal Election Commission", what: "Campaign donations, PACs, candidates, committees", url: "api.open.fec.gov", icon: "🏛", color: t.red },
-          { name: "Senate LDA", full: "Lobbying Disclosure Act", what: "Lobbying filings, spend amounts, issues lobbied, lobbyist names", url: "lda.senate.gov", icon: "📋", color: t.gold },
-          { name: "Congress.gov", full: "Library of Congress", what: "Roll-call votes, bill status, member profiles, committee data", url: "api.congress.gov", icon: "🗳", color: t.blue },
-          { name: "Congress.gov", full: "Library of Congress", what: "Full bill text, amendments, cosponsors, subjects, Congressional Record", url: "api.congress.gov", icon: "📜", color: t.navyLight },
-          { name: "USASpending", full: "Federal Awards", what: "Government contracts, grants, recipient profiles, agency spending", url: "api.usaspending.gov", icon: "💰", color: "#c1121f" },
+          { name: "FEC", full: "Federal Election Commission", what: "Campaign donations, PACs, candidate fundraising totals, top donors, top industries", url: "api.open.fec.gov", icon: "🏛", color: t.red, status: "Live" },
+          { name: "Congress.gov", full: "Library of Congress", what: "Member profiles, committee assignments, bill status, roll-call voting records", url: "api.congress.gov", icon: "🗳", color: t.blue, status: "Live" },
+          { name: "House/Senate", full: "Official Vote Records", what: "Roll call XML files with per-member Yea/Nay positions on every recorded vote", url: "clerk.house.gov", icon: "📜", color: t.navyLight, status: "Live" },
+          { name: "BLS / CBO", full: "Bureau of Labor Statistics & Congressional Budget Office", what: "Consumer Price Index, inflation data, cost estimates for spending bills", url: "bls.gov", icon: "📊", color: t.gold, status: "Editorial" },
+          { name: "USASpending", full: "Federal Awards (planned)", what: "Government contracts, grants, recipient profiles — coming soon", url: "api.usaspending.gov", icon: "💰", color: "#c1121f", status: "Planned" },
         ].map((src, i) => (
           <div key={i} style={{
             background: t.surface, padding: 28, borderTop: `3px solid ${src.color}`,
@@ -1196,37 +1196,30 @@ function MoneyFlowPage() {
 
 function DocsPage() {
   const eps = [
-    {m:"GET",p:"/api/v1/donations",d:"Query donations with filters",tier:"free",params:"donor, recipient, party, industry, state, min_amount, max_amount, start_date, end_date, cycle",cat:"Data"},
-    {m:"GET",p:"/api/v1/donors/search?q=",d:"Search donors by name or employer",tier:"free",params:"q, limit",cat:"Data"},
-    {m:"GET",p:"/api/v1/donors/{id}",d:"Get donor profile",tier:"free",params:"donor_id",cat:"Data"},
-    {m:"GET",p:"/api/v1/donors/{id}/summary",d:"Aggregate stats — by party, year, top recipients",tier:"free",params:"donor_id",cat:"Data"},
-    {m:"GET",p:"/api/v1/recipients/search?q=",d:"Search politicians, PACs, committees",tier:"free",params:"q, party, office, limit",cat:"Data"},
-    {m:"GET",p:"/api/v1/recipients/{id}/donors",d:"Top donors to a recipient",tier:"free",params:"recipient_id, limit",cat:"Data"},
-    {m:"GET",p:"/api/v1/stats/overview",d:"Database-wide statistics across all sources",tier:"free",params:"none",cat:"Data"},
-    {m:"GET",p:"/api/v1/entities/resolve",d:"Resolve raw name to canonical entity with aliases and family tree",tier:"free",params:"name",cat:"Data"},
-    {m:"GET",p:"/api/v1/analyze/donor/{id}",d:"Full AI analysis: donations + lobbying + contracts + legislation",tier:"pro",params:"donor_id, refresh",cat:"AI"},
-    {m:"GET",p:"/api/v1/analyze/donation/{id}",d:"AI analysis of a specific donation in context",tier:"pro",params:"donation_id",cat:"AI"},
-    {m:"GET",p:"/api/v1/analyze/compare?donors=",d:"Compare 2-5 donors across all data sources",tier:"pro",params:"donors (comma-sep UUIDs)",cat:"AI"},
-    {m:"GET",p:"/api/v1/analyze/ask?q=",d:"Natural language question — AI searches all sources",tier:"pro",params:"q (question)",cat:"AI"},
-    {m:"GET",p:"/api/v1/graph/donor/{name}",d:"Full influence graph: Donor → Politicians → Committees → Agencies → Contracts",tier:"pro",params:"donor_name",cat:"Graph"},
-    {m:"GET",p:"/api/v1/graph/influence/{name}",d:"Influence score (0-100) with circular relationship detection",tier:"pro",params:"donor_name",cat:"Graph"},
-    {m:"GET",p:"/api/v1/velocity/donor/{id}",d:"Donation velocity — QoQ changes, spikes, party shifts, concentration",tier:"pro",params:"donor_id",cat:"Analytics"},
-    {m:"GET",p:"/api/v1/velocity/industry/{name}",d:"Industry-wide velocity — coordinated surge detection",tier:"pro",params:"industry",cat:"Analytics"},
-    {m:"GET",p:"/api/v1/bills/impact",d:"Bill impact scoring — affected industries, political spend, influence alignment",tier:"pro",params:"title, committee, subjects",cat:"Analytics"},
-    {m:"POST",p:"/api/v1/watchlists",d:"Create alert watchlist with custom filters",tier:"enterprise",params:"name, filters, alert_type, frequency (body)",cat:"Alerts"},
-    {m:"GET",p:"/api/v1/watchlists",d:"List all your active watchlists",tier:"enterprise",params:"none",cat:"Alerts"},
-    {m:"GET",p:"/api/v1/watchlists/{id}/matches",d:"Get recent matches for a watchlist",tier:"enterprise",params:"watchlist_id, limit",cat:"Alerts"},
-    {m:"POST",p:"/api/v1/keys",d:"Create API key",tier:"free",params:"email, name (body)",cat:"Auth"},
-    {m:"GET",p:"/api/v1/keys/me",d:"Check key usage and remaining quota",tier:"free",params:"none",cat:"Auth"},
-    {m:"POST",p:"/api/v1/subscribe",d:"Upgrade to paid tier (coming soon)",tier:"free",params:"tier (body)",cat:"Billing"},
-    {m:"GET",p:"/api/v1/billing/status",d:"Check subscription status",tier:"free",params:"none",cat:"Billing"},
+    {m:"GET",p:"/api/v1/district?zip=",d:"Full district data — reps + real FEC donors + committees + voting records for any ZIP code",tier:"free",params:"zip (5-digit ZIP code)",cat:"District"},
+    {m:"GET",p:"/api/v1/reps?zip=",d:"Lightweight rep lookup — names and contact info only",tier:"free",params:"zip (5-digit ZIP code)",cat:"District"},
+    {m:"GET",p:"/api/v1/donations",d:"Search FEC contributions with filters",tier:"free",params:"donor, recipient, min_amount, cycle, limit",cat:"Donors"},
+    {m:"GET",p:"/api/v1/donors/search?q=",d:"Search donors by name — individuals, PACs, committees",tier:"free",params:"q, limit",cat:"Donors"},
+    {m:"GET",p:"/api/v1/donors/{id}/summary",d:"Aggregate stats for a FEC committee or PAC",tier:"free",params:"donor_id (FEC committee ID)",cat:"Donors"},
+    {m:"GET",p:"/api/v1/people/search",d:"Search individual FEC donors by name, employer, or occupation",tier:"free",params:"name, employer, occupation, state, city, min_amount, cycle, limit",cat:"Donors"},
+    {m:"GET",p:"/api/v1/people/{name}/profile",d:"Full individual donor profile across multiple election cycles",tier:"free",params:"name, cycles (comma-sep years, default: 2024,2022,2020)",cat:"Donors"},
+    {m:"GET",p:"/api/v1/stats/overview",d:"Platform info and data source summary",tier:"free",params:"none",cat:"Info"},
+    {m:"GET",p:"/health",d:"Health check — API status, key configuration, cache stats",tier:"free",params:"none",cat:"Info"},
+    {m:"POST",p:"/api/v1/keys",d:"Generate a free API key",tier:"free",params:"email, name (JSON body)",cat:"Auth"},
+    {m:"GET",p:"/api/v1/keys/me",d:"Check your API key usage and remaining daily quota",tier:"free",params:"X-API-Key header",cat:"Auth"},
+    {m:"GET",p:"/api/v1/analyze/ask?q=",d:"Ask a question about political money (planned — returns upgrade prompt)",tier:"planned",params:"q (question)",cat:"Planned"},
+    {m:"GET",p:"/api/v1/timeline/{entity}",d:"Historical donation timeline snapshots (planned)",tier:"planned",params:"entity_name, days",cat:"Planned"},
+    {m:"GET",p:"/api/v1/influence/{entity}",d:"Influence probability score (planned)",tier:"planned",params:"entity_name",cat:"Planned"},
+    {m:"GET",p:"/api/v1/vote-alignment/{name}",d:"Donor-vote alignment scoring (planned)",tier:"planned",params:"politician_name",cat:"Planned"},
+    {m:"GET",p:"/api/v1/connections/{entity}",d:"Cross-source connection discovery (planned)",tier:"planned",params:"entity_name",cat:"Planned"},
+    {m:"GET",p:"/api/v1/amendments/{entity}",d:"FEC filing amendment tracking (planned)",tier:"planned",params:"entity_name",cat:"Planned"},
   ];
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 900, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Documentation</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>API Reference</h1>
-    <p style={{ color: t.dim, marginBottom: 16 }}>33 endpoints across 7 categories. Authenticate with <code style={{ background: t.surface2, padding: "3px 10px", borderRadius: 4, color: t.red, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>X-API-Key</code> header.</p>
-    <p style={{ color: t.dim, marginBottom: 40, fontSize: 15 }}>Data sources: FEC · Senate LDA · Congress.gov · USASpending · BLS</p>
+    <p style={{ color: t.dim, marginBottom: 16 }}>17 endpoints — 11 live, 6 planned. Free for everyone. Authenticate with <code style={{ background: t.surface2, padding: "3px 10px", borderRadius: 4, color: t.red, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>X-API-Key</code> header.</p>
+    <p style={{ color: t.dim, marginBottom: 40, fontSize: 15 }}>Live data from FEC (api.open.fec.gov) and Congress.gov (api.congress.gov)</p>
 
     <div style={{ background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden", marginBottom: 40 }}>
       <div style={{ padding: "14px 24px", borderBottom: `1px solid ${t.border}`, display: "flex", alignItems: "center", gap: 8 }}>
@@ -1234,7 +1227,7 @@ function DocsPage() {
         <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 16, color: t.dim }}>quickstart.sh</span>
       </div>
       <pre style={{ padding: 24, margin: 0, fontFamily: "'Source Code Pro', monospace", fontSize: 14, lineHeight: 2, color: t.dim, overflow: "auto" }}>
-{`# Get your API key\n`}<span style={{color:t.blue}}>curl</span>{` -X POST ${API_BASE}/api/v1/keys \\\n  -H `}<span style={{color:t.red}}>"Content-Type: application/json"</span>{` \\\n  -d `}<span style={{color:t.red}}>{'\'{"email":"you@email.com"}\''}</span>{`\n\n# Search donations (FEC data)\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/donations?donor=exxon \\\n  -H `}<span style={{color:t.red}}>"X-API-Key: YOUR_KEY"</span>{`\n\n# AI analysis (Pro) — uses all 5 sources\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/analyze/donor/ID \\\n  -H `}<span style={{color:t.red}}>"X-API-Key: YOUR_PRO_KEY"</span>
+{`# Full district data (reps + donors + votes)\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/district?zip=90210\n\n# Search FEC donations\n`}<span style={{color:t.blue}}>curl</span>{` ${API_BASE}/api/v1/donations?donor=exxon\n\n# Individual donor profile\n`}<span style={{color:t.blue}}>curl</span>{` "${API_BASE}/api/v1/people/MUSK, ELON/profile"`}
       </pre>
     </div>
 
@@ -1243,16 +1236,16 @@ function DocsPage() {
       return eps.map((ep, i) => {
         const catHeader = ep.cat !== lastCat;
         lastCat = ep.cat;
-        const tierBg = ep.tier === "enterprise" ? "rgba(230,57,70,0.1)" : ep.tier === "pro" ? t.goldBg : t.redBg;
-        const tierColor = ep.tier === "enterprise" ? t.red : ep.tier === "pro" ? t.gold : t.red;
+        const tierBg = ep.tier === "planned" ? "rgba(90,159,212,0.1)" : t.redBg;
+        const tierColor = ep.tier === "planned" ? t.blue : t.red;
         return (<div key={i}>
           {catHeader && <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginTop: i > 0 ? 24 : 0, marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${t.border}` }}>{ep.cat}</div>}
-          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "18px 22px", marginBottom: 6, transition: "border-color 0.2s" }}
+          <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "18px 22px", marginBottom: 6, transition: "border-color 0.2s", opacity: ep.tier === "planned" ? 0.6 : 1 }}
             onMouseOver={e=>e.currentTarget.style.borderColor=t.red+"33"} onMouseOut={e=>e.currentTarget.style.borderColor=t.border}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
               <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, fontWeight: 700, padding: "3px 8px", borderRadius: 4, background: ep.m==="POST"?"rgba(69,123,157,0.2)":t.redBg, color: ep.m==="POST"?t.blue:t.red }}>{ep.m}</span>
               <code style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.white }}>{ep.p}</code>
-              <span style={{ marginLeft: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1.5, textTransform: "uppercase", padding: "3px 10px", borderRadius: 4, fontWeight: 600, background: tierBg, color: tierColor }}>{ep.tier}</span>
+              <span style={{ marginLeft: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 16, letterSpacing: 1.5, textTransform: "uppercase", padding: "3px 10px", borderRadius: 4, fontWeight: 600, background: tierBg, color: tierColor }}>{ep.tier === "planned" ? "planned" : "live"}</span>
             </div>
             <p style={{ color: t.dim, fontSize: 15, marginBottom: 2 }}>{ep.d}</p>
             <p style={{ color: t.dim, fontSize: 15, fontFamily: "'Source Code Pro', monospace", opacity: 0.6 }}>Params: {ep.params}</p>
@@ -1306,21 +1299,21 @@ function PricingPage({ setPage }) {
         ))}
         {/* Rows */}
         {[
-          ["Unified 5-source search", "✓", "✗", "Partial", "✗ (5 separate APIs)"],
-          ["Historical filing snapshots", "✓", "✗", "✗", "✗"],
-          ["Amendment tracking (before/after)", "✓", "✗", "✗", "✗"],
-          ["Donor-vote alignment scoring", "✓", "✗", "✗", "✗"],
-          ["Circular influence detection", "✓", "✗", "✗", "✗"],
-          ["AI natural language queries", "✓", "✗", "✗", "✗"],
-          ["Entity resolution (20+ families)", "✓", "✗", "Partial", "✗"],
-          ["Real-time donation spike alerts", "✓", "✗", "✗", "✗"],
-          ["Cross-source connection discovery", "✓", "✗", "✗", "✗"],
-          ["Community-verified corrections", "✓", "✗", "✗", "✗"],
+          ["ZIP → real rep data + donors + votes", "✓", "✗", "Partial", "✗ (3+ APIs needed)"],
+          ["Per-member FEC donation data", "✓", "✓", "✓", "✓ (manual)"],
+          ["Per-member voting records", "✓", "✓", "✓", "✓ (manual)"],
+          ["Committee assignments", "✓", "✓", "✓", "✓ (manual)"],
+          ["Individual donor search & profiles", "✓", "✓", "✓", "✓ (manual)"],
           ["Cost-of-living impact analysis", "✓", "✗", "✗", "✗"],
           ["MCP server (AI assistant access)", "✓", "✗", "✗", "✗"],
+          ["Single API for everything", "✓", "✗", "Partial", "✗"],
+          ["Historical filing snapshots", "Soon", "✗", "✗", "✗"],
+          ["Donor-vote alignment scoring", "Soon", "✗", "✗", "✗"],
+          ["AI natural language queries", "Soon", "✗", "✗", "✗"],
+          ["Cross-source connection discovery", "Soon", "✗", "✗", "✗"],
         ].map((row, ri) => (
           <>{row.map((cell, ci) => (
-            <div key={`${ri}-${ci}`} style={{ padding: "10px 12px", fontSize: 16, color: cell === "✓" ? "#22c55e" : cell === "✗" ? "#ef4444" : t.text, background: ri % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, fontWeight: ci === 0 ? 500 : 400, borderRadius: ri === 11 && ci === 0 ? "0 0 0 8px" : ri === 11 && ci === 4 ? "0 0 8px 0" : 0 }}>{cell}</div>
+            <div key={`${ri}-${ci}`} style={{ padding: "10px 12px", fontSize: 16, color: cell === "✓" ? "#22c55e" : cell === "✗" ? "#ef4444" : cell === "Soon" ? t.gold : t.text, background: ri % 2 === 0 ? t.surface : t.surface2, borderBottom: `1px solid ${t.border}`, fontWeight: ci === 0 ? 500 : 400, borderRadius: ri === 11 && ci === 0 ? "0 0 0 8px" : ri === 11 && ci === 4 ? "0 0 8px 0" : 0 }}>{cell}</div>
           ))}</>
         ))}
       </div>
@@ -1329,10 +1322,10 @@ function PricingPage({ setPage }) {
     {/* Who uses this */}
     <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 40, flexWrap: "wrap" }}>
       {[
-        { who: "Investigative journalists", what: "Trace donor money to legislative outcomes in minutes, not weeks. Historical snapshots catch amended filings others miss." },
-        { who: "Political researchers", what: "Query 10 years of cross-referenced data with one API call. Vote alignment scores provide publishable statistical findings." },
-        { who: "Civic tech builders", what: "Build transparency tools on a unified dataset instead of managing 5 separate government APIs with different schemas." },
-        { who: "Compliance & legal", what: "Real-time alerts when clients' donations or lobbying activities trigger thresholds. Amendment tracking for due diligence." },
+        { who: "Investigative journalists", what: "Look up any politician's top donors and see how they voted on spending bills — real FEC data in seconds, not hours of searching." },
+        { who: "Political researchers", what: "Query FEC donation data and Congress.gov voting records through a single API. Export data for analysis." },
+        { who: "Civic tech builders", what: "Build transparency tools on a unified API instead of wiring up FEC + Congress.gov + WhoIsMyRep separately." },
+        { who: "Concerned citizens", what: "Enter your ZIP code, see your reps, who funds them, how they voted, and what it costs you. Free, no account needed." },
       ].map((u, i) => (
         <div key={i} style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10, padding: "20px 22px", maxWidth: 230 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: t.white, marginBottom: 6 }}>{u.who}</div>
