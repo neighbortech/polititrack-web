@@ -3330,11 +3330,11 @@ function ContactRepPage() {
     if (n >= 206 && n <= 219) return "MD"; if (n >= 220 && n <= 246) return "VA";
     if (n >= 980 && n <= 994) return "WA"; if (n >= 300 && n <= 319) return "GA";
     if (n >= 270 && n <= 289) return "NC"; if (n >= 480 && n <= 499) return "MI";
-    if (n >= 070 && n <= 89) return "NJ"; if (n >= 550 && n <= 567) return "MN";
+    if (n >= 70 && n <= 89) return "NJ"; if (n >= 550 && n <= 567) return "MN";
     if (n >= 530 && n <= 549) return "WI"; if (n >= 460 && n <= 479) return "IN";
     if (n >= 850 && n <= 865) return "AZ"; if (n >= 800 && n <= 816) return "CO";
     if (n >= 370 && n <= 385) return "TN"; if (n >= 630 && n <= 658) return "MO";
-    if (n >= 010 && n <= 27) return "MA"; if (n >= 247 && n <= 268) return "WV";
+    if (n >= 10 && n <= 27) return "MA"; if (n >= 247 && n <= 268) return "WV";
     if (n >= 350 && n <= 369) return "AL"; if (n >= 290 && n <= 299) return "SC";
     if (n >= 320 && n <= 329) return "FL"; if (n >= 386 && n <= 397) return "MS";
     if (n >= 700 && n <= 714) return "LA"; if (n >= 400 && n <= 427) return "KY";
