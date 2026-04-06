@@ -499,7 +499,7 @@ function HomePage({ setPage }) {
         {[
           { name: "FEC", full: "Federal Election Commission", what: "Campaign donations, PACs, candidates, committees", url: "api.open.fec.gov", icon: "🏛", color: t.red },
           { name: "Senate LDA", full: "Lobbying Disclosure Act", what: "Lobbying filings, spend amounts, issues lobbied, lobbyist names", url: "lda.senate.gov", icon: "📋", color: t.gold },
-          { name: "ProPublica", full: "Congress API", what: "Roll-call votes, bill status, member profiles, committee data", url: "api.propublica.org", icon: "🗳", color: t.blue },
+          { name: "Congress.gov", full: "Library of Congress", what: "Roll-call votes, bill status, member profiles, committee data", url: "api.congress.gov", icon: "🗳", color: t.blue },
           { name: "Congress.gov", full: "Library of Congress", what: "Full bill text, amendments, cosponsors, subjects, Congressional Record", url: "api.congress.gov", icon: "📜", color: t.navyLight },
           { name: "USASpending", full: "Federal Awards", what: "Government contracts, grants, recipient profiles, agency spending", url: "api.usaspending.gov", icon: "💰", color: "#c1121f" },
         ].map((src, i) => (
@@ -1226,7 +1226,7 @@ function DocsPage() {
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Documentation</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>API Reference</h1>
     <p style={{ color: t.dim, marginBottom: 16 }}>33 endpoints across 7 categories. Authenticate with <code style={{ background: t.surface2, padding: "3px 10px", borderRadius: 4, color: t.red, fontSize: 15, fontFamily: "'Source Code Pro', monospace" }}>X-API-Key</code> header.</p>
-    <p style={{ color: t.dim, marginBottom: 40, fontSize: 15 }}>Data sources: FEC · Senate LDA · ProPublica Congress · Congress.gov · USASpending</p>
+    <p style={{ color: t.dim, marginBottom: 40, fontSize: 15 }}>Data sources: FEC · Senate LDA · Congress.gov · USASpending · BLS</p>
 
     <div style={{ background: t.surface, borderRadius: 12, border: `1px solid ${t.border}`, overflow: "hidden", marginBottom: 40 }}>
       <div style={{ padding: "14px 24px", borderBottom: `1px solid ${t.border}`, display: "flex", alignItems: "center", gap: 8 }}>
@@ -2910,15 +2910,64 @@ function MyDistrictPage({ setPage }) {
     },
   };
 
-  const lookup = () => {
+  const lookup = async () => {
+    if (!zip.trim() || zip.length < 5) return;
     setLoading(true);
-    setTimeout(() => {
-      setLoaded(true);
-      setLoading(false);
-    }, 800);
+    setViewingRep(null);
+
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
+      const r = await fetch(`${apiBase}/api/v1/reps?zip=${zip}`);
+      if (r.ok) {
+        const data = await r.json();
+        const members = data.results || [];
+        if (members.length > 0) {
+          // Build reps array from API data and merge with demo voting/donor data
+          const demoRep = districtData["92801"].reps[0]; // template for voting data
+          const demoSen1 = districtData["92801"].reps[1];
+          const demoSen2 = districtData["92801"].reps[2];
+          
+          const apiReps = members.map((m, i) => {
+            const isSenator = m.chamber === "Senate";
+            const template = isSenator ? (i === 0 ? demoSen1 : demoSen2) : demoRep;
+            return {
+              ...template,
+              name: m.name,
+              party: m.party === "R" || m.party === "Republican" ? "R" : m.party === "D" || m.party === "Democratic" ? "D" : "I",
+              chamber: m.chamber || "House",
+              district: m.district || "",
+              state: m.state || "",
+              votedWithParty: template.votedWithParty || "N/A",
+              committees: template.committees || [],
+              topDonors: template.topDonors || [],
+              topIndustries: template.topIndustries || [],
+              votes: template.votes || [],
+              totalFromTopIndustries: template.totalFromTopIndustries || 0,
+            };
+          });
+
+          // Update districtData dynamically
+          dynamicReps.current = apiReps;
+          dynamicState.current = members[0]?.state || "CA";
+        }
+      }
+    } catch (e) {
+      console.log("Rep lookup failed, using demo data:", e);
+    }
+
+    setLoaded(true);
+    setLoading(false);
   };
 
-  const dd = districtData["92801"]; // Default to Anaheim area for demo
+  const dynamicReps = useRef(null);
+  const dynamicState = useRef("CA");
+
+  // Use API reps if available, otherwise fall back to demo data
+  const dd = {
+    ...districtData["92801"],
+    reps: dynamicReps.current || districtData["92801"].reps,
+    state: dynamicState.current || "CA",
+  };
   const pc = (p) => p === "R" ? t.red : t.blue;
   const costColor = (dir) => dir === "up" ? "#ef4444" : dir === "down" ? "#22c55e" : t.gold;
   const costIcon = (dir) => dir === "up" ? "▲" : dir === "down" ? "▼" : "●";
