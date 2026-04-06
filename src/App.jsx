@@ -5,13 +5,13 @@ const API_BASE = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel
 
 // ── DATA FRESHNESS — Update these when you refresh the data ──
 const DATA_UPDATED = {
-  gas: "April 4, 2026",         // Source: AAA gasprices.aaa.com
+  gas: "April 6, 2026",         // Source: AAA gasprices.aaa.com
   cpi: "February 2026",         // Source: BLS CPI release (March 11, 2026)
-  spending: "April 4, 2026",    // Source: Congress.gov, CBO
-  fec: "April 4, 2026",         // Source: FEC api.open.fec.gov
-  iran: "April 4, 2026",        // Source: Pentagon, CSIS, CNBC, Wikipedia
-  district: "April 4, 2026",    // Source: Congress.gov + WhoIsMyRepresentative.com + FEC
-  costOfLiving: "April 4, 2026",// Source: AAA, BLS, USDA, KFF
+  spending: "April 6, 2026",    // Source: Congress.gov, CBO
+  fec: "April 6, 2026",         // Source: FEC api.open.fec.gov
+  iran: "April 6, 2026",        // Source: Pentagon, CSIS, CNBC, Wikipedia
+  district: "April 6, 2026",    // Source: Congress.gov + WhoIsMyRepresentative.com + FEC
+  costOfLiving: "April 6, 2026",// Source: AAA, BLS, USDA, KFF
 };
 
 function DataTimestamp({ label, color }) {
@@ -599,7 +599,7 @@ function HomePage({ setPage }) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
         {[
-          { q: "Do they donate to politicians on committees that regulate their industry?", sources: "FEC + ProPublica", icon: "🏛" },
+          { q: "Do they donate to politicians on committees that regulate their industry?", sources: "FEC + Congress.gov", icon: "🏛" },
           { q: "Do they lobby Congress on the same issues they donate around?", sources: "FEC + Senate LDA", icon: "📋" },
           { q: "Do they receive government contracts from agencies their recipients oversee?", sources: "FEC + USASpending", icon: "💰" },
           { q: "Do donations spike before key votes on legislation in their industry?", sources: "FEC + Congress.gov", icon: "📊" },
@@ -1218,7 +1218,7 @@ function DocsPage() {
     {m:"GET",p:"/api/v1/watchlists/{id}/matches",d:"Get recent matches for a watchlist",tier:"enterprise",params:"watchlist_id, limit",cat:"Alerts"},
     {m:"POST",p:"/api/v1/keys",d:"Create API key",tier:"free",params:"email, name (body)",cat:"Auth"},
     {m:"GET",p:"/api/v1/keys/me",d:"Check key usage and remaining quota",tier:"free",params:"none",cat:"Auth"},
-    {m:"POST",p:"/api/v1/subscribe",d:"Create Stripe checkout session to upgrade",tier:"free",params:"tier (body)",cat:"Billing"},
+    {m:"POST",p:"/api/v1/subscribe",d:"Upgrade to paid tier (coming soon)",tier:"free",params:"tier (body)",cat:"Billing"},
     {m:"GET",p:"/api/v1/billing/status",d:"Check subscription status",tier:"free",params:"none",cat:"Billing"},
   ];
 
@@ -1873,7 +1873,7 @@ function LegalSection({ title, children }) {
 }
 
 function PrivacyPage() {
-  const updated = "April 4, 2026";
+  const updated = "April 6, 2026";
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 780, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Privacy Policy</h1>
@@ -1882,93 +1882,82 @@ function PrivacyPage() {
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 36 }}>
 
       <LegalSection title="1. Introduction">
-        <p>PolitiTrack ("we," "our," or "us") operates the PolitiTrack API and website (collectively, the "Service"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service. By accessing or using the Service, you agree to this Privacy Policy. If you do not agree, do not use the Service.</p>
+        <p>PolitiTrack ("we," "our," or "us") operates the PolitiTrack website and API (collectively, the "Service"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service. By accessing or using the Service, you agree to this Privacy Policy. If you do not agree, do not use the Service.</p>
       </LegalSection>
 
       <LegalSection title="2. Information we collect">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Account information:</strong> When you create an API key, we collect your email address and optionally your name. This is the minimum information needed to provide you with API access and communicate about your account.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Usage data:</strong> We automatically collect information about your API usage, including request counts, endpoints accessed, timestamps, and IP addresses. This data is used for rate limiting, abuse prevention, and service improvement.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Payment information:</strong> Payment processing is handled entirely by Stripe. We do not store your credit card numbers, bank account details, or other financial information on our servers. We receive only a confirmation of payment status and your Stripe customer ID.</p>
-        <p><strong style={{ color: t.white }}>Cookies and tracking:</strong> We use minimal, functional cookies for session management. We do not use advertising trackers, social media pixels, or third-party analytics that track you across the web.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>API key registration:</strong> When you create an API key through our Developer Dashboard, we collect your email address and optionally your name. API keys are currently stored in memory on our serverless infrastructure and do not persist across service restarts. We plan to add persistent key storage in a future update.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Usage data:</strong> Our hosting provider (Vercel) automatically collects standard server logs including request timestamps, endpoints accessed, and IP addresses. These logs are managed by Vercel's infrastructure and are subject to Vercel's privacy policy.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>ZIP code lookups:</strong> When you use the "My District" or "Contact Your Representative" features, your ZIP code is sent to third-party services (WhoIsMyRepresentative.com and the Congress.gov API) to identify your representatives, and to the FEC API (api.open.fec.gov) to retrieve donation data. Your ZIP code is not stored on our servers or in any database — it is used only for the real-time lookup and is not retained after the request completes.</p>
+        <p><strong style={{ color: t.white }}>Cookies and tracking:</strong> We use no cookies, advertising trackers, social media pixels, or third-party analytics services. We do not use Google Analytics, Facebook Pixel, or any similar tracking technology.</p>
       </LegalSection>
 
       <LegalSection title="3. How we use your information">
-        <p>We use the information we collect to: provide and maintain the Service; process your API requests; manage your account and subscription; enforce rate limits and prevent abuse; communicate with you about service updates, security alerts, or billing; comply with legal obligations; and improve and develop the Service. We do not sell your personal information to third parties. We do not use your information for advertising purposes.</p>
+        <p>We use the information we collect to: provide and maintain the Service; process your API requests; manage your API key (when persistent storage is implemented); enforce rate limits and prevent abuse; and comply with legal obligations. We do not sell your personal information to third parties. We do not use your information for advertising purposes. We do not have advertising on this platform.</p>
       </LegalSection>
 
       <LegalSection title="4. Public data we process">
-        <p>The political donation, lobbying, contract, and legislative data available through our API is sourced entirely from public government records, including the Federal Election Commission (FEC), the Senate Office of Public Records (Lobbying Disclosure Act filings), Congress.gov, ProPublica, and USASpending.gov. This data is part of the public record and is made available by government agencies for public access. We do not collect private financial information about any individual or organization beyond what is disclosed in these public records.</p>
+        <p>The political donation, lobbying, and legislative data available through our Service is sourced from public government records, including the Federal Election Commission (FEC) via api.open.fec.gov, and Congress.gov via api.congress.gov. This data is part of the public record and is made available by government agencies for public access. We do not collect private financial information about any individual or organization beyond what is disclosed in these public records. All data is fetched in real time from government APIs — we do not maintain a separate database of this information.</p>
       </LegalSection>
 
-      <LegalSection title="5. AI-generated analysis">
-        <p>Our AI analysis features generate inferences and correlations based on publicly available data. These analyses represent automated pattern recognition and are clearly labeled as AI-generated inferences, not confirmed facts. We do not represent AI-generated analyses as statements of intent, motive, or wrongdoing by any individual or organization.</p>
+      <LegalSection title="5. Data sources and third-party API calls">
+        <p style={{ marginBottom: 12 }}>When you use PolitiTrack, we make real-time API calls to the following government services on your behalf:</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Federal Election Commission (FEC):</strong> We call api.open.fec.gov to retrieve campaign donation data, candidate information, committee filings, and contribution records. Search queries you enter (such as donor names) are sent to the FEC as part of these API calls. The FEC's privacy policy governs how they handle these requests.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Congress.gov:</strong> We call api.congress.gov to retrieve member information, committee assignments, bill data, and roll call voting records. The Library of Congress's privacy policy governs these requests.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>WhoIsMyRepresentative.com:</strong> We call this service to look up congressional representatives by ZIP code. Your ZIP code is sent as part of this request.</p>
+        <p><strong style={{ color: t.white }}>No other third-party services:</strong> We do not send your data to any analytics, advertising, payment processing, or social media services. The Service is entirely free and does not process payments.</p>
       </LegalSection>
 
       <LegalSection title="6. Data sharing and disclosure">
         <p style={{ marginBottom: 12 }}>We may share your information only in the following circumstances:</p>
-        <p style={{ marginBottom: 8 }}><strong style={{ color: t.white }}>Service providers:</strong> We use Stripe for payment processing, and cloud hosting providers (such as Railway, Render, or Vercel) for infrastructure. These providers access your data only as necessary to perform their services and are contractually obligated to protect it.</p>
-        <p style={{ marginBottom: 8 }}><strong style={{ color: t.white }}>Legal requirements:</strong> We may disclose your information if required by law, subpoena, court order, or governmental regulation, or if we believe disclosure is necessary to protect our rights, your safety, or the safety of others.</p>
-        <p><strong style={{ color: t.white }}>Business transfers:</strong> In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change.</p>
+        <p style={{ marginBottom: 8 }}><strong style={{ color: t.white }}>Infrastructure providers:</strong> Our Service is hosted on Vercel. Vercel processes your requests as part of providing hosting services and is subject to their own privacy policy and data processing agreements.</p>
+        <p><strong style={{ color: t.white }}>Legal requirements:</strong> We may disclose your information if required by law, subpoena, court order, or governmental regulation, or if we believe disclosure is necessary to protect our rights, your safety, or the safety of others.</p>
       </LegalSection>
 
       <LegalSection title="7. Data retention">
-        <p>We retain your account information for as long as your account is active. Usage logs are retained for 90 days. If you delete your account, we will delete your personal information within 30 days, except where retention is required by law. Cached AI analysis results are retained for 24 hours and then automatically purged.</p>
+        <p>API keys created through the Developer Dashboard are currently stored in memory and do not persist across serverless function restarts. We do not maintain a persistent database of user accounts or API keys at this time. Standard server logs are managed by Vercel according to their data retention policies. We do not store ZIP codes, search queries, or API response data beyond the duration of each individual request.</p>
       </LegalSection>
 
       <LegalSection title="8. Data security">
-        <p>We implement industry-standard security measures including: encryption in transit (TLS/HTTPS); hashed API keys (we never store your raw key); access controls and authentication; regular security reviews. However, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security.</p>
+        <p>We implement the following security measures: encryption in transit (TLS/HTTPS) for all API communications; no persistent storage of user data (serverless architecture); no collection of sensitive personal or financial information; API rate limiting to prevent abuse. However, no method of transmission over the Internet is 100% secure. We cannot guarantee absolute security.</p>
       </LegalSection>
 
       <LegalSection title="9. Your rights">
-        <p style={{ marginBottom: 12 }}>Depending on your jurisdiction, you may have the right to:</p>
-        <p>Access, correct, or delete your personal information; object to or restrict processing of your data; data portability (receive your data in a structured format); withdraw consent at any time; lodge a complaint with a supervisory authority. To exercise any of these rights, contact us at privacy@polititrack.com.</p>
+        <p>Because we collect minimal personal information (only email addresses for API key registration, stored in memory), exercising data rights is straightforward. You may contact us at privacy@polititrack.com to request information about any data we may hold, request deletion of your API key registration, or ask questions about our data practices. Since we do not maintain a persistent database of user information, most data rights requests are satisfied by the nature of our architecture.</p>
       </LegalSection>
 
       <LegalSection title="10. California residents (CCPA)">
-        <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect and how we use it, the right to request deletion of your personal information, and the right not to be discriminated against for exercising your privacy rights. We do not sell personal information as defined under the CCPA.</p>
+        <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA). We collect minimal personal information (email address for API key registration only). We do not sell personal information as defined under the CCPA. We do not use personal information for advertising or profiling.</p>
       </LegalSection>
 
       <LegalSection title="11. International users (GDPR)">
-        <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we process your personal data based on legitimate interest (providing and improving the Service), contractual necessity (fulfilling our obligations under the Terms of Service), and your consent (where applicable). You have the right to access, rectify, erase, restrict, and port your personal data, and to object to its processing.</p>
+        <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we process your personal data based on legitimate interest (providing and improving the Service). The minimal data we collect (email for API registration) is processed on servers in the United States via Vercel's infrastructure. You have the right to access, rectify, erase, restrict, and port your personal data, and to object to its processing.</p>
       </LegalSection>
 
       <LegalSection title="12. Children's privacy">
         <p>The Service is not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child, we will take steps to delete that information.</p>
       </LegalSection>
 
-      <LegalSection title="13. Changes to this policy">
-        <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date. Your continued use of the Service after changes are posted constitutes your acceptance of the revised policy.</p>
+      <LegalSection title="13. My District feature">
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>How it works:</strong> When you enter a ZIP code on the My District page, our API makes real-time calls to WhoIsMyRepresentative.com (for representative names), the FEC API (for each representative's campaign donation data), and the Congress.gov API (for committee assignments and voting records on tracked bills). All of this happens in a single request and no data is stored afterward.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>FEC donation data:</strong> The top donors, top industries, and total raised figures shown for each representative come directly from the FEC's Schedule A contribution records, aggregated by the FEC's own API endpoints. We display this data as-is from the government source.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Voting records:</strong> Vote positions (Yea/Nay/Not Voting) are obtained by fetching roll call vote XML files from the House Clerk and Senate websites, as linked from Congress.gov bill action records. These are official government records.</p>
+        <p><strong style={{ color: t.white }}>Cost impact estimates:</strong> The personalized cost estimates shown on the My District page (such as annual cost increases) are static editorial content based on publicly available data from the BLS Consumer Price Index, USDA food price data, AAA fuel surveys, and other public sources. These are national averages and do not reflect your actual household costs. No personal financial information is collected.</p>
       </LegalSection>
 
-      <LegalSection title="14. Third-party services and APIs">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Representative lookup:</strong> When you use the "My District" or "Contact Your Representative" features and enter your ZIP code, we send that ZIP code to WhoIsMyRepresentative.com and Congress.gov to look up your congressional representatives. We do not store your ZIP code on our servers — it is used only for the real-time lookup and is not retained after the page session ends.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Federal Election Commission (FEC) API:</strong> When you search for donors or view donation data, we query the FEC's public API (api.open.fec.gov) in real time. Search queries you enter (such as donor names) are sent to the FEC as part of these API calls. The FEC's privacy policy governs how they handle these requests.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Stripe:</strong> Payment processing is handled by Stripe. When you subscribe to a paid plan, your payment information is collected and processed entirely by Stripe. We do not receive or store your credit card details. Stripe's privacy policy applies to all payment data.</p>
-        <p><strong style={{ color: t.white }}>No other third-party tracking:</strong> We do not use Google Analytics, Facebook Pixel, advertising trackers, or any other third-party analytics or tracking services on our website.</p>
+      <LegalSection title="14. Contact Your Representative feature">
+        <p>The Contact Your Representative feature provides publicly available contact information for elected officials sourced from WhoIsMyRepresentative.com and Congress.gov. All message content you compose remains entirely in your web browser. PolitiTrack does not send, compose, transmit, intercept, or store any messages you draft. When you click "Copy message," text is copied to your device's clipboard. When you click to visit an official website, you are redirected to the representative's own site.</p>
       </LegalSection>
 
-      <LegalSection title="15. My District and Contact Your Representative features">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>ZIP code lookups:</strong> Your ZIP code is sent to WhoIsMyRepresentative.com and Congress.gov to identify your representatives. It is not stored on our servers, saved to any database, or used for any purpose other than the real-time lookup you requested.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Contact form data:</strong> When you compose a message to your representative using our Contact Your Representative tool, all message content (your name, email, subject, and message body) remains entirely in your web browser. This data is never sent to PolitiTrack's servers. When you click "Copy message," the text is copied to your device's clipboard. When you click "Open official website," you are redirected to the representative's own contact page. PolitiTrack does not send, transmit, intercept, or store any messages you compose.</p>
-        <p><strong style={{ color: t.white }}>Cost impact estimates:</strong> The personalized cost estimates shown on the My District page (such as annual cost increases) are calculated in your browser based on publicly available data. No personal financial information is collected, and we do not know or store your actual household costs.</p>
+      <LegalSection title="15. MCP server">
+        <p>The PolitiTrack MCP server (available via npm as polititrack-mcp) provides programmatic access to the same data available through the website and API. API queries made through the MCP interface are processed identically to web-based queries. The MCP server does not collect, log, or store any user data beyond what is described in this policy.</p>
       </LegalSection>
 
-      <LegalSection title="16. MCP server and developer tools">
-        <p>If you use the PolitiTrack MCP server (available via npm), API queries you make through the MCP interface are processed by our API servers in the same manner as web-based queries. We log API request metadata (endpoint, timestamp, response status) for rate limiting and abuse prevention. We do not log the content of your queries or the data returned in responses beyond standard server access logs retained for 90 days.</p>
+      <LegalSection title="16. Future features">
+        <p>We plan to add additional features over time, including persistent API key storage, historical FEC filing snapshots, influence scoring, and payment processing for API tiers. When these features are implemented, this Privacy Policy will be updated to reflect any new data collection or processing. Material changes will be communicated by updating the "Last updated" date on this page.</p>
       </LegalSection>
 
-      <LegalSection title="17. Proprietary data and historical snapshots">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Historical snapshots:</strong> PolitiTrack captures daily snapshots of publicly available FEC filing data to create historical time-series records. These snapshots record the state of donation records at a specific point in time. Because the FEC allows filers to amend previous filings (which overwrites the original), our historical snapshots may contain data that has since been amended on FEC.gov. We retain both original and amended versions for transparency and research purposes.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Influence scoring:</strong> PolitiTrack calculates proprietary "influence probability" scores and "vote alignment" rates based on statistical analysis of donation patterns and congressional voting records. These scores are mathematical correlations derived from public data and represent statistical relationships, not conclusions about any individual's motivations or conduct. Scores are calculated algorithmically and are not reviewed by humans before being displayed.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Connection discovery:</strong> PolitiTrack uses automated systems to cross-reference data from multiple federal databases (FEC, Congress.gov, USASpending, Senate LDA) to identify potential connections between donations, votes, and government contracts. Discovered connections are flagged for human review before being published. Unpublished connections are stored internally and are not shared with third parties.</p>
-        <p><strong style={{ color: t.white }}>Community corrections:</strong> Users may submit corrections to data displayed on the Service. Submitted corrections include the user's account identifier, the proposed change, and any supporting evidence provided. Corrections are reviewed before being applied. Verified corrections become part of the dataset and the contributor's account is credited (account ID only — no personal information is displayed publicly). Users may request deletion of their submitted corrections at any time.</p>
-      </LegalSection>
-
-      <LegalSection title="18. Data derived from public records">
-        <p>PolitiTrack's proprietary analyses, scores, timelines, and connections are derived entirely from publicly available government records. While the underlying source data is public, the aggregated datasets, scoring methodologies, entity resolution mappings, historical snapshot archives, and cross-source correlation models represent proprietary intellectual work product. Access to these derived datasets is governed by the terms of your API subscription tier.</p>
-      </LegalSection>
-
-      <LegalSection title="19. Contact us">
+      <LegalSection title="17. Contact us">
         <p>If you have questions about this Privacy Policy, contact us at: privacy@polititrack.com</p>
       </LegalSection>
     </div>
@@ -1976,7 +1965,7 @@ function PrivacyPage() {
 }
 
 function TermsPage() {
-  const updated = "April 4, 2026";
+  const updated = "April 6, 2026";
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 780, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Legal</span></div>
     <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 36, color: t.white, marginBottom: 8 }}>Terms of Service</h1>
@@ -1985,121 +1974,101 @@ function TermsPage() {
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 36 }}>
 
       <LegalSection title="1. Acceptance of terms">
-        <p>By accessing or using the PolitiTrack API, website, or any associated services (collectively, the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you have authority to bind that organization to these Terms.</p>
+        <p>By accessing or using the PolitiTrack website, API, or MCP server (collectively, the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you have authority to bind that organization to these Terms.</p>
       </LegalSection>
 
       <LegalSection title="2. Description of service">
-        <p>PolitiTrack provides an API for accessing and analyzing publicly available political donation, lobbying, government contract, and legislative data sourced from federal government databases. The Service includes data query tools, AI-generated analysis features, alert monitoring, and related functionality. The Service is provided "as is" and "as available."</p>
+        <p>PolitiTrack is a free, nonpartisan civic transparency platform. The Service provides tools to look up congressional representatives by ZIP code, view real campaign donation data from the Federal Election Commission (FEC), view voting records from Congress.gov, explore donor and contribution data, and access related editorial content about government spending. The Service also provides an API and MCP server for programmatic access to the same data. The Service is provided "as is" and "as available."</p>
       </LegalSection>
 
-      <LegalSection title="3. Account and API keys">
-        <p>To use the Service, you must create an API key by providing a valid email address. You are responsible for maintaining the confidentiality of your API key and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your key. We reserve the right to suspend or terminate API keys that are compromised, abused, or in violation of these Terms.</p>
+      <LegalSection title="3. The Service is free">
+        <p>PolitiTrack is currently free for all users. There are no paid tiers, subscriptions, or payment processing at this time. The API pricing tiers described on the Pricing page represent planned future offerings and are not currently active. If and when paid features are introduced, these Terms will be updated accordingly and existing free features will remain free.</p>
       </LegalSection>
 
-      <LegalSection title="4. Acceptable use">
+      <LegalSection title="4. API keys">
+        <p>The Developer Dashboard allows you to generate API keys by providing an email address. API keys are currently stored in memory on our serverless infrastructure and may not persist across service restarts. You are responsible for any activity that occurs using your API key. If you believe your key has been compromised, generate a new one. We reserve the right to revoke API keys that are used in violation of these Terms.</p>
+      </LegalSection>
+
+      <LegalSection title="5. Acceptable use">
         <p style={{ marginBottom: 12 }}>You agree NOT to use the Service to:</p>
         <p style={{ marginBottom: 8 }}>Harass, threaten, defame, or intimidate any individual or organization identified in the data;</p>
         <p style={{ marginBottom: 8 }}>Stalk, doxx, or facilitate harm against political donors, politicians, lobbyists, or any other individuals;</p>
-        <p style={{ marginBottom: 8 }}>Misrepresent AI-generated analyses as confirmed facts, proven intent, or evidence of wrongdoing;</p>
+        <p style={{ marginBottom: 8 }}>Misrepresent data, correlations, or editorial analysis as confirmed facts or evidence of wrongdoing;</p>
         <p style={{ marginBottom: 8 }}>Solicit donations or contributions using data obtained from the Service, in accordance with federal law (52 U.S.C. § 30111);</p>
-        <p style={{ marginBottom: 8 }}>Sell or commercially redistribute raw data obtained from the Service without our written consent;</p>
-        <p style={{ marginBottom: 8 }}>Scrape, bulk-download, or systematically extract data from the Service to build a competing product or database;</p>
-        <p style={{ marginBottom: 8 }}>Circumvent rate limits, authentication, or access controls;</p>
-        <p style={{ marginBottom: 8 }}>Use the Service for any illegal purpose or in violation of any applicable federal, state, or local law;</p>
-        <p>Interfere with or disrupt the Service or servers or networks connected to the Service.</p>
+        <p style={{ marginBottom: 8 }}>Systematically scrape, bulk-download, or extract data to build a competing product (reasonable use for journalism, research, and application development is permitted);</p>
+        <p style={{ marginBottom: 8 }}>Circumvent rate limits or access controls;</p>
+        <p style={{ marginBottom: 8 }}>Use the Service for any illegal purpose or in violation of any applicable law;</p>
+        <p>Interfere with or disrupt the Service or the servers and networks connected to the Service.</p>
       </LegalSection>
 
-      <LegalSection title="5. Data accuracy and disclaimers">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>PUBLIC DATA:</strong> The political donation, lobbying, contract, and legislative data provided through the Service is sourced from public government records. While we strive for accuracy, we do not guarantee that the data is complete, current, or error-free. Government agencies may update, correct, or amend their records at any time. You should verify critical data points against the original government sources.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>AI ANALYSIS:</strong> AI-generated analyses, correlations, motivation inferences, influence scores, and bill impact assessments are automated computational outputs based on pattern recognition. They are NOT: statements of fact regarding any individual's or organization's intent or motivation; legal conclusions or evidence of wrongdoing; financial, legal, investment, or political advice; a substitute for professional journalistic investigation, legal research, or academic analysis. All AI analyses are clearly labeled as inferences and include disclaimers. Users must not remove these disclaimers when publishing or redistributing analysis results.</p>
+      <LegalSection title="6. Data accuracy and disclaimers">
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>GOVERNMENT DATA:</strong> The campaign donation data displayed on this Service comes directly from the Federal Election Commission's public API (api.open.fec.gov). Voting records come from Congress.gov and official House/Senate roll call XML files. Representative information comes from WhoIsMyRepresentative.com and the Congress.gov member API. While these are authoritative government sources, we do not guarantee that the data is complete, current, or error-free. Government agencies may update, correct, or amend their records at any time. You should verify critical data points against the original government sources.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>EDITORIAL CONTENT:</strong> The cost-of-living impact estimates, spending bill analyses, economist perspectives, and "Follow the Money" commentary on this Service are editorial content created by PolitiTrack based on publicly available data from the BLS, CBO, USDA, AAA, and other public sources. This content represents our analysis and interpretation. It is not financial, legal, investment, or political advice. Cost estimates are based on national and regional averages and do not reflect your actual household costs.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>CORRELATIONS:</strong> Where the Service presents correlations between campaign donations and legislative outcomes (e.g., "this representative's top donor benefits from this bill"), these are observational correlations based on public data. Correlation does not imply causation. The presence of a campaign donation from an entity that benefits from a legislator's vote does not prove that the donation influenced the vote.</p>
         <p><strong style={{ color: t.white }}>NO WARRANTY:</strong> THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, COMPLETENESS, OR NON-INFRINGEMENT.</p>
       </LegalSection>
 
-      <LegalSection title="6. Limitation of liability">
-        <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, POLITITRACK AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO: LOSS OF PROFITS, DATA, BUSINESS, OR GOODWILL; DAMAGE TO REPUTATION ARISING FROM THE USE OR PUBLICATION OF DATA OR AI ANALYSES OBTAINED FROM THE SERVICE; ANY RELIANCE ON AI-GENERATED CONTENT; ANY ERRORS, INACCURACIES, OR OMISSIONS IN THE DATA; SERVICE INTERRUPTIONS OR DOWNTIME. OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING FROM OR RELATED TO THE SERVICE SHALL NOT EXCEED THE AMOUNT YOU PAID US IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR ONE HUNDRED DOLLARS ($100), WHICHEVER IS GREATER.</p>
+      <LegalSection title="7. Limitation of liability">
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, POLITITRACK AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO: LOSS OF PROFITS, DATA, BUSINESS, OR GOODWILL; DAMAGE TO REPUTATION ARISING FROM THE USE OR PUBLICATION OF DATA OBTAINED FROM THE SERVICE; ANY RELIANCE ON EDITORIAL CONTENT OR DATA CORRELATIONS; ANY ERRORS, INACCURACIES, OR OMISSIONS IN DATA SOURCED FROM GOVERNMENT APIS; OR SERVICE INTERRUPTIONS OR DOWNTIME. BECAUSE THE SERVICE IS CURRENTLY FREE, OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS ARISING FROM OR RELATED TO THE SERVICE SHALL NOT EXCEED ONE HUNDRED DOLLARS ($100).</p>
       </LegalSection>
 
-      <LegalSection title="7. Indemnification">
-        <p>You agree to indemnify, defend, and hold harmless PolitiTrack and its officers, directors, employees, agents, and affiliates from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or related to: your use of the Service; your violation of these Terms; your violation of any applicable law or regulation; any content you publish or distribute that incorporates data or analysis from the Service; any claim by a third party related to your use of data or AI analysis from the Service.</p>
+      <LegalSection title="8. Indemnification">
+        <p>You agree to indemnify, defend, and hold harmless PolitiTrack and its officers, directors, employees, and affiliates from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or related to: your use of the Service; your violation of these Terms; your violation of any applicable law or regulation; any content you publish or distribute that incorporates data from the Service; any claim by a third party related to your use of data from the Service.</p>
       </LegalSection>
 
-      <LegalSection title="8. Intellectual property">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Our IP:</strong> The PolitiTrack name, logo, API design, entity resolution mappings, AI analysis algorithms, influence scoring methodology, and proprietary data enrichments are our intellectual property. You may not copy, modify, distribute, or create derivative works of these elements.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Public data:</strong> The underlying political donation, lobbying, and legislative data is sourced from public government records and is not our intellectual property. Our value-added enrichments, correlations, entity mappings, and AI analyses are proprietary.</p>
-        <p><strong style={{ color: t.white }}>Your content:</strong> You retain ownership of any content you create using data from the Service. By using the Service, you grant us a limited license to use anonymized, aggregated usage data for Service improvement.</p>
-      </LegalSection>
-
-      <LegalSection title="9. Subscription and payment">
-        <p style={{ marginBottom: 12 }}>Paid subscriptions (Pro and Enterprise) are billed monthly through Stripe. By subscribing, you authorize us to charge your payment method on a recurring basis. You may cancel your subscription at any time through the billing portal; cancellation takes effect at the end of the current billing period. No refunds are provided for partial billing periods.</p>
-        <p>We reserve the right to change our pricing with 30 days' advance notice. Continued use of the Service after a price change constitutes acceptance of the new pricing.</p>
+      <LegalSection title="9. Intellectual property">
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Our IP:</strong> The PolitiTrack name, logo, website design, editorial content (cost analyses, spending breakdowns, "Follow the Money" commentary), and API design are our intellectual property. You may not copy, modify, distribute, or create derivative works of these elements without our written consent.</p>
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>Public data:</strong> The underlying campaign donation, legislative, and voting data is sourced from public government records and is in the public domain. Our presentation, formatting, and editorial analysis of this data is proprietary, but the raw data itself is not.</p>
+        <p><strong style={{ color: t.white }}>Open source:</strong> The PolitiTrack frontend, API, and MCP server source code is available on GitHub. The open source license applies to the code itself, not to the editorial content, design, or branding.</p>
       </LegalSection>
 
       <LegalSection title="10. Rate limits and fair use">
-        <p>Each subscription tier includes daily API request limits (Free: 100/day, Pro: 5,000/day, Enterprise: 50,000/day). Exceeding these limits will result in rate-limited responses (HTTP 429). Systematic attempts to circumvent rate limits, including using multiple API keys to exceed tier limits, may result in account suspension.</p>
+        <p>The API is subject to rate limiting to ensure fair access for all users and to stay within the rate limits of upstream government APIs (FEC allows 1,000 requests/hour; Congress.gov allows 5,000 requests/hour). Systematic attempts to circumvent rate limits may result in API key revocation.</p>
       </LegalSection>
 
-      <LegalSection title="11. Data scraping and competitive use">
-        <p>You may not use the Service to systematically download, scrape, or extract data for the purpose of creating a competing product, service, or database. Reasonable use for journalism, research, and application development is permitted within the scope of your subscription tier. Bulk data export features are available on the Enterprise tier for authorized use cases.</p>
+      <LegalSection title="11. Responsible publication">
+        <p>If you publish articles, reports, or analyses based on data from the Service, you should: clearly attribute data to the original government sources (FEC, Congress.gov); clearly identify editorial content and correlations as analysis, not confirmed facts; not present correlation as causation; and not selectively present data in a way that is misleading. We are not responsible for how you interpret, present, or publish data obtained from the Service.</p>
       </LegalSection>
 
-      <LegalSection title="12. Responsible publication">
-        <p>If you publish articles, reports, or analyses based on data from the Service, you must: clearly attribute data to PolitiTrack and the original government sources; clearly identify AI-generated analyses as computational inferences, not confirmed facts; not present correlation as causation; not selectively present data in a way that is misleading. We are not responsible for how you interpret, present, or publish data obtained from the Service.</p>
+      <LegalSection title="12. Government spending and cost-of-living data">
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>SPENDING DATA:</strong> Government spending information on the Service, including appropriations bill summaries and funding breakdowns, is sourced from public records including the Congressional Budget Office (CBO), Bureau of Labor Statistics (BLS), House and Senate Appropriations Committees, and Congress.gov. While we strive for accuracy, government agencies may revise published data at any time.</p>
+        <p><strong style={{ color: t.white }}>COST IMPACT ESTIMATES:</strong> The cost-of-living estimates shown on the Service (such as "your household costs increased by $X per year") are based on national average data from the BLS Consumer Price Index, USDA food price data, AAA fuel surveys, and similar public sources. These are statistical averages and DO NOT reflect your actual household spending. Actual costs vary significantly based on household size, income, location, consumption patterns, and many other individual factors. These estimates should not be used as the basis for financial decisions.</p>
       </LegalSection>
 
-      <LegalSection title="13. Termination">
-        <p>We may suspend or terminate your access to the Service at any time, with or without cause, with or without notice. Reasons for termination include but are not limited to: violation of these Terms; abusive or harmful use of data; non-payment; legal requirement. Upon termination, your right to use the Service ceases immediately. Sections 5 (Disclaimers), 6 (Limitation of Liability), 7 (Indemnification), and 8 (IP) survive termination.</p>
+      <LegalSection title="13. Voting records and representative data">
+        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>VOTING DATA:</strong> Congressional voting records are sourced from official roll call vote XML files published by the House Clerk and Senate, as linked from Congress.gov. Vote positions (Yea, Nay, Not Voting, Present) are parsed directly from these official records. Some bills may not have recorded roll call votes, in which case vote data will not be available.</p>
+        <p><strong style={{ color: t.white }}>REPRESENTATIVE DATA:</strong> Representative names, party affiliations, and contact information are sourced from WhoIsMyRepresentative.com and the Congress.gov member API. Committee assignments are sourced from Congress.gov. FEC donation data is sourced from the FEC's OpenFEC API. All data is fetched in real time and may reflect the most recent available filing, which could be weeks or months old depending on filing schedules.</p>
       </LegalSection>
 
-      <LegalSection title="14. Governing law and dispute resolution">
-        <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions. Any disputes arising from these Terms or the Service shall be resolved through binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. The arbitration shall take place in Delaware. Each party shall bear its own costs. You agree to waive any right to participate in a class action lawsuit or class-wide arbitration.</p>
+      <LegalSection title="14. Contact Your Representative feature">
+        <p>The Contact Your Representative feature provides publicly available contact information for elected officials. PolitiTrack does not send, compose, or transmit messages on behalf of users. All communications users initiate with elected officials are solely the responsibility of the user. PolitiTrack is not responsible for any communications users initiate using contact information provided on the Service.</p>
       </LegalSection>
 
-      <LegalSection title="15. Severability">
-        <p>If any provision of these Terms is held to be unenforceable or invalid, that provision will be modified to the minimum extent necessary to make it enforceable, and the remaining provisions will continue in full force and effect.</p>
+      <LegalSection title="15. MCP server">
+        <p>The PolitiTrack MCP server, available via npm, provides programmatic access to the same data available through the website and API. Use of the MCP server is subject to these Terms of Service and the same rate limits and acceptable use policies that apply to the API. The open source license for the MCP server code applies to the code itself, not to the data or editorial content accessed through it.</p>
       </LegalSection>
 
-      <LegalSection title="16. Entire agreement">
-        <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and PolitiTrack regarding the Service and supersede all prior agreements and understandings.</p>
+      <LegalSection title="16. Future features and planned capabilities">
+        <p>The Service describes certain planned features that are not yet implemented, including: paid API tiers (Pro and Enterprise); AI-powered analysis; historical FEC filing snapshots; influence scoring; amendment tracking; alert watchlists; and webhook notifications. These features are described as planned capabilities and are not currently available. References to these features on the website (including the Pricing page and API documentation) describe our product roadmap, not current functionality. We make no guarantee that these features will be implemented on any specific timeline.</p>
       </LegalSection>
 
-      <LegalSection title="17. Changes to these terms">
-        <p>We may modify these Terms at any time by posting the revised terms on this page and updating the "Last updated" date. Material changes will be communicated via email to the address associated with your API key. Your continued use of the Service after changes are posted constitutes acceptance of the revised Terms.</p>
+      <LegalSection title="17. Termination">
+        <p>We may suspend or terminate your access to the Service at any time, with or without cause, with or without notice. Reasons for termination include but are not limited to: violation of these Terms; abusive or harmful use of data; and legal requirements. Sections 6 (Disclaimers), 7 (Limitation of Liability), 8 (Indemnification), and 9 (IP) survive termination.</p>
       </LegalSection>
 
-      <LegalSection title="18. Government spending data and economic analysis">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>SPENDING DATA:</strong> The government spending information presented on the Service, including appropriations bill summaries, funding breakdowns, and contractor data, is sourced from public government records including the Congressional Budget Office (CBO), Bureau of Labor Statistics (BLS), Energy Information Administration (EIA), Congressional Research Service (CRS), Department of Defense budget documents, Senate and House Appropriations Committees, USASpending.gov, and academic research institutions. While we strive for accuracy, we do not guarantee that all figures are current or error-free. Government agencies may revise published data at any time.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>COST IMPACT ESTIMATES:</strong> The personalized cost impact estimates shown on the "My District" and "Your Cost of Living" pages (such as "your household costs increased by $X per year") are estimates based on publicly available average data from the BLS Consumer Price Index, USDA food price data, AAA fuel surveys, KFF health surveys, Census housing data, and regional CPI variations. These estimates represent statistical averages and DO NOT reflect your actual household spending. Actual costs vary significantly based on household size, income level, location, consumption patterns, insurance coverage, housing status, and many other individual factors. These estimates should not be used as the basis for financial decisions.</p>
-        <p><strong style={{ color: t.white }}>ECONOMIST PERSPECTIVES:</strong> The economist quotes and analysis presented on the Service are sourced from published academic papers, public statements, institutional reports, congressional testimony, and media appearances. We present perspectives from multiple viewpoints and do not endorse any particular economic theory, policy position, or political viewpoint. The inclusion of an economist's perspective does not imply their endorsement of PolitiTrack.</p>
+      <LegalSection title="18. Governing law">
+        <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions. Any disputes arising from these Terms or the Service shall be resolved through binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. You agree to waive any right to participate in a class action lawsuit or class-wide arbitration.</p>
       </LegalSection>
 
-      <LegalSection title="19. Representative quotes and voting records">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>QUOTES:</strong> Quotes attributed to elected officials on the Service are sourced from official press releases, congressional floor statements, committee hearing transcripts, town hall recordings, and verified media reports. Sources are cited inline. While we strive for accuracy in attribution, quotes may be excerpted from longer statements. We encourage users to review the full source material for complete context. If a quoted official believes a quote is inaccurate or taken out of context, they may contact us for correction.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>VOTING RECORDS:</strong> Congressional voting data is sourced from Congress.gov, the official record of the U.S. Congress. Vote tallies and individual member votes are matters of public record.</p>
-        <p><strong style={{ color: t.white }}>"FOLLOW THE MONEY" ANALYSIS:</strong> The "Follow the Money" sections that accompany voting records present correlations between campaign donations and legislative votes. These correlations are based on publicly available FEC and Senate LDA data. Correlation does not imply causation. The presence of a campaign donation from an entity that benefits from a legislator's vote does not prove that the donation influenced the vote. Many factors influence legislative decisions, including constituent preferences, party platforms, policy expertise, and personal conviction. We present the financial data to enable informed civic participation, not to allege corruption or impropriety.</p>
+      <LegalSection title="19. Severability and entire agreement">
+        <p>If any provision of these Terms is held to be unenforceable or invalid, that provision will be modified to the minimum extent necessary to make it enforceable, and the remaining provisions will continue in full force and effect. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PolitiTrack regarding the Service.</p>
       </LegalSection>
 
-      <LegalSection title="20. Contact Your Representative feature">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>CONTACT INFORMATION ONLY:</strong> The Contact Your Representative feature provides publicly available contact information for elected officials, including phone numbers, mailing addresses, official website URLs, and social media accounts. This information is sourced from WhoIsMyRepresentative.com, Congress.gov, and official government directories. PolitiTrack does not send, compose, or transmit messages on behalf of users.</p>
-        <p><strong style={{ color: t.white }}>NO RESPONSIBILITY FOR USER ACTIONS:</strong> PolitiTrack is not responsible for any communications users initiate with elected officials using contact information provided on the Service. Users are solely responsible for ensuring their communications comply with all applicable laws.</p>
+      <LegalSection title="20. Changes to these terms">
+        <p>We may modify these Terms at any time by posting the revised terms on this page and updating the "Last updated" date. Your continued use of the Service after changes are posted constitutes acceptance of the revised Terms.</p>
       </LegalSection>
 
-      <LegalSection title="21. Proprietary data, scores, and derived datasets">
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>HISTORICAL SNAPSHOTS:</strong> PolitiTrack captures daily snapshots of publicly available FEC filing data. Because the FEC allows amendments that overwrite original filings, our snapshot archive may contain data that differs from current FEC.gov records. Historical snapshots represent the state of filings as they existed at the time of capture. Users should not treat snapshot data as the current official FEC record. Always verify against FEC.gov for the most current filing data.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>INFLUENCE PROBABILITY SCORES:</strong> PolitiTrack calculates proprietary "influence probability" scores and "vote alignment" rates using statistical analysis. These scores represent mathematical correlations between donation patterns and voting records. They DO NOT constitute evidence, proof, or allegations of corruption, bribery, quid pro quo, or improper influence. A high alignment score may reflect shared ideology, constituent preferences, party discipline, or numerous other factors unrelated to donations. Users must not present influence scores as proof of wrongdoing.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>CONNECTION DISCOVERY:</strong> Automated connection discovery identifies statistical correlations across multiple government databases. Discovered connections (such as "Company X donated to Politician Y who voted for Bill Z that benefits Company X's industry") represent data correlations, not proven causal relationships. Many legitimate explanations may exist for any identified connection. Connections are labeled with confidence scores and should be treated as investigative leads requiring further verification, not as conclusions.</p>
-        <p style={{ marginBottom: 12 }}><strong style={{ color: t.white }}>COMMUNITY CORRECTIONS:</strong> User-submitted corrections are reviewed before being applied to the dataset. PolitiTrack does not guarantee the accuracy of community-submitted corrections, even after review. Original government source data is always preserved alongside corrections. Users who submit corrections grant PolitiTrack a non-exclusive, perpetual, royalty-free license to use, display, and incorporate the correction into the dataset.</p>
-        <p><strong style={{ color: t.white }}>PROPRIETARY METHODOLOGY:</strong> PolitiTrack's scoring algorithms, entity resolution mappings, historical snapshot archives, cross-source correlation models, and AI analysis methodologies are proprietary trade secrets. Reverse engineering, decompiling, or attempting to extract the underlying methodology from API outputs is prohibited. Access to proprietary features is limited to the tier of your API subscription.</p>
-      </LegalSection>
-
-      <LegalSection title="22. MCP server and programmatic access">
-        <p>The PolitiTrack MCP server, available via npm, provides programmatic access to the same data available through the website and API. Use of the MCP server is subject to these Terms of Service and the same rate limits, acceptable use policies, and data accuracy disclaimers that apply to the API. Distribution of the MCP server package does not grant any license to the underlying data beyond what is permitted under these Terms.</p>
-      </LegalSection>
-
-      <LegalSection title="23. Open source components">
-        <p>The PolitiTrack frontend and MCP server are distributed as open source software. The open source license applies only to the software code itself, not to the data, APIs, proprietary algorithms, entity resolution mappings, historical snapshots, or scoring methodologies accessed through the software. Using the open source code to access PolitiTrack's API or data services requires compliance with these Terms of Service.</p>
-      </LegalSection>
-
-      <LegalSection title="24. Contact">
+      <LegalSection title="21. Contact">
         <p>If you have questions about these Terms, contact us at: legal@polititrack.com</p>
       </LegalSection>
     </div>
