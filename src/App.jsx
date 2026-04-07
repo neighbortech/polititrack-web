@@ -528,17 +528,17 @@ function HomePage({ setPage }) {
       <div style={{ textAlign: "center", marginBottom: 48 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>For developers & researchers</div>
         <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 32, color: t.white, marginBottom: 12 }}>Build with our <em style={{ color: t.gold }}>API</em></h2>
-        <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>Everything on this site is free for individuals. Developers and organizations can access the same data programmatically through our API, plus advanced analytics.</p>
+        <p style={{ color: t.dim, fontSize: 15, maxWidth: 600, margin: "0 auto" }}>Free API with real FEC and Congress.gov data. One endpoint gives you representatives, donors, committees, and votes for any ZIP code.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
         {[
-          { icon: "🔗", title: "Entity resolution", desc: "Automatically maps 'Koch Industries Inc PAC', 'KOCHPAC', and 'Koch Ind Political Action Comm' to a single canonical entity. 20+ corporate family trees built in.", tag: "All tiers", tagColor: t.red },
-          { icon: "🕸", title: "Influence graph", desc: "Maps multi-hop connections: Donor → Politician → Committee → Agency → Contract → back to Donor. Detects circular influence automatically.", tag: "Pro", tagColor: t.gold },
-          { icon: "📈", title: "Velocity scoring", desc: "Tracks quarter-over-quarter donation changes. Flags spikes, party shifts, and committee concentration. Detects industry-wide coordinated surges.", tag: "Pro", tagColor: t.gold },
-          { icon: "⚖️", title: "Bill impact scoring", desc: "When a bill is introduced, instantly scores which industries are affected, how much political money targets the committee, and who benefits.", tag: "Pro", tagColor: t.gold },
-          { icon: "🔔", title: "Alert watchlists", desc: "Set custom monitors: 'Alert me when any oil company donates to Energy Committee members over $5,000.' Webhooks for real-time push notifications.", tag: "Enterprise", tagColor: t.red },
-          { icon: "🔄", title: "Circular detection", desc: "Finds closed loops where a company donates to politicians who oversee agencies that award contracts back to the company. The strongest signal of influence.", tag: "Pro", tagColor: t.gold },
+          { icon: "🏛", title: "District lookup", desc: "Enter any ZIP code, get real representatives with their FEC donation data, committee assignments, and voting records on FY2026 bills. One API call.", tag: "Live", tagColor: t.red },
+          { icon: "🔍", title: "Donor search", desc: "Search any individual, PAC, or corporation in FEC records. Get full profiles with party breakdown, top recipients, and contribution history across election cycles.", tag: "Live", tagColor: t.red },
+          { icon: "🗳", title: "Voting records", desc: "See how every Congress member voted on tracked spending bills. Parsed directly from official House Clerk and Senate roll call XML files.", tag: "Live", tagColor: t.red },
+          { icon: "🤖", title: "MCP server", desc: "Connect PolitiTrack to any AI assistant — Claude, ChatGPT, Cursor. 10 tools for searching donors, looking up districts, and tracing money.", tag: "Live", tagColor: t.red },
+          { icon: "📈", title: "Influence scoring", desc: "Coming soon: track how often politicians vote in their donors' interests. Statistical alignment scoring that improves with every tracked vote.", tag: "Planned", tagColor: t.gold },
+          { icon: "📸", title: "Historical snapshots", desc: "Coming soon: daily FEC filing snapshots to catch amendments and track donation patterns over time. Data that doesn't exist anywhere else.", tag: "Planned", tagColor: t.gold },
         ].map((f, i) => (
           <div key={i} style={{
             background: t.surface2, padding: 28,
@@ -561,11 +561,11 @@ function HomePage({ setPage }) {
       </div>
     </section>
 
-    {/* AI Analysis example */}
+    {/* What's live now */}
     <section style={{ padding: "60px 24px 80px", maxWidth: 850, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 32 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>AI Output</div>
-        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>What an analysis looks like</h2>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Live Now</div>
+        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>Real data from the source</h2>
       </div>
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 16, overflow: "hidden" }}>
         <div style={{ padding: "16px 24px", borderBottom: `1px solid ${t.border}`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -574,35 +574,35 @@ function HomePage({ setPage }) {
             <div style={{ width: 12, height: 12, borderRadius: "50%", background: t.gold }} />
             <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28c840" }} />
           </div>
-          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>GET /api/v1/analyze/donor/exxon-pac</span>
+          <span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>GET /api/v1/district?zip=90210</span>
         </div>
         <pre style={{ padding: 28, margin: 0, overflow: "auto", fontFamily: "'Source Code Pro', monospace", fontSize: 14, lineHeight: 1.85, color: t.dim }}>
-{`{`}{"\n"}{`  `}<span style={{color:t.gold}}>"motivations"</span>{`: [\n    {\n`}
-{`      `}<span style={{color:t.gold}}>"reason"</span>{`: `}<span style={{color:t.red}}>"Energy regulation influence"</span>{`,\n`}
-{`      `}<span style={{color:t.gold}}>"confidence"</span>{`: `}<span style={{color:t.blue}}>8.5</span>{`,\n`}
-{`      `}<span style={{color:t.gold}}>"evidence"</span>{`: [\n`}
-{`        `}<span style={{color:t.red}}>"85% of donations target Energy &\n         Commerce Committee members"</span>{`,\n`}
-{`        `}<span style={{color:t.red}}>"$1.2M lobbying spend on EPA regs\n         via Senate LDA filings"</span>{`,\n`}
-{`        `}<span style={{color:t.red}}>"$5.3M in DOE contracts awarded\n         via USASpending records"</span>{`,\n`}
-{`        `}<span style={{color:t.red}}>"Donations spike 2x before S.1234\n         Clean Energy Act vote"</span>{`\n`}
-{`      ]\n    }\n  ],\n`}
-{`  `}<span style={{color:t.gold}}>"data_sources"</span>{`: [`}<span style={{color:t.red}}>"FEC"</span>{`, `}<span style={{color:t.red}}>"Senate LDA"</span>{`,\n    `}<span style={{color:t.red}}>"USASpending"</span>{`, `}<span style={{color:t.red}}>"Congress.gov"</span>{`]\n}`}
+{`{`}{"\n"}{`  `}<span style={{color:t.gold}}>"representatives"</span>{`: [\n    {\n`}
+{`      `}<span style={{color:t.gold}}>"name"</span>{`: `}<span style={{color:t.red}}>"Sen. Alex Padilla"</span>{`,\n`}
+{`      `}<span style={{color:t.gold}}>"party"</span>{`: `}<span style={{color:t.red}}>"D"</span>{`, `}<span style={{color:t.gold}}>"chamber"</span>{`: `}<span style={{color:t.red}}>"Senate"</span>{`,\n`}
+{`      `}<span style={{color:t.gold}}>"topDonors"</span>{`: [`}<span style={{color:t.red}}>"Alphabet Inc"</span>{`, ...],\n`}
+{`      `}<span style={{color:t.gold}}>"votes"</span>{`: [\n`}
+{`        { `}<span style={{color:t.gold}}>"bill"</span>{`: `}<span style={{color:t.red}}>"H.R. 7148"</span>{`,\n          `}<span style={{color:t.gold}}>"vote"</span>{`: `}<span style={{color:t.red}}>"Yea"</span>{` }\n`}
+{`      ],\n`}
+{`      `}<span style={{color:t.gold}}>"committees"</span>{`: [`}<span style={{color:t.red}}>"Judiciary"</span>{`, ...]\n`}
+{`    }\n  ],\n`}
+{`  `}<span style={{color:t.gold}}>"source"</span>{`: `}<span style={{color:t.red}}>"fec.gov + congress.gov"</span>{`\n}`}
         </pre>
       </div>
     </section>
 
-    {/* What the AI looks for */}
+    {/* What the platform connects */}
     <section style={{ padding: "80px 24px", maxWidth: 900, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 48 }}>
-        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Intelligence</div>
-        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>The AI cross-references <em style={{ color: t.gold }}>everything</em></h2>
+        <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>Transparency</div>
+        <h2 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 30, color: t.white }}>The questions this data <em style={{ color: t.gold }}>lets you answer</em></h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
         {[
-          { q: "Do they donate to politicians on committees that regulate their industry?", sources: "FEC + Congress.gov", icon: "🏛" },
-          { q: "Do they lobby Congress on the same issues they donate around?", sources: "FEC + Senate LDA", icon: "📋" },
-          { q: "Do they receive government contracts from agencies their recipients oversee?", sources: "FEC + USASpending", icon: "💰" },
-          { q: "Do donations spike before key votes on legislation in their industry?", sources: "FEC + Congress.gov", icon: "📊" },
+          { q: "Who are my representative's biggest campaign donors?", sources: "FEC", icon: "🏛" },
+          { q: "Do my reps' top donors benefit from the bills they vote for?", sources: "FEC + Congress.gov", icon: "💰" },
+          { q: "How did my representative vote on the defense budget?", sources: "Congress.gov roll call", icon: "🗳" },
+          { q: "Do donations correlate with votes on industry-specific legislation?", sources: "FEC + Congress.gov", icon: "📊" },
         ].map((item, i) => (
           <div key={i} style={{ background: t.surface, padding: 28, borderLeft: `3px solid ${t.red}`, transition: "background 0.2s" }}
             onMouseOver={e => e.currentTarget.style.background = t.surface2}
@@ -621,13 +621,7 @@ function HomePage({ setPage }) {
 
 function DemoPage() {
   const [q, setQ] = useState(""); const [res, setRes] = useState(null); const [ld, setLd] = useState(false); const [err, setErr] = useState(null);
-  const demo = [
-    {donor:"ExxonMobil PAC",recipient:"Sen. John Barrasso (R-WY)",party:"R",amount:15000,date:"2024-06-15",industry:"Oil & Gas",committees:"Energy, Environment",lobbying:"$4.2M lobbying spend",contracts:"$12M DOE contracts"},
-    {donor:"ExxonMobil PAC",recipient:"Sen. Joe Manchin (D-WV)",party:"D",amount:10000,date:"2024-05-20",industry:"Oil & Gas",committees:"Energy, Appropriations",lobbying:"$4.2M lobbying spend",contracts:"$12M DOE contracts"},
-    {donor:"ExxonMobil PAC",recipient:"Rep. Cathy M. Rodgers (R-WA)",party:"R",amount:7500,date:"2024-03-10",industry:"Oil & Gas",committees:"Energy & Commerce",lobbying:"$4.2M lobbying spend",contracts:"$12M DOE contracts"},
-    {donor:"ExxonMobil Corp Employees",recipient:"Sen. Ted Cruz (R-TX)",party:"R",amount:12800,date:"2024-01-15",industry:"Oil & Gas",committees:"Commerce, Judiciary",lobbying:"$4.2M lobbying spend",contracts:"$12M DOE contracts"},
-  ];
-  const search = async () => { if(!q.trim()) return; setLd(true); setErr(null); try { const r = await fetch(`${API_BASE}/api/v1/donations?donor=${encodeURIComponent(q)}&limit=10`); if(!r.ok) throw new Error(); setRes(await r.json().then(d=>d.donations||[])); } catch { setRes(demo); setErr("Showing demo data — connect your API for live results"); } setLd(false); };
+  const search = async () => { if(!q.trim()) return; setLd(true); setErr(null); try { const r = await fetch(`${API_BASE}/api/v1/donations?donor=${encodeURIComponent(q)}&limit=10`); if(!r.ok) throw new Error(); const data = await r.json(); setRes(data.donations||[]); if((data.donations||[]).length === 0) setErr("No FEC donations found for that search. Try a different name (e.g., 'ExxonMobil', 'Goldman Sachs')."); } catch { setRes([]); setErr("Could not connect to the FEC API. Check that your FEC_API_KEY is set in Vercel environment variables."); } setLd(false); };
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 900, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Live Demo</span></div>
@@ -690,14 +684,15 @@ function MoneyFlowPage() {
   const [customResult, setCustomResult] = useState(null);
 
   // Custom search — fetches real data from the API
-  const searchCustom = async () => {
-    if (!customQuery.trim()) return;
+  const searchCustom = async (queryOverride) => {
+    const q = queryOverride || customQuery;
+    if (!q.trim()) return;
     setCustomLoading(true);
     setStep(null);
 
     try {
       // Try fetching from API
-      const donorRes = await fetch(`${API_BASE}/api/v1/donors/search?q=${encodeURIComponent(customQuery)}&limit=1`);
+      const donorRes = await fetch(`${API_BASE}/api/v1/donors/search?q=${encodeURIComponent(q)}&limit=1`);
       if (!donorRes.ok) throw new Error();
       const donors = await donorRes.json();
       const donor = Array.isArray(donors) ? donors[0] : (donors.donors || donors.results || [])[0];
@@ -965,7 +960,7 @@ function MoneyFlowPage() {
           {/* Quick suggestion chips */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {["Lockheed Martin", "Goldman Sachs", "Pfizer", "Koch Industries", "Google", "Comcast", "Boeing", "AT&T"].map(name => (
-              <button key={name} onClick={() => { setCustomQuery(name); }} style={{
+              <button key={name} onClick={() => { setCustomQuery(name); searchCustom(name); }} style={{
                 fontSize: 15, padding: "5px 12px", borderRadius: 6,
                 background: t.surface, border: `1px solid ${t.border}`,
                 color: t.dim, cursor: "pointer", fontFamily: "'Source Code Pro', monospace",
@@ -1188,7 +1183,7 @@ function MoneyFlowPage() {
 
       {/* Disclaimer */}
       <p style={{ color: t.dim, fontSize: 15, textAlign: "center", marginTop: 20, fontFamily: "'Source Code Pro', monospace" }}>
-        Analysis based on public FEC, Senate LDA, Congress.gov, and USASpending data. Correlations shown are inferences, not confirmed causation.
+        Analysis based on public FEC and Congress.gov data. Correlations shown are inferences, not confirmed causation.
       </p>
     </div>
   );
@@ -1258,26 +1253,26 @@ function DocsPage() {
 
 function PricingPage({ setPage }) {
   const tiers = [
-    {n:"Free",p:"$0",per:"",sub:"For civic engagement",f:["100 API requests / day","FEC individual & committee search","Donor profiles with party breakdown","Recipient & PAC lookup","Entity name resolution","Community support"],hl:false,cta:"Get free API key",who:"Journalists getting started, students, civic hackers"},
-    {n:"Pro",p:"$49",per:"/mo",sub:"For newsrooms & researchers",f:["5,000 API requests / day","Everything in Free, plus:","AI-powered donation analysis","Cross-source correlation (FEC + lobbying + contracts)","Influence graph with multi-hop connections","Donation velocity & spike detection","Bill impact scoring by industry","Natural language queries across all sources","Donor comparison engine","Priority email support"],hl:true,cta:"Start Pro trial",who:"Investigative reporters, political researchers, policy analysts, academics"},
-    {n:"Enterprise",p:"$199",per:"/mo",sub:"For newsrooms & organizations",f:["50,000 API requests / day","Everything in Pro, plus:","Custom real-time alert watchlists","Webhook notifications on new filings","Circular influence loop detection","Industry-wide coordinated surge monitoring","Bulk data exports (CSV, JSON)","Dedicated account manager","99.9% uptime SLA"],hl:false,cta:"Contact sales",who:"Major newsrooms, research institutes, government affairs teams, compliance departments"},
+    {n:"Free",p:"$0",per:"",sub:"For everyone — no account needed",f:["District lookup with real FEC + Congress.gov data","FEC donor search & individual profiles","Voting records on tracked FY2026 bills","Committee assignments","MCP server for AI assistants","API access (rate limited)"],hl:false,cta:"Get free API key",who:"Citizens, journalists, students, civic hackers, researchers"},
+    {n:"Pro",p:"Coming",per:" soon",sub:"For power users & newsrooms",f:["Higher API rate limits","AI-powered donation analysis","Influence scoring & vote alignment","Historical FEC filing snapshots","Natural language queries","Priority support"],hl:true,cta:"Join waitlist",who:"Investigative reporters, political researchers, policy analysts"},
+    {n:"Enterprise",p:"Coming",per:" soon",sub:"For organizations",f:["Unlimited API access","Everything in Pro, plus:","Custom alert watchlists","Bulk data exports","Dedicated support","SLA guarantees"],hl:false,cta:"Contact us",who:"Newsrooms, research institutes, government affairs teams"},
   ];
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
     <div style={{ textAlign: "center", marginBottom: 40 }}>
       <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red, marginBottom: 16 }}>API Access</div>
-      <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 40, color: t.white, marginBottom: 16 }}>Data that gets more valuable <em style={{ color: t.gold }}>every single day</em></h1>
-      <p style={{ color: t.dim, fontSize: 16, maxWidth: 700, margin: "0 auto", lineHeight: 1.8 }}>PolitiTrack isn't a wrapper around government APIs. We capture daily snapshots that FEC doesn't keep, score donor-vote alignment no one else tracks, and discover cross-source connections across five federal databases that don't exist in any single system. The longer we run, the deeper the data gets — and the wider the gap becomes between us and anything else.</p>
+      <h1 style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: 40, color: t.white, marginBottom: 16 }}>Free civic transparency. <em style={{ color: t.gold }}>Real government data.</em></h1>
+      <p style={{ color: t.dim, fontSize: 16, maxWidth: 700, margin: "0 auto", lineHeight: 1.8 }}>PolitiTrack pulls live data from the FEC and Congress.gov to show you who funds your representatives and how they vote. Everything on this site is free. Paid tiers for power users and organizations are coming soon.</p>
     </div>
 
-    {/* Why this can't be replicated */}
+    {/* What's live now */}
     <div style={{ background: `linear-gradient(135deg, rgba(230,57,70,0.06), rgba(29,53,87,0.1))`, border: `1px solid ${t.red}22`, borderRadius: 12, padding: 32, marginBottom: 32 }}>
-      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 20 }}>Why this platform is irreplaceable</div>
+      <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.red, marginBottom: 20 }}>What's live right now</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
         {[
-          { icon: "📸", title: "Historical snapshots", desc: "We capture daily snapshots of every FEC filing. When campaigns amend filings — which overwrites the original on FEC.gov — we keep both versions. After 6 months, we have a time-series dataset that literally doesn't exist anywhere else. Not on FEC.gov. Not on OpenSecrets. Nowhere.", time: "Compounds daily" },
-          { icon: "⚖️", title: "Vote alignment scoring", desc: "We track every congressional vote and measure how often politicians vote in their donors' interests vs. baseline. After a year of tracking, we can tell you: 'Politicians who receive >$50K from pharma vote in pharma's favor 84% of the time vs. 51% baseline.' No one else calculates this.", time: "Improves with every vote" },
-          { icon: "🔗", title: "Cross-source connections", desc: "We cross-reference 5 federal databases to discover connections no single source reveals: donation → politician → committee → agency → contract → back to donor. Each connection is AI-discovered and human-verified. The connection graph grows every day.", time: "Grows continuously" },
+          { icon: "🏛", title: "Real FEC data", desc: "Every district lookup pulls live donation data from the Federal Election Commission — top donors, top industries, and total raised for each of your representatives. Not cached snapshots. Live API calls.", time: "Live from api.open.fec.gov" },
+          { icon: "🗳", title: "Real voting records", desc: "We parse official roll call XML files from the House Clerk and Senate to show how your representatives voted on FY2026 spending bills. Yea, Nay, Not Voting — directly from the official record.", time: "Live from Congress.gov" },
+          { icon: "🤖", title: "AI assistant access", desc: "Our MCP server lets any AI assistant — Claude, ChatGPT, Cursor — look up districts, search donors, and trace political money. 10 tools, free, open source on npm.", time: "Available now via npm" },
         ].map((f, i) => (
           <div key={i} style={{ padding: 0 }}>
             <div style={{ fontSize: 28, marginBottom: 10 }}>{f.icon}</div>
@@ -1353,7 +1348,7 @@ function PricingPage({ setPage }) {
     {/* Bottom line */}
     <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, textAlign: "center" }}>
       <p style={{ fontSize: 16, color: t.text, lineHeight: 1.8, maxWidth: 650, margin: "0 auto" }}>
-        The public website is and will always be <strong style={{ color: t.white }}>100% free</strong>. The API is for professionals who need programmatic access to proprietary datasets that don't exist anywhere else — historical snapshots, influence scores, cross-source connections, and real-time alerts. These datasets compound daily. The longer PolitiTrack runs, the more irreplaceable the data becomes. Every subscriber supports keeping the public site free.
+        PolitiTrack is and will always be <strong style={{ color: t.white }}>100% free</strong> for public use. Every feature on this site — district lookup, donor search, voting records, cost-of-living data — is free, no account required. We're building paid tiers for power users who need higher rate limits and advanced analytics, but the core civic transparency tools will never be paywalled.
       </p>
     </div>
   </div>);
@@ -1409,48 +1404,6 @@ function ExplorePage({ setPage }) {
   const [loading, setLoading] = useState(false);
 
   // Demo data
-  const demoSearchResults = [
-    { id: "d1", name: "ExxonMobil PAC", type: "pac", industry: "Oil & Gas", state: "TX", total: 2400000 },
-    { id: "d2", name: "ExxonMobil Corp Employees", type: "individual", industry: "Oil & Gas", state: "TX", total: 890000 },
-    { id: "d3", name: "Exxon Mobil Corporation", type: "corporation", industry: "Oil & Gas", state: "TX", total: 150000 },
-  ];
-
-  const demoDonorProfile = {
-    name: "ExxonMobil PAC",
-    type: "Corporate PAC",
-    industry: "Oil & Gas",
-    state: "TX",
-    total: 2400000,
-    byParty: { R: { total: 1680000, count: 142 }, D: { total: 720000, count: 58 } },
-    byYear: { "2020": 480000, "2021": 320000, "2022": 560000, "2023": 520000, "2024": 520000 },
-    topRecipients: [
-      { name: "Sen. John Barrasso", party: "R", office: "Senate", state: "WY", total: 45000, committees: "Energy & Natural Resources" },
-      { name: "Sen. Joe Manchin", party: "D", office: "Senate", state: "WV", total: 38000, committees: "Energy, Appropriations" },
-      { name: "Rep. Cathy M. Rodgers", party: "R", office: "House", state: "WA", total: 32000, committees: "Energy & Commerce" },
-      { name: "Sen. Ted Cruz", party: "R", office: "Senate", state: "TX", total: 28000, committees: "Commerce, Judiciary" },
-      { name: "Rep. Frank Pallone", party: "D", office: "House", state: "NJ", total: 25000, committees: "Energy & Commerce" },
-      { name: "Sen. Lisa Murkowski", party: "R", office: "Senate", state: "AK", total: 22000, committees: "Energy & Natural Resources" },
-    ],
-    recentDonations: [
-      { recipient: "Sen. John Barrasso", party: "R", amount: 15000, date: "2024-06-15" },
-      { recipient: "Sen. Joe Manchin", party: "D", amount: 10000, date: "2024-05-20" },
-      { recipient: "Rep. Cathy M. Rodgers", party: "R", amount: 7500, date: "2024-03-10" },
-      { recipient: "Sen. Ted Cruz", party: "R", amount: 12800, date: "2024-01-15" },
-      { recipient: "Rep. Frank Pallone", party: "D", amount: 5000, date: "2023-12-01" },
-      { recipient: "Sen. Lisa Murkowski", party: "R", amount: 8000, date: "2023-10-20" },
-    ],
-    lobbying: { spend: "$4.2M", issues: ["EPA regulations", "Carbon tax", "Drilling permits"], filings: 12 },
-    contracts: { total: "$12.3M", agency: "Dept. of Energy", count: 3 },
-    velocity: { trend: "stable", lastSpike: "Q1 2024 (+120%)", concentration: "85% Energy Committee" },
-    influenceScore: 78,
-  };
-
-  const demoAiAnswer = {
-    answer: "Based on the data, ExxonMobil PAC's donations to Energy & Natural Resources Committee members appear strongly correlated with their lobbying activity on EPA regulatory reform. 85% of their contributions target politicians who sit on committees overseeing energy regulation. Their donations spiked 120% in Q1 2024, coinciding with a $1.1M lobbying filing on 'EPA regulatory reform' — the exact quarter before H.R.5678 was introduced. Additionally, ExxonMobil holds $12.3M in DOE contracts awarded by agencies that the donation recipients' committees oversee, creating a circular influence pattern.",
-    confidence: 8.2,
-    sources: ["FEC", "Senate LDA", "USASpending", "Congress.gov"],
-  };
-
   const search = async () => {
     if (!query.trim()) return;
     setLoading(true);
@@ -1504,7 +1457,7 @@ function ExplorePage({ setPage }) {
     if (combined.length > 0) {
       setResults(combined);
     } else {
-      setResults(demoSearchResults);
+      setResults([]);
     }
     setLoading(false);
   };
@@ -1598,7 +1551,7 @@ function ExplorePage({ setPage }) {
       const r = await fetch(`${API_BASE}/api/v1/donors/${donor.id}/summary`);
       if (!r.ok) throw new Error();
       setSelectedDonor(await r.json());
-    } catch { setSelectedDonor(demoDonorProfile); }
+    } catch { setSelectedDonor(null); }
     setTab("donor");
     setLoading(false);
   };
@@ -1610,13 +1563,13 @@ function ExplorePage({ setPage }) {
       const r = await fetch(`${API_BASE}/api/v1/analyze/ask?q=${encodeURIComponent(aiQuestion)}`, { headers: { "X-API-Key": "demo" } });
       if (!r.ok) throw new Error();
       setAiAnswer(await r.json());
-    } catch { setAiAnswer(demoAiAnswer); }
+    } catch { setAiAnswer({ answer: "Could not connect to the analysis API. This feature requires a Pro tier subscription (coming soon).", confidence: null, sources: [] }); }
     setLoading(false);
   };
 
   const pc = (p) => p === "R" ? t.red : p === "D" ? t.blue : t.gold;
   const pl = (p) => p === "R" ? "REP" : p === "D" ? "DEM" : p;
-  const d = selectedDonor || demoDonorProfile;
+  const d = selectedDonor;
 
   return (<div style={{ padding: "120px 24px 80px", maxWidth: 1050, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}><div style={{ width: 32, height: 3, background: t.red, borderRadius: 2 }} /><span style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 3, textTransform: "uppercase", color: t.red }}>Explore</span></div>
@@ -1674,7 +1627,7 @@ function ExplorePage({ setPage }) {
     </div>)}
 
     {/* DONOR PROFILE TAB */}
-    {tab === "donor" && (<div>
+    {tab === "donor" && d && (<div>
       {/* Header card */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 28, marginBottom: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", flexWrap: "wrap", gap: 16 }}>
@@ -2068,6 +2021,200 @@ function TermsPage() {
   </div>);
 }
 
+const impactTopics = [
+    {
+      name: "Iran conflict",
+      icon: "⚔️",
+      headline: "Cost of U.S. military operations in Iran",
+      updated: "April 2026",
+      totalCost: "$45B+",
+      totalLabel: "Cost in first 36 days (as of April 4)",
+      summary: "U.S. military operations in and around Iran have escalated significantly since late 2025. Based on historical patterns from Iraq and Afghanistan, combined with current deployment data and Pentagon budget documents, economists project significant fiscal impact on federal spending, consumer prices, and long-term debt.",
+      sections: [
+        {
+          title: "Direct military costs",
+          data: [
+            { label: "Daily operational cost", value: "$1B/day", source: "Congressional Research Service, based on Iraq/Afghanistan cost ratios adjusted for theater size" },
+            { label: "Troop deployment", value: "~85,000 personnel", source: "DoD quarterly manpower reports" },
+            { label: "Munitions expenditure", value: "$48B (FY2026 est.)", source: "Pentagon FY2026 supplemental request" },
+            { label: "Naval operations (carrier groups)", value: "$24B/year", source: "CBO naval operations cost analysis" },
+            { label: "Air operations & drone strikes", value: "$18B (FY2026 est.)", source: "USAF budget justification documents" },
+          ],
+        },
+        {
+          title: "Impact on oil & energy prices",
+          data: [
+            { label: "Oil price increase since operations began", value: "+38%", source: "EIA Short-Term Energy Outlook, April 2026" },
+            { label: "Current avg. gas price (national)", value: "$5.12/gallon", source: "AAA Fuel Gauge Report" },
+            { label: "Pre-conflict gas price", value: "$3.45/gallon", source: "EIA historical data" },
+            { label: "Strait of Hormuz disruption risk premium", value: "+$22/barrel", source: "Goldman Sachs Commodities Research" },
+            { label: "Annual household energy cost increase", value: "+$2,400/year", source: "BLS Consumer Expenditure Survey methodology applied to current prices" },
+          ],
+        },
+        {
+          title: "Consumer price impact",
+          data: [
+            { label: "CPI increase attributed to conflict", value: "+1.8%", source: "Federal Reserve Bank of San Francisco, war-driven inflation analysis" },
+            { label: "Grocery price increase (food-at-home)", value: "+6.2%", source: "USDA ERS Food Price Outlook, adjusted for energy input costs" },
+            { label: "Transportation cost increase", value: "+14%", source: "BLS Transportation CPI component" },
+            { label: "Avg. monthly household cost increase", value: "+$340/month", source: "Moody's Analytics consumer impact model" },
+            { label: "Disproportionate impact on bottom 20%", value: "8.4% of income", source: "Brookings Institution, distributional analysis of war-driven inflation" },
+          ],
+        },
+        {
+          title: "Federal budget & debt impact",
+          data: [
+            { label: "FY2026 defense supplemental", value: "$187B", source: "Congressional Appropriations Committee" },
+            { label: "Added to national debt", value: "+$312B", source: "CBO cost estimate for Iran operations" },
+            { label: "Interest on war debt (10-year)", value: "$94B", source: "CBO long-term budget projections at current rates" },
+            { label: "VA healthcare costs (20-year est.)", value: "$180-420B", source: "Watson Institute, Brown University Costs of War Project" },
+            { label: "Opportunity cost (infrastructure, education)", value: "~$312B diverted", source: "National Priorities Project" },
+          ],
+        },
+        {
+          title: "Labor & economic effects",
+          data: [
+            { label: "Defense sector job creation", value: "+340,000", source: "BLS defense-related employment data" },
+            { label: "Non-defense GDP drag", value: "-0.4%", source: "IMF World Economic Outlook, conflict spillover analysis" },
+            { label: "Small business confidence drop", value: "-12 points", source: "NFIB Small Business Optimism Index" },
+            { label: "Supply chain disruption index", value: "+28% (elevated)", source: "NY Fed Global Supply Chain Pressure Index" },
+            { label: "Stock market volatility increase", value: "VIX +35% avg.", source: "CBOE VIX historical data" },
+          ],
+        },
+      ],
+      economists: [
+        { name: "Linda Bilmes", affiliation: "Harvard Kennedy School", view: "Total long-term costs including veteran care could reach $1.2-1.8 trillion over 20 years, following the pattern of Iraq and Afghanistan.", source: "The Three Trillion Dollar War (updated methodology)" },
+        { name: "Neta Crawford", affiliation: "Brown University, Costs of War Project", view: "Direct military costs understate the true burden by 3-5x when factoring in veteran healthcare, interest on war debt, and homeland security increases.", source: "Costs of War Project annual report" },
+        { name: "Mark Zandi", affiliation: "Moody's Analytics", view: "The conflict is adding approximately 1.5-2 percentage points to consumer inflation and reducing GDP growth by 0.3-0.5%.", source: "Moody's Analytics economic assessment" },
+      ],
+    },
+    {
+      name: "National debt",
+      icon: "📊",
+      headline: "U.S. national debt & deficit spending",
+      updated: "April 2026",
+      totalCost: "$37.2T",
+      totalLabel: "Current national debt",
+      summary: "The U.S. national debt has reached $37.2 trillion as of April 2026. Annual interest payments now exceed $1.1 trillion — more than the defense budget. Economists across the political spectrum agree this trajectory is unsustainable, though they disagree on solutions.",
+      sections: [
+        {
+          title: "Current debt snapshot",
+          data: [
+            { label: "Total national debt", value: "$37.2T", source: "Treasury Department, Debt to the Penny (daily)" },
+            { label: "Debt per citizen", value: "$110,800", source: "US Census population estimate / Treasury debt data" },
+            { label: "Debt per taxpayer", value: "$248,500", source: "IRS filing statistics / Treasury debt data" },
+            { label: "Debt-to-GDP ratio", value: "127%", source: "BEA GDP data / Treasury debt data" },
+            { label: "Annual deficit (FY2026)", value: "$2.1T", source: "CBO Monthly Budget Review" },
+          ],
+        },
+        {
+          title: "Interest payments",
+          data: [
+            { label: "Annual interest on debt", value: "$1.14T", source: "Treasury Interest Expense Statement" },
+            { label: "Daily interest cost", value: "$3.1B/day", source: "Calculated from Treasury data" },
+            { label: "Interest as % of federal revenue", value: "23%", source: "CBO Budget and Economic Outlook" },
+            { label: "Interest vs. defense spending", value: "Interest exceeds defense by $78B", source: "OMB historical tables" },
+            { label: "Projected interest (2030)", value: "$1.6T/year", source: "CBO 10-year budget projections" },
+          ],
+        },
+        {
+          title: "Impact on citizens",
+          data: [
+            { label: "Crowding out effect on housing", value: "+0.8% on mortgage rates", source: "Federal Reserve research on fiscal deficits and interest rates" },
+            { label: "Reduced public investment", value: "-$340B/year in infrastructure", source: "American Society of Civil Engineers" },
+            { label: "Social Security trust fund depletion", value: "2033 (projected)", source: "Social Security Trustees Report 2025" },
+            { label: "Medicare trust fund depletion", value: "2031 (projected)", source: "Medicare Trustees Report 2025" },
+            { label: "Future tax burden (CBO scenario)", value: "+$4,200/year per household", source: "CBO long-term fiscal scenarios" },
+          ],
+        },
+      ],
+      economists: [
+        { name: "Larry Summers", affiliation: "Harvard, Former Treasury Secretary", view: "The current fiscal path is the most reckless in modern American history. Without course correction, we face a debt crisis within a decade.", source: "Peterson Institute lecture, 2025" },
+        { name: "Stephanie Kelton", affiliation: "Stony Brook University (MMT)", view: "The debt number itself is less important than inflation and real resource constraints. The question is whether spending causes overheating, not whether the number is big.", source: "The Deficit Myth (updated edition)" },
+      ],
+    },
+    {
+      name: "Defense budget",
+      icon: "🛡",
+      headline: "FY2026 defense spending breakdown",
+      updated: "April 2026",
+      totalCost: "$886B",
+      totalLabel: "FY2026 defense authorization",
+      summary: "The FY2026 National Defense Authorization Act authorized $886 billion in defense spending — the largest defense budget in U.S. history. This represents approximately 3.1% of GDP and 13% of all federal spending.",
+      sections: [
+        {
+          title: "Where defense money goes",
+          data: [
+            { label: "Military personnel", value: "$178B (20%)", source: "DoD FY2026 Budget Request" },
+            { label: "Operations & maintenance", value: "$296B (33%)", source: "DoD FY2026 Budget Request" },
+            { label: "Procurement (weapons, vehicles)", value: "$170B (19%)", source: "DoD FY2026 Budget Request" },
+            { label: "Research & development", value: "$145B (16%)", source: "DoD FY2026 Budget Request" },
+            { label: "Military construction", value: "$14B (2%)", source: "DoD FY2026 Budget Request" },
+          ],
+        },
+        {
+          title: "Top defense contractors (your tax dollars)",
+          data: [
+            { label: "Lockheed Martin", value: "$45.8B in contracts", source: "USASpending.gov, FY2025-2026" },
+            { label: "Boeing", value: "$26.3B in contracts", source: "USASpending.gov" },
+            { label: "Raytheon (RTX)", value: "$23.1B in contracts", source: "USASpending.gov" },
+            { label: "General Dynamics", value: "$19.7B in contracts", source: "USASpending.gov" },
+            { label: "Northrop Grumman", value: "$18.2B in contracts", source: "USASpending.gov" },
+          ],
+        },
+        {
+          title: "What $886B could alternatively fund",
+          data: [
+            { label: "Free public college (all students)", value: "$79B/year needed", source: "Dept. of Education estimates" },
+            { label: "Universal pre-K", value: "$30B/year needed", source: "CBO cost estimate" },
+            { label: "Eliminate child poverty (CTC expansion)", value: "$105B/year needed", source: "Columbia University Center on Poverty" },
+            { label: "Infrastructure repair backlog", value: "$2.6T total needed", source: "ASCE Report Card for America's Infrastructure" },
+            { label: "Clean energy transition", value: "$200B/year for 10 years", source: "Princeton Net-Zero America study" },
+          ],
+        },
+      ],
+      economists: [
+        { name: "William Hartung", affiliation: "Quincy Institute", view: "The defense budget is driven more by contractor lobbying than genuine security needs. The top 5 contractors spend $60M+ annually on lobbying and campaign donations.", source: "Profits of War, 2025" },
+        { name: "Kori Schake", affiliation: "American Enterprise Institute", view: "Given the simultaneous threats from China, Russia, Iran, and North Korea, the current budget may actually be insufficient for the force structure we need.", source: "AEI defense spending analysis" },
+      ],
+    },
+    {
+      name: "Healthcare spending",
+      icon: "🏥",
+      headline: "U.S. healthcare expenditure",
+      updated: "April 2026",
+      totalCost: "$4.8T",
+      totalLabel: "Annual U.S. healthcare spending",
+      summary: "The U.S. spends more on healthcare per capita than any other developed nation — $14,500 per person per year — yet ranks 46th in life expectancy. Federal healthcare programs (Medicare, Medicaid, VA, ACA subsidies) now consume 28% of the federal budget.",
+      sections: [
+        {
+          title: "Where healthcare money goes",
+          data: [
+            { label: "Hospital care", value: "$1.5T (31%)", source: "CMS National Health Expenditure Data" },
+            { label: "Physician & clinical services", value: "$960B (20%)", source: "CMS NHE Data" },
+            { label: "Prescription drugs", value: "$570B (12%)", source: "CMS NHE Data" },
+            { label: "Administrative costs", value: "$810B (17%)", source: "JAMA study on healthcare administration" },
+            { label: "Long-term care", value: "$480B (10%)", source: "CMS NHE Data" },
+          ],
+        },
+        {
+          title: "Impact on families",
+          data: [
+            { label: "Average family premium (employer)", value: "$25,200/year", source: "KFF Employer Health Benefits Survey" },
+            { label: "Average deductible", value: "$1,735", source: "KFF survey data" },
+            { label: "Medical debt holders", value: "100 million Americans", source: "KFF/Peterson analysis of Census data" },
+            { label: "Bankruptcies caused by medical bills", value: "530,000/year", source: "American Journal of Public Health" },
+            { label: "Uninsured Americans", value: "27.6 million", source: "Census Bureau Current Population Survey" },
+          ],
+        },
+      ],
+      economists: [
+        { name: "Zack Cooper", affiliation: "Yale School of Public Health", view: "Hospital market consolidation is the primary driver of price increases. In concentrated markets, prices are 12-40% higher with no quality improvement.", source: "Health Affairs, hospital pricing study" },
+        { name: "Dean Baker", affiliation: "Center for Economic and Policy Research", view: "The U.S. pays roughly twice what other wealthy countries pay for equivalent healthcare outcomes. The difference is almost entirely attributable to higher prices, not more utilization.", source: "CEPR policy brief on international price comparisons" },
+      ],
+    },
+  ];
+
 function SpendingPage() {
   const [activeTopic, setActiveTopic] = useState(0);
   const [activeSection, setActiveSection] = useState(null);
@@ -2313,7 +2460,7 @@ function SpendingPage() {
       {/* Source disclaimer */}
       <div style={{ marginTop: 24, padding: 16, background: t.surface, border: `1px solid ${t.border}`, borderRadius: 10 }}>
         <p style={{ color: t.dim, fontSize: 15, lineHeight: 1.7, fontFamily: "'Source Code Pro', monospace" }}>
-          Bill data from Congress.gov and the House/Senate Appropriations Committees. Funding figures from CBO cost estimates and committee reports. Consumer impact analysis based on public data from BLS, CMS, USDA, HUD, DoD, and cited academic research. Contractor data from USASpending.gov. Donor/lobbying data from FEC and Senate LDA filings via PolitiTrack. This page is nonpartisan and presents fiscal data without policy recommendations.
+          Bill data from Congress.gov and the House/Senate Appropriations Committees. Funding figures from CBO cost estimates and committee reports. Consumer impact analysis based on public data from BLS, CMS, USDA, HUD, DoD, and cited academic research. Contractor data from USASpending.gov. Donor data from FEC. This page is nonpartisan and presents fiscal data without policy recommendations.
         </p>
       </div>
     </div>)}
@@ -2344,7 +2491,7 @@ function SpendingPage() {
 
       {[
         { category: "Groceries & food", icon: "🛒", source: "USDA ERS + BLS CPI Feb 2026", note: "Food at home +0.4% in Feb 2026 alone. Eggs up 84% year-over-year due to avian flu.", items: [
-          { item: "Dozen eggs", y2025: "$3.20", y2026: "$5.90", change: "-42%", driver: "Prices fell 42% from 2025 peak after supply recovery (BLS Feb 2026)" },
+          { item: "Dozen eggs", y2025: "$3.20", y2026: "$5.90", change: "+84%", driver: "Avian flu reduced supply; egg prices nearly doubled year-over-year (BLS Feb 2026)" },
           { item: "Gallon of milk", y2025: "$3.89", y2026: "$4.29", change: "+10%", driver: "Dairy input costs, transportation" },
           { item: "Loaf of bread", y2025: "$3.49", y2026: "$3.79", change: "+9%", driver: "Wheat prices, energy costs" },
           { item: "1 lb ground beef", y2025: "$5.49", y2026: "$6.19", change: "+13%", driver: "Cattle supply shortage, feed costs" },
@@ -2439,7 +2586,7 @@ function SpendingPage() {
             </div>
           </div>
         ))}
-        <p style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 12 }}>Donation data: FEC via PolitiTrack. Lobbying: Senate LDA. Profits: SEC filings.</p>
+        <p style={{ fontSize: 15, color: t.dim, fontFamily: "'Source Code Pro', monospace", marginTop: 12 }}>Donation data: FEC. Cost data: BLS, AAA, KFF, Census. Profits: SEC filings.</p>
       </div>
     </div>)}
 
@@ -2525,200 +2672,6 @@ function SpendingPage() {
     </div>)}
   </div>);
 }
-
-const impactTopics = [
-    {
-      name: "Iran conflict",
-      icon: "⚔️",
-      headline: "Cost of U.S. military operations in Iran",
-      updated: "April 2026",
-      totalCost: "$45B+",
-      totalLabel: "Cost in first 36 days (as of April 4)",
-      summary: "U.S. military operations in and around Iran have escalated significantly since late 2025. Based on historical patterns from Iraq and Afghanistan, combined with current deployment data and Pentagon budget documents, economists project significant fiscal impact on federal spending, consumer prices, and long-term debt.",
-      sections: [
-        {
-          title: "Direct military costs",
-          data: [
-            { label: "Daily operational cost", value: "$1B/day", source: "Congressional Research Service, based on Iraq/Afghanistan cost ratios adjusted for theater size" },
-            { label: "Troop deployment", value: "~85,000 personnel", source: "DoD quarterly manpower reports" },
-            { label: "Munitions expenditure", value: "$48B (FY2026 est.)", source: "Pentagon FY2026 supplemental request" },
-            { label: "Naval operations (carrier groups)", value: "$24B/year", source: "CBO naval operations cost analysis" },
-            { label: "Air operations & drone strikes", value: "$18B (FY2026 est.)", source: "USAF budget justification documents" },
-          ],
-        },
-        {
-          title: "Impact on oil & energy prices",
-          data: [
-            { label: "Oil price increase since operations began", value: "+38%", source: "EIA Short-Term Energy Outlook, April 2026" },
-            { label: "Current avg. gas price (national)", value: "$5.12/gallon", source: "AAA Fuel Gauge Report" },
-            { label: "Pre-conflict gas price", value: "$3.45/gallon", source: "EIA historical data" },
-            { label: "Strait of Hormuz disruption risk premium", value: "+$22/barrel", source: "Goldman Sachs Commodities Research" },
-            { label: "Annual household energy cost increase", value: "+$2,400/year", source: "BLS Consumer Expenditure Survey methodology applied to current prices" },
-          ],
-        },
-        {
-          title: "Consumer price impact",
-          data: [
-            { label: "CPI increase attributed to conflict", value: "+1.8%", source: "Federal Reserve Bank of San Francisco, war-driven inflation analysis" },
-            { label: "Grocery price increase (food-at-home)", value: "+6.2%", source: "USDA ERS Food Price Outlook, adjusted for energy input costs" },
-            { label: "Transportation cost increase", value: "+14%", source: "BLS Transportation CPI component" },
-            { label: "Avg. monthly household cost increase", value: "+$340/month", source: "Moody's Analytics consumer impact model" },
-            { label: "Disproportionate impact on bottom 20%", value: "8.4% of income", source: "Brookings Institution, distributional analysis of war-driven inflation" },
-          ],
-        },
-        {
-          title: "Federal budget & debt impact",
-          data: [
-            { label: "FY2026 defense supplemental", value: "$187B", source: "Congressional Appropriations Committee" },
-            { label: "Added to national debt", value: "+$312B", source: "CBO cost estimate for Iran operations" },
-            { label: "Interest on war debt (10-year)", value: "$94B", source: "CBO long-term budget projections at current rates" },
-            { label: "VA healthcare costs (20-year est.)", value: "$180-420B", source: "Watson Institute, Brown University Costs of War Project" },
-            { label: "Opportunity cost (infrastructure, education)", value: "~$312B diverted", source: "National Priorities Project" },
-          ],
-        },
-        {
-          title: "Labor & economic effects",
-          data: [
-            { label: "Defense sector job creation", value: "+340,000", source: "BLS defense-related employment data" },
-            { label: "Non-defense GDP drag", value: "-0.4%", source: "IMF World Economic Outlook, conflict spillover analysis" },
-            { label: "Small business confidence drop", value: "-12 points", source: "NFIB Small Business Optimism Index" },
-            { label: "Supply chain disruption index", value: "+28% (elevated)", source: "NY Fed Global Supply Chain Pressure Index" },
-            { label: "Stock market volatility increase", value: "VIX +35% avg.", source: "CBOE VIX historical data" },
-          ],
-        },
-      ],
-      economists: [
-        { name: "Linda Bilmes", affiliation: "Harvard Kennedy School", view: "Total long-term costs including veteran care could reach $1.2-1.8 trillion over 20 years, following the pattern of Iraq and Afghanistan.", source: "The Three Trillion Dollar War (updated methodology)" },
-        { name: "Neta Crawford", affiliation: "Brown University, Costs of War Project", view: "Direct military costs understate the true burden by 3-5x when factoring in veteran healthcare, interest on war debt, and homeland security increases.", source: "Costs of War Project annual report" },
-        { name: "Mark Zandi", affiliation: "Moody's Analytics", view: "The conflict is adding approximately 1.5-2 percentage points to consumer inflation and reducing GDP growth by 0.3-0.5%.", source: "Moody's Analytics economic assessment" },
-      ],
-    },
-    {
-      name: "National debt",
-      icon: "📊",
-      headline: "U.S. national debt & deficit spending",
-      updated: "April 2026",
-      totalCost: "$37.2T",
-      totalLabel: "Current national debt",
-      summary: "The U.S. national debt has reached $37.2 trillion as of April 2026. Annual interest payments now exceed $1.1 trillion — more than the defense budget. Economists across the political spectrum agree this trajectory is unsustainable, though they disagree on solutions.",
-      sections: [
-        {
-          title: "Current debt snapshot",
-          data: [
-            { label: "Total national debt", value: "$37.2T", source: "Treasury Department, Debt to the Penny (daily)" },
-            { label: "Debt per citizen", value: "$110,800", source: "US Census population estimate / Treasury debt data" },
-            { label: "Debt per taxpayer", value: "$248,500", source: "IRS filing statistics / Treasury debt data" },
-            { label: "Debt-to-GDP ratio", value: "127%", source: "BEA GDP data / Treasury debt data" },
-            { label: "Annual deficit (FY2026)", value: "$2.1T", source: "CBO Monthly Budget Review" },
-          ],
-        },
-        {
-          title: "Interest payments",
-          data: [
-            { label: "Annual interest on debt", value: "$1.14T", source: "Treasury Interest Expense Statement" },
-            { label: "Daily interest cost", value: "$3.1B/day", source: "Calculated from Treasury data" },
-            { label: "Interest as % of federal revenue", value: "23%", source: "CBO Budget and Economic Outlook" },
-            { label: "Interest vs. defense spending", value: "Interest exceeds defense by $78B", source: "OMB historical tables" },
-            { label: "Projected interest (2030)", value: "$1.6T/year", source: "CBO 10-year budget projections" },
-          ],
-        },
-        {
-          title: "Impact on citizens",
-          data: [
-            { label: "Crowding out effect on housing", value: "+0.8% on mortgage rates", source: "Federal Reserve research on fiscal deficits and interest rates" },
-            { label: "Reduced public investment", value: "-$340B/year in infrastructure", source: "American Society of Civil Engineers" },
-            { label: "Social Security trust fund depletion", value: "2033 (projected)", source: "Social Security Trustees Report 2025" },
-            { label: "Medicare trust fund depletion", value: "2031 (projected)", source: "Medicare Trustees Report 2025" },
-            { label: "Future tax burden (CBO scenario)", value: "+$4,200/year per household", source: "CBO long-term fiscal scenarios" },
-          ],
-        },
-      ],
-      economists: [
-        { name: "Larry Summers", affiliation: "Harvard, Former Treasury Secretary", view: "The current fiscal path is the most reckless in modern American history. Without course correction, we face a debt crisis within a decade.", source: "Peterson Institute lecture, 2025" },
-        { name: "Stephanie Kelton", affiliation: "Stony Brook University (MMT)", view: "The debt number itself is less important than inflation and real resource constraints. The question is whether spending causes overheating, not whether the number is big.", source: "The Deficit Myth (updated edition)" },
-      ],
-    },
-    {
-      name: "Defense budget",
-      icon: "🛡",
-      headline: "FY2026 defense spending breakdown",
-      updated: "April 2026",
-      totalCost: "$886B",
-      totalLabel: "FY2026 defense authorization",
-      summary: "The FY2026 National Defense Authorization Act authorized $886 billion in defense spending — the largest defense budget in U.S. history. This represents approximately 3.1% of GDP and 13% of all federal spending.",
-      sections: [
-        {
-          title: "Where defense money goes",
-          data: [
-            { label: "Military personnel", value: "$178B (20%)", source: "DoD FY2026 Budget Request" },
-            { label: "Operations & maintenance", value: "$296B (33%)", source: "DoD FY2026 Budget Request" },
-            { label: "Procurement (weapons, vehicles)", value: "$170B (19%)", source: "DoD FY2026 Budget Request" },
-            { label: "Research & development", value: "$145B (16%)", source: "DoD FY2026 Budget Request" },
-            { label: "Military construction", value: "$14B (2%)", source: "DoD FY2026 Budget Request" },
-          ],
-        },
-        {
-          title: "Top defense contractors (your tax dollars)",
-          data: [
-            { label: "Lockheed Martin", value: "$45.8B in contracts", source: "USASpending.gov, FY2025-2026" },
-            { label: "Boeing", value: "$26.3B in contracts", source: "USASpending.gov" },
-            { label: "Raytheon (RTX)", value: "$23.1B in contracts", source: "USASpending.gov" },
-            { label: "General Dynamics", value: "$19.7B in contracts", source: "USASpending.gov" },
-            { label: "Northrop Grumman", value: "$18.2B in contracts", source: "USASpending.gov" },
-          ],
-        },
-        {
-          title: "What $886B could alternatively fund",
-          data: [
-            { label: "Free public college (all students)", value: "$79B/year needed", source: "Dept. of Education estimates" },
-            { label: "Universal pre-K", value: "$30B/year needed", source: "CBO cost estimate" },
-            { label: "Eliminate child poverty (CTC expansion)", value: "$105B/year needed", source: "Columbia University Center on Poverty" },
-            { label: "Infrastructure repair backlog", value: "$2.6T total needed", source: "ASCE Report Card for America's Infrastructure" },
-            { label: "Clean energy transition", value: "$200B/year for 10 years", source: "Princeton Net-Zero America study" },
-          ],
-        },
-      ],
-      economists: [
-        { name: "William Hartung", affiliation: "Quincy Institute", view: "The defense budget is driven more by contractor lobbying than genuine security needs. The top 5 contractors spend $60M+ annually on lobbying and campaign donations.", source: "Profits of War, 2025" },
-        { name: "Kori Schake", affiliation: "American Enterprise Institute", view: "Given the simultaneous threats from China, Russia, Iran, and North Korea, the current budget may actually be insufficient for the force structure we need.", source: "AEI defense spending analysis" },
-      ],
-    },
-    {
-      name: "Healthcare spending",
-      icon: "🏥",
-      headline: "U.S. healthcare expenditure",
-      updated: "April 2026",
-      totalCost: "$4.8T",
-      totalLabel: "Annual U.S. healthcare spending",
-      summary: "The U.S. spends more on healthcare per capita than any other developed nation — $14,500 per person per year — yet ranks 46th in life expectancy. Federal healthcare programs (Medicare, Medicaid, VA, ACA subsidies) now consume 28% of the federal budget.",
-      sections: [
-        {
-          title: "Where healthcare money goes",
-          data: [
-            { label: "Hospital care", value: "$1.5T (31%)", source: "CMS National Health Expenditure Data" },
-            { label: "Physician & clinical services", value: "$960B (20%)", source: "CMS NHE Data" },
-            { label: "Prescription drugs", value: "$570B (12%)", source: "CMS NHE Data" },
-            { label: "Administrative costs", value: "$810B (17%)", source: "JAMA study on healthcare administration" },
-            { label: "Long-term care", value: "$480B (10%)", source: "CMS NHE Data" },
-          ],
-        },
-        {
-          title: "Impact on families",
-          data: [
-            { label: "Average family premium (employer)", value: "$25,200/year", source: "KFF Employer Health Benefits Survey" },
-            { label: "Average deductible", value: "$1,735", source: "KFF survey data" },
-            { label: "Medical debt holders", value: "100 million Americans", source: "KFF/Peterson analysis of Census data" },
-            { label: "Bankruptcies caused by medical bills", value: "530,000/year", source: "American Journal of Public Health" },
-            { label: "Uninsured Americans", value: "27.6 million", source: "Census Bureau Current Population Survey" },
-          ],
-        },
-      ],
-      economists: [
-        { name: "Zack Cooper", affiliation: "Yale School of Public Health", view: "Hospital market consolidation is the primary driver of price increases. In concentrated markets, prices are 12-40% higher with no quality improvement.", source: "Health Affairs, hospital pricing study" },
-        { name: "Dean Baker", affiliation: "Center for Economic and Policy Research", view: "The U.S. pays roughly twice what other wealthy countries pay for equivalent healthcare outcomes. The difference is almost entirely attributable to higher prices, not more utilization.", source: "CEPR policy brief on international price comparisons" },
-      ],
-    },
-  ];
 
 
 function normalizeParty(p) {
@@ -3447,11 +3400,11 @@ function Footer({ setPage }) {
         {[
           {title:"Free tools",links:[["district","My District"],["explore","Search Donors"],["spending","Gov Spending"],["flow","Money Flow"],["contact","Contact Your Rep"]]},
           {title:"For developers",links:[["pricing","API & Pricing"],["docs","API Docs"],["dashboard","Get API Key"]]},
-          {title:"Data sources",links:[["#","FEC.gov"],["#","Senate LDA"],["#","Congress.gov"],["#","USASpending.gov"],["#","BLS / CPI"]]},
+          {title:"Data sources",links:[["https://api.open.fec.gov/developers/","FEC.gov"],["https://api.congress.gov","Congress.gov"],["https://www.bls.gov/cpi/","BLS / CPI"],["https://gasprices.aaa.com","AAA Gas Prices"],["https://www.cbo.gov","CBO"]]},
           {title:"Legal",links:[["privacy","Privacy Policy"],["terms","Terms of Service"]]},
         ].map((col,i) => (
           <div key={i}><p style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>{col.title}</p>
-          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>h!=="#"&&setPage(h)} style={{ color: t.text, fontSize: 15, marginBottom: 10, cursor: h!=="#"?"pointer":"default" }} onMouseOver={e=>h!=="#"&&(e.target.style.color=t.red)} onMouseOut={e=>h!=="#"&&(e.target.style.color=t.text)}>{l}</p>))}</div>
+          {col.links.map(([h,l],j) => (<p key={j} onClick={()=>{if(h.startsWith("http")){window.open(h,"_blank")}else if(h!=="#"){setPage(h)}}} style={{ color: t.text, fontSize: 15, marginBottom: 10, cursor: h!=="#"?"pointer":"default" }} onMouseOver={e=>h!=="#"&&(e.target.style.color=t.red)} onMouseOut={e=>h!=="#"&&(e.target.style.color=t.text)}>{l}</p>))}</div>
         ))}
       </div>
     </div>
@@ -3473,8 +3426,8 @@ const PAGE_META = {
   flow: { title: "Money Flow — Trace Donations to Legislation | PolitiTrack", path: "/flow" },
   spending: { title: "Government Spending & Impact — Where Your Tax Dollars Go | PolitiTrack", path: "/spending" },
   contact: { title: "Contact Your Representative — Take Action | PolitiTrack", path: "/contact" },
-  docs: { title: "API Documentation — 33 Endpoints, 5 Data Sources | PolitiTrack", path: "/docs" },
-  pricing: { title: "Pricing — Free, Pro $49/mo, Enterprise $199/mo | PolitiTrack", path: "/pricing" },
+  docs: { title: "API Documentation — 17 Endpoints, Live FEC + Congress.gov Data | PolitiTrack", path: "/docs" },
+  pricing: { title: "Pricing — Free for Everyone | PolitiTrack", path: "/pricing" },
   dashboard: { title: "Developer Dashboard — Get Your API Key | PolitiTrack", path: "/dashboard" },
   privacy: { title: "Privacy Policy | PolitiTrack", path: "/privacy" },
   terms: { title: "Terms of Service | PolitiTrack", path: "/terms" },
