@@ -1673,8 +1673,10 @@ function ExplorePage({ setPage }) {
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24, marginBottom: 16 }}>
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Party distribution</div>
         {d.byParty && (() => {
-          const rTotal = d.byParty.R?.total || 0;
-          const dTotal = d.byParty.D?.total || 0;
+          const rTotal = (d.byParty.R?.total || 0) + (d.byParty.REP?.total || 0) + (d.byParty.Republican?.total || 0);
+          const dTotal = (d.byParty.D?.total || 0) + (d.byParty.DEM?.total || 0) + (d.byParty.Democratic?.total || 0);
+          const rCount = (d.byParty.R?.count || 0) + (d.byParty.REP?.count || 0) + (d.byParty.Republican?.count || 0);
+          const dCount = (d.byParty.D?.count || 0) + (d.byParty.DEM?.count || 0) + (d.byParty.Democratic?.count || 0);
           const total = rTotal + dTotal || 1;
           const rPct = Math.round((rTotal / total) * 100);
           const dPct = 100 - rPct;
@@ -1684,8 +1686,8 @@ function ExplorePage({ setPage }) {
               <div style={{ width: `${dPct}%`, background: t.blue, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "'Source Code Pro', monospace", transition: "width 0.5s" }}>{dPct}% DEM</div>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, color: t.dim }}>
-              <span>${rTotal.toLocaleString()} ({d.byParty.R?.count || 0} donations)</span>
-              <span>${dTotal.toLocaleString()} ({d.byParty.D?.count || 0} donations)</span>
+              <span>${rTotal.toLocaleString()} ({rCount} donations)</span>
+              <span>${dTotal.toLocaleString()} ({dCount} donations)</span>
             </div>
           </div>);
         })()}
@@ -1696,7 +1698,7 @@ function ExplorePage({ setPage }) {
         <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, letterSpacing: 2, textTransform: "uppercase", color: t.dim, marginBottom: 16 }}>Spending by year</div>
         <div style={{ display: "flex", alignItems: "end", gap: 6, height: 120 }}>
           {Object.entries(d.byYear).map(([year, amount], i) => {
-            const maxVal = Math.max(...Object.values(d.byYear));
+            const maxVal = Math.max(...Object.values(d.byYear), 1);
             const pct = maxVal > 0 ? (amount / maxVal) * 100 : 0;
             return (<div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
               <div style={{ fontFamily: "'Source Code Pro', monospace", fontSize: 15, color: t.dim }}>${(amount / 1000).toFixed(0)}k</div>
@@ -3200,7 +3202,7 @@ function ContactRepPage() {
           const parsed = members.map(m => ({
             name: m.name,
             title: m.chamber === "Senate" ? "U.S. Senator" : `U.S. Representative${m.district ? `, District ${m.district}` : ""}`,
-            party: m.party === "R" ? "Republican" : m.party === "D" ? "Democratic" : m.party || "Unknown",
+            party: normalizeParty(m.party) === "R" ? "Republican" : normalizeParty(m.party) === "D" ? "Democratic" : "Independent",
             partyShort: normalizeParty(m.party),
             state: m.state || "",
             district: m.district || "",
