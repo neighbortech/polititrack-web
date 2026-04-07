@@ -2726,6 +2726,35 @@ function MyDistrictPage({ setPage }) {
 
     const apiBase = import.meta.env.VITE_API_URL || "https://polititrack-api.vercel.app";
 
+    // Check browser cache first (avoids repeat API calls during same session)
+    try {
+      const cacheKey = `pt_district_${zip}`;
+      const cachedStr = sessionStorage.getItem(cacheKey);
+      if (cachedStr) {
+        const cached = JSON.parse(cachedStr);
+        // Cache valid for 2 hours
+        if (cached._ts && Date.now() - cached._ts < 7200000) {
+          console.log("PolitiTrack: Using cached district data for", zip);
+          const data = cached.data;
+          if (data.representatives && data.representatives.length > 0) {
+            const reps = data.representatives.map(rep => ({
+              ...rep,
+              party: normalizeParty(rep.party),
+            }));
+            setDistrictResult({
+              state: data.state || "",
+              region: "Your District",
+              reps,
+              bills: data.tracked_bills || [],
+            });
+            setDataSource("live");
+            setLoading(false);
+            return;
+          }
+        }
+      }
+    } catch (e) { /* sessionStorage not available or parse error — continue to API */ }
+
     // Try the new v2 district endpoint first (real FEC + Congress.gov data)
     try {
       const url = `${apiBase}/api/v1/district?zip=${zip}`;
@@ -2771,10 +2800,13 @@ function MyDistrictPage({ setPage }) {
             state: data.state || reps[0]?.state || "",
             region: "Your District",
             reps,
+            bills: data.tracked_bills || [],
           });
           setDataSource("live");
           setLoaded(true);
           setLoading(false);
+          // Cache in browser for this session
+          try { sessionStorage.setItem(`pt_district_${zip}`, JSON.stringify({ data, _ts: Date.now() })); } catch(e) {}
           return;
         }
       }
